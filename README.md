@@ -37,6 +37,26 @@ target and a quality floor.
 - [Templates](templates/): expectation contract, requirement, slice, scope
   change.
 
+## Claude Code plugin
+
+The `plugin/` folder packages TRACER for Claude Code: a `tracer` skill that
+keeps the agent inside the method, and three commands.
+
+```
+/plugin marketplace add Rixmerz/claude-plugins
+/plugin install tracer@rixmerz
+```
+
+Installing it also installs [livespec](https://github.com/Rixmerz/livespec),
+which keeps the chain from requirements to code and tests. The method itself
+does not require livespec; the plugin uses it as the reference toolchain.
+
+| Command | Phase | Does |
+| ------- | ----- | ---- |
+| `/tracer:contract` | 0-1 | Expectation contract, complete spec, ADRs, slice plan |
+| `/tracer:slice` | 3 | One slice: ready check, test-first build, gates, track |
+| `/tracer:scope` | 4 | Runs an idea or correction through the scope filter |
+
 ## License
 
 [CC BY 4.0](LICENSE). Use it, adapt it, share it; credit the source.

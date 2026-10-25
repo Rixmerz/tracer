@@ -1,0 +1,13 @@
+{
+  "name": "tracer",
+  "version": "0.1.0",
+  "description": "The TRACER development method for AI agents: agree the Minimum Expected Value, specify all of it, then build it in thin traced slices on the final architecture. Uses livespec for spec-to-code traceability.",
+  "author": {
+    "name": "Juan Pablo Diaz",
+    "email": "juanpablo516@gmail.com"
+  },
+  "homepage": "https://github.com/Rixmerz/tracer",
+  "license": "CC-BY-4.0",
+  "keywords": ["methodology", "spec-driven", "traceability", "ai-agents", "slices"],
+  "dependencies": ["livespec"]
+}
