@@ -57,7 +57,7 @@ Apply the MEV rule to the accepted ones:
 2. **Add** new requirements for what the base round missed.
 3. Mark both as born in the empathy round.
 4. **Critical flows** in `docs/tracer/flows/<capability>.md` (template:
-   `${CLAUDE_PLUGIN_ROOT}/templates/critical-flow.md`:
+   `${CLAUDE_PLUGIN_ROOT}/templates/critical-flow.md`):
    at least one per capability, with its success path and failure paths
    (invalid input, network or server error, no permission, empty data, plus
    domain-specific ones). Every criterion has a WORKS half and a CORRECT
