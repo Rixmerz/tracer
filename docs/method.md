@@ -312,6 +312,10 @@ Two examples:
 - **File picker or file list:** search by title, real names (never storage
   keys), a thumbnail or type icon, size and date, an empty state, clear
   upload errors.
+- **Buttons and actions:** common actions carry a recognizable icon next to
+  their label, because people find an icon faster than they read a word;
+  icon-only buttons only for universal icons, with a tooltip and an
+  accessible name; one icon keeps one meaning across the product.
 
 A slice that builds or changes a component inherits its floor. The catalog
 grows every time an expectation is discovered late (section 18).
@@ -410,6 +414,10 @@ every slice with an interface is checked against it. Its core entries:
 | Inaccessible controls | No keyboard focus, missing accessible names, contrast below WCAG AA, targets too small |
 | Jargon in the interface | Technical terms the audience profile says they do not know |
 | Silent states | No loading, success or error feedback |
+| Words where a picture reads faster | A toolbar of text-only buttons; a status written as plain words; a table of numbers where a chart would show the trend |
+| State shown only by color | A red or green dot with no icon, shape or text |
+| Interface built on data nobody provides | A "used in" count or a delete lock that depends on a field no API fills |
+| Work lost by moving on | Switching a tab cancels an upload in progress without a warning |
 
 Part of the catalog can be checked automatically: layout and accessibility
 inspection, reading the rendered text for internal identifiers. The rest is
@@ -514,6 +522,11 @@ all-or-nothing, real enough that nothing gets rebuilt later.
 - It builds on the skeleton or on earlier slices. No new architecture appears
   inside a slice.
 - Its validation gates are known.
+- Its target is confirmed: the repository, the screen and, for any external
+  action that cannot be undone (a ticket, a release, a deletion), its exact
+  destination. Never copied from an earlier task.
+- Its test environment runs: the full suite runs on the base commit, and the
+  tests that already fail there are recorded, so no later red is guessed.
 
 ### Definition of Done
 
@@ -524,7 +537,8 @@ all-or-nothing, real enough that nothing gets rebuilt later.
   not only every *works* criterion.
 - It meets the floors of the components it builds and shows none of the
   catalogued anti-patterns.
-- It passed every validation gate.
+- It passed every validation gate, with one clean full run of the suite
+  after the last change.
 - A person reviewed and approved the change.
 - It is deployed and the system still works.
 - Its code is linked to its specs, and its track is recorded with the reason
@@ -564,6 +578,29 @@ believes it is right. The critical-flow and anti-pattern gates are run by a
 separate agent or person, working from the specs, the audience profile and
 the catalogs, never from the builder's report. A builder's claim of success is
 not evidence.
+
+**Evidence must show the target.** A screenshot of the login page, a measure
+of the wrong screen or a run in the wrong project proves nothing. Every piece
+of evidence names the screen, the signed-in audience and the data it ran on.
+
+### Testing anti-patterns
+
+A green run can still be a false one. The catalog keeps a second list for
+tests, checked with the gates:
+
+| Anti-pattern | Example |
+| ------------ | ------- |
+| A red explained away | Timeouts blamed on machine load, or failures called pre-existing, with no run on the base commit |
+| Done without a clean full run | Committing after a partial suite or one that ended in timeouts |
+| Evidence of the wrong target | Layout measured on the unauthenticated login page instead of the screen in the slice |
+| Fixtures that hide the contract | Tests pass on a field the real API never returns |
+| Tests that leak the machine | A test passes only because a binary or path exists on the author's machine |
+| Only the happy path | Nothing interrupts, cancels or repeats the operation |
+| Claims from reading code | "It already works there" without running it where the audience uses it |
+| Broken test setup | A test module configured twice; tests that pass only in one order |
+
+The rule behind them: a failure is only pre-existing if it also fails on the
+base commit, and a slice is only done after one clean full run.
 
 ## 15. Scope control during delivery
 

@@ -10,6 +10,7 @@ Audience:
 3. Where they would get stuck or frustrated:
 4. What they take for granted:
 5. What the product genre taught them to expect:
+6. What they would recognize faster as a picture than as words (icons, thumbnails, charts, badges):
 
 Expectations found:
 | Expectation | Level (basic / performance / differentiator) | Decision (in MEV / filter / deferred) | Reason |

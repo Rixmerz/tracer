@@ -11,6 +11,14 @@ Add an entry whenever an expectation escapes.
 - Loading, empty, error and success states
 - Labels in the audience's words
 
+## Buttons and actions
+- Common actions (add, edit, delete, download, search, close) carry a
+  recognizable icon, with its text label next to it
+- Icon-only buttons only for universal icons in dense rows or toolbars, each
+  with a tooltip and an accessible name
+- One icon, one meaning across the whole product
+- Status shown with icon or shape plus text, never color alone
+
 ## Navigation bar
 - Icons with text labels
 - Visible active section
@@ -24,6 +32,8 @@ Add an entry whenever an expectation escapes.
 - Pick from a list; never ask for a URL or path
 - Empty state with the first action
 - Upload errors that name the limit before the file is lost
+- An upload in progress survives switching folders or tabs, or warns before
+  it is cancelled
 
 ## Table or list of records
 - Search, sort and pagination once it can exceed one screen

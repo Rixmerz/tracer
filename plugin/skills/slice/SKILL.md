@@ -20,6 +20,11 @@ Check and report each item. If one fails, stop and say what is missing.
 - It builds on the skeleton or earlier slices; it needs no new architecture.
   If it does, propose an ADR through `/tracer:scope` instead.
 - It fits in 1 to 3 days. If not, propose a split.
+- Its target is confirmed with the user: repository, screen and the exact
+  destination of any external action that cannot be undone. Never copy it
+  from an earlier task.
+- The test environment runs: the full suite runs on the base commit, and the
+  failures already there are recorded in the slice.
 
 Mark it "in progress" in `docs/tracer/slices.md`.
 
@@ -34,7 +39,8 @@ Mark it "in progress" in `docs/tracer/slices.md`.
    and confirm they fail.
 3. Implement until they pass. Touch only what the slice's requirements need.
 4. Link every new or changed symbol and test to its requirement (`@spec:`).
-5. Self-check the screens against the anti-pattern catalog.
+5. Self-check the screens against the anti-pattern catalog, and the tests
+   against its testing anti-patterns.
 6. Anything you notice outside the slice: note it for `/tracer:scope`, do not
    build it.
 
@@ -46,7 +52,7 @@ Run and report each gate with its evidence:
 | ---- | --- |
 | Scenario tests | The slice's tests pass |
 | Critical flows | Run by `/tracer:verify` (not by you): every flow passes end to end through the interface, success and failure paths, CORRECT lines included |
-| Regression | The full suite and all earlier critical flows pass |
+| Regression | One clean full run after the last change, and all earlier critical flows pass. A red counts as pre-existing only if it is on the base list; never explain it away |
 | Spec integrity | livespec `audit_coverage`: no untraced changed code, no requirement without a scenario |
 | Impact | livespec `git_diff_impact` on the slice's diff; explain anything unexpected |
 | UI and anti-patterns | Run by `/tracer:verify`: floors, accessibility, rendered text free of ids and paths, the anti-pattern catalog |

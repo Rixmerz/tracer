@@ -24,10 +24,15 @@ For every critical flow the target touches, run it end to end through the
 real interface (a browser driver such as rastro or Playwright, against the
 deployed or production-like system):
 
+- First prove you are on the target: the screen of the slice, signed in as
+  its audience, with real data from the system (not fixtures). Evidence of
+  any other screen, such as a login page, does not count.
 - The success path, checking the WORKS half and every CORRECT line.
 - Every failure path: trigger it and check what the person sees and how they
   recover. A failure with no clear message and no way out is a failure of
   the flow, whatever the API returned.
+- Interruptions: start each long operation (an upload, a save) and navigate
+  away, switch tabs or repeat it. Nothing may be lost without a warning.
 
 ## 3. Check floors and anti-patterns
 
@@ -40,6 +45,12 @@ deployed or production-like system):
 - The same action solved differently elsewhere (compare with the capability
   map).
 - Consistency with `identity.md`.
+- Every value, count or flag on screen comes from data the system really
+  provides.
+- Common actions are recognizable at a glance: icon plus label, one meaning
+  per icon, no state told by color alone.
+- The testing anti-patterns: the builder's last full run is clean, or its
+  failures match the base list.
 
 ## 4. Report
 
