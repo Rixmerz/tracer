@@ -16,7 +16,7 @@ description: >-
 
 This skill is how an agent follows the method, step by step. The handbook
 explains the reasons: https://github.com/Rixmerz/tracer/blob/main/docs/method.md.
-Templates: https://github.com/Rixmerz/tracer/tree/main/templates.
+Templates: `${CLAUDE_PLUGIN_ROOT}/templates/` (copy them; never write them from memory).
 
 The core idea: agree the value the product must deliver, see it from the side
 of the people who will use it, specify all of it, then build it in thin

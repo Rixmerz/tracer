@@ -17,7 +17,7 @@ step of `/tracer:contract` first.
 
 For each capability, and each audience that uses it, answer in
 `docs/tracer/empathy/<capability>.md` (empathy review template:
-https://github.com/Rixmerz/tracer/blob/main/templates/empathy-review.md):
+`${CLAUDE_PLUGIN_ROOT}/templates/empathy-review.md`):
 
 1. What are they trying to get done, in their words?
 2. What do they know, and what do they not?
@@ -57,7 +57,7 @@ Apply the MEV rule to the accepted ones:
 2. **Add** new requirements for what the base round missed.
 3. Mark both as born in the empathy round.
 4. **Critical flows** in `docs/tracer/flows/<capability>.md` (template:
-   https://github.com/Rixmerz/tracer/blob/main/templates/critical-flow.md):
+   `${CLAUDE_PLUGIN_ROOT}/templates/critical-flow.md`:
    at least one per capability, with its success path and failure paths
    (invalid input, network or server error, no permission, empty data, plus
    domain-specific ones). Every criterion has a WORKS half and a CORRECT

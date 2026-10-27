@@ -18,7 +18,7 @@ Ask the user, one question at a time, until each field has a concrete answer:
    real samples for AI features).
 4. The validation window (default 2 to 4 weeks) and who validates.
 5. The audiences. For each one, fill the audience profile template
-   (https://github.com/Rixmerz/tracer/blob/main/templates/audience-profile.md):
+   `${CLAUDE_PLUGIN_ROOT}/templates/audience-profile.md`:
    who they are, what they are trying to get done, what they know and do not
    know, their words, context, accessibility needs (default WCAG 2.2 AA),
    what they must never see, and the product genre. If nobody can describe
@@ -27,7 +27,7 @@ Ask the user, one question at a time, until each field has a concrete answer:
    metric? Items that do not are *Could* and go to the post-MEV backlog.
 
 Write `docs/tracer/contract.md` from the expectation contract template
-(https://github.com/Rixmerz/tracer/blob/main/templates/expectation-contract.md)
+`${CLAUDE_PLUGIN_ROOT}/templates/expectation-contract.md`, and write
 `docs/tracer/audiences.md` and `docs/tracer/backlog.md`. Copy the component
 floors and anti-pattern catalog templates into `docs/tracer/floors.md` and
 `docs/tracer/anti-patterns.md`. Show the contract and wait for the user's

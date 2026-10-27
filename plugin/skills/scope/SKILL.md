@@ -26,5 +26,5 @@ Follow the `tracer` skill's rules. No code changes in this command.
 
 The outcome owner decides, not the agent: present the proposal using the scope
 change template
-(https://github.com/Rixmerz/tracer/blob/main/templates/scope-change.md) and
+`${CLAUDE_PLUGIN_ROOT}/templates/scope-change.md` and
 apply it only after the user agrees.

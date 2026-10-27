@@ -826,14 +826,14 @@ switch work is the end of a slice, and the unit of work is the slice.
 
 ## 23. Templates
 
-Ready-to-copy templates live in [`../templates`](../templates):
+Ready-to-copy templates live in [`../plugin/templates`](../plugin/templates):
 
-- [Expectation contract](../templates/expectation-contract.md)
-- [Requirement with scenarios](../templates/requirement.md)
-- [Slice](../templates/slice.md)
-- [Scope change](../templates/scope-change.md)
-- [Audience profile](../templates/audience-profile.md)
-- [Empathy review](../templates/empathy-review.md)
-- [Critical flow](../templates/critical-flow.md)
-- [Component floors](../templates/component-floors.md)
-- [Anti-pattern catalog](../templates/anti-patterns.md)
+- [Expectation contract](../plugin/templates/expectation-contract.md)
+- [Requirement with scenarios](../plugin/templates/requirement.md)
+- [Slice](../plugin/templates/slice.md)
+- [Scope change](../plugin/templates/scope-change.md)
+- [Audience profile](../plugin/templates/audience-profile.md)
+- [Empathy review](../plugin/templates/empathy-review.md)
+- [Critical flow](../plugin/templates/critical-flow.md)
+- [Component floors](../plugin/templates/component-floors.md)
+- [Anti-pattern catalog](../plugin/templates/anti-patterns.md)

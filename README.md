@@ -48,7 +48,7 @@ non-technical user for a CDN path. TRACER closes that last 10%:
 ## Read next
 
 - [The method](docs/method.md): the full handbook, from problem to templates.
-- [Templates](templates/): expectation contract, audience profile,
+- [Templates](plugin/templates/): expectation contract, audience profile,
   requirement, empathy review, critical flow, component floors, anti-pattern
   catalog, slice, scope change.
 
