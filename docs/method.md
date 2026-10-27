@@ -21,10 +21,26 @@ The classic answer is to write a complete specification and hand it to the
 agent in one go. That recreates waterfall: huge changes, frozen specs and late
 surprises.
 
+A second failure hides behind the first. Agents are very good at producing
+work that *looks* finished: tests are green, the pipeline passes, the screen
+renders. Yet a navigation bar ships without icons or keyboard support, a file
+picker asks a non-technical user for a full CDN path, and files are listed by
+UUID instead of by name. Nobody asked for those things to be right, because
+nobody thought they needed asking. An agent fills every gap with the most
+common solution it has seen, an orchestrator verifies only what was written,
+and the last 10% that separates "works" from "correct for the people using
+it" never happens.
+
+The problem is not only how tasks are written. It starts earlier: between an
+informal request ("a training platform", "a navbar") and the task, no step
+makes explicit what the client takes for granted.
+
 TRACER keeps the good half of each approach. From specification-first
 development it takes knowing the destination before building. From iterative
 development it takes small, verified steps. What it drops is throwaway code
-and big-bang delivery.
+and big-bang delivery. And it adds what neither had: the product is seen from
+the client's side before it is specified, and "done" means correct for that
+client, checked through the interface they will actually use.
 
 ## 2. The target: Minimum Expected Value
 
@@ -97,7 +113,7 @@ Do not use it when:
 
 ## 6. Principles
 
-Seven rules that cannot be negotiated away. Drop any of them and it is no
+Nine rules that cannot be negotiated away. Drop any of them and it is no
 longer TRACER.
 
 1. **Design for the destination.** Architecture decisions are made for the
@@ -113,6 +129,12 @@ longer TRACER.
    a detail.
 7. **Scope is filtered by the expected value.** A new idea enters the MEV
    only if it moves the MEV's metric.
+8. **See the product from the client's side.** Every capability is specified
+   twice: once for what is sought, once for how the people using it will live
+   it. What they take for granted is written down, never assumed.
+9. **Done means correct, not just working.** A slice is done when its critical
+   flows pass end to end through the real interface, its correctness criteria
+   hold for its audience, and it shows none of the known anti-patterns.
 
 ## 7. Vocabulary
 
@@ -122,7 +144,7 @@ is the reference list.
 | Term                     | Definition |
 | ------------------------ | ---------- |
 | **MEV**                  | Minimum Expected Value: the smallest scope that delivers the expected outcome (section 2). |
-| **Expectation contract** | The written definition of the MEV's success: metric, current value, target, quality floor, validation window and who validates it. |
+| **Expectation contract** | The written definition of the MEV's success: metric, current value, target, quality floor, audience profile, validation window and who validates it. |
 | **Requirement**          | One behaviour the system must have, written so it can be checked. |
 | **Scenario**             | A concrete WHEN/THEN example of a requirement. Every scenario can become a test. |
 | **Spec**                 | A requirement together with its scenarios. The full set of specs describes the MEV. |
@@ -134,10 +156,20 @@ is the reference list.
 | **Track**                | The recorded history of a slice: which specs and code symbols changed, and why. |
 | **MEV coverage**         | Verified scenarios divided by all scenarios in the MEV. The real progress bar. |
 | **Post-MEV backlog**     | Ideas that do not move the MEV's metric, kept for after the first delivery. |
+| **Audience profile**     | Who uses the system: their goals, what they know and do not know, their words, devices, accessibility needs, and what they must never see. Part of the contract. |
+| **Base round**           | The first round of specs: what is sought, from the request and the contract. |
+| **Empathy round**        | The second round of specs: every capability re-read as its audience lives it, producing improved and new specs. |
+| **Expectation**          | Something the audience takes for granted or wants from a capability, classified as basic, performance or differentiator (section 9). |
+| **Component floor**      | The minimum a kind of interface component must provide for a given audience: a navbar, a file picker, a table, a form. |
+| **Capability map**       | The spec set organized by what the user can do, used to stop the same capability from being built twice. |
+| **Critical flow**        | One user journey through the real interface, from the front end to the API and back, with its success path and its failure paths. |
+| **Works / Correct**      | The two halves of every acceptance criterion: *works* is the technical result; *correct* is what the audience must see and be able to do. |
+| **Anti-pattern**         | Something an interface must not show or do, even if no requirement forbids it. Kept in a shared catalog. |
+| **Deferred list**        | Expectations left out of the MEV on purpose, each with its reason. |
 
 ## 8. Defining the MEV
 
-An MEV is defined in five steps. Together they form the expectation contract.
+An MEV is defined in six steps. Together they form the expectation contract.
 
 ### 8.1 The metric
 
@@ -159,12 +191,34 @@ The minimum quality the outcome needs: error rate, performance, accessibility,
 or, for AI features, an accuracy threshold measured on real samples (for
 example, 45 correct answers out of 50).
 
-### 8.4 The validation window
+The quality floor is a set of numbers. It cannot say that files must be
+listed by name or that a navbar needs icons; those expectations come from the
+audience profile and the empathy round (section 9).
+
+### 8.4 The audience profile
+
+Who will use the system, written before any spec:
+
+- **Who they are** and what they are trying to get done.
+- **What they know and do not know.** A human resources team does not know
+  what a CDN, a UUID or an endpoint is.
+- **Their words.** The labels and terms the interface must use.
+- **Their context:** devices, frequency of use, connection, time pressure.
+- **Accessibility needs,** with WCAG 2.2 AA as the default floor.
+- **What they must never see:** internal identifiers, file paths, stack
+  traces, technical jargon.
+- **The product genre** the system belongs to (a learning platform, a store,
+  a back office) and the conventions people bring from it.
+
+If a system has several audiences (learners and administrators), write one
+profile each. Every capability later names the audience it serves.
+
+### 8.5 The validation window
 
 How long the MEV runs in production before the metric is measured. Usually 2
 to 4 weeks.
 
-### 8.5 The exit decision
+### 8.6 The exit decision
 
 Decided in advance, applied at the end of the window:
 
@@ -174,7 +228,196 @@ Decided in advance, applied at the end of the window:
 | Partly reached | Open a new MEV focused on the gap. |
 | Not reached    | Stop, record what was learned, and decide whether to retire the feature. |
 
-## 9. Lifecycle
+## 9. Seeing the product from the client's side
+
+An informal request is a valid starting point. Nobody has to write a formal
+product document first. TRACER's job is to turn that request into specs that
+hold what the client meant, including what they never said.
+
+### Three layers of every request
+
+| Layer | What it holds | Example: "a training platform" |
+| ----- | ------------- | ------------------------------ |
+| **Explicit** | What was said | Upload training material, assign it to people |
+| **Implicit** | What any member of the audience expects without asking | Find a file by its title, see a preview, real file names, no URLs |
+| **Latent** | What the owner has in mind but did not say | Brand identity, plans for certificates next year |
+
+Tasks written from the explicit layer alone produce work that looks finished
+and is not. An agent fills the implicit layer with the most common solution
+it has seen, whether it fits this audience or not. The two rounds of specs
+exist to make the implicit and latent layers explicit before any code is
+written.
+
+### 9.1 Round one: the base
+
+The first round writes what is sought: every capability the MEV needs, with
+its business rules and scenarios, taken from the request and the contract.
+This is the spec set as TRACER has always written it.
+
+### 9.2 Round two: empathy
+
+The second round reads every capability again, through the audience profile.
+For each one, answer:
+
+1. **Who** uses it, from which profile.
+2. **What they are trying to get done,** in their words.
+3. **What they know and what they do not.**
+4. **Where they would get stuck or frustrated.**
+5. **What they take for granted.**
+6. **What the product genre has taught them to expect.**
+
+The answers produce two kinds of output:
+
+- **Improved specs:** existing requirements gain scenarios and correctness
+  criteria. "Upload material" becomes: the file keeps its real name, shows a
+  thumbnail, can be picked by title, and no URL is ever shown or asked for.
+- **New specs:** capabilities the base round missed entirely, such as search
+  over the material list or an empty state that explains what to do first.
+
+Every spec born in this round is marked as such, so the round's yield can be
+measured (section 18).
+
+The agent proposes; the outcome owner decides. An AI agent knows the average
+product of a genre very well, and that knowledge is useful here as a list to
+accept or reject item by item, instead of a decision the agent makes silently
+while coding.
+
+### 9.3 Expectation levels
+
+Each expectation found in round two is classified, following the Kano model:
+
+| Level | Meaning | Absence | Examples |
+| ----- | ------- | ------- | -------- |
+| **Basic** | Taken for granted | The product feels broken, even if nobody asked | Icons with labels, real file names, previews, keyboard use, clear errors |
+| **Performance** | More is better | Users are less satisfied | Speed, filters, bulk actions |
+| **Differentiator** | Not expected, valued when present | Nothing; it is what makes the product its own | A distinctive visual identity, a well-judged shortcut |
+
+**The MEV rule:** for every capability inside the cut, the MEV includes all of
+its basic expectations, the performance expectations that move the metric,
+and at least one deliberate differentiator for the product as a whole.
+
+Basic expectations are not scope creep. They are part of the capability
+itself: a file list without a way to find a file is not a smaller file list,
+it is a broken one.
+
+### 9.4 Component floors
+
+Interface components repeat across products, and so do their minimum
+expectations. TRACER keeps a catalog of component floors, tuned per audience.
+Two examples:
+
+- **Navigation bar:** icons with text labels, a visible active section,
+  full keyboard use, landmarks and accessible names, a collapsed version on
+  small screens.
+- **File picker or file list:** search by title, real names (never storage
+  keys), a thumbnail or type icon, size and date, an empty state, clear
+  upload errors.
+
+A slice that builds or changes a component inherits its floor. The catalog
+grows every time an expectation is discovered late (section 18).
+
+### 9.5 The capability map
+
+Organize the spec set by what the user can do ("find training material",
+"track a learner's progress"), not by screens or modules. Every new task must
+land on a capability:
+
+- If the capability exists, the task extends it.
+- If it does not, the task creates it, through a spec change.
+
+This is what stops the same function from being built twice in two places,
+which is a duplication of behaviour, not of code, and which code-level
+duplicate detection does not catch.
+
+### 9.6 Identity and variants
+
+The differentiator is where taste lives. For the screens that define the
+product, generate two or three variants before committing to one, compare
+them side by side, and record the choice as an identity guideline (palette,
+type, tone, motion). Later slices follow the guideline instead of returning
+to the average.
+
+### 9.7 The deferred list
+
+Every expectation left out of the MEV goes to a deferred list with its
+reason. Leaving something out on purpose and forgetting it look the same in
+the code. They must not look the same in the spec.
+
+## 10. Critical flows and correctness
+
+APIs are rarely where products fail. They are usually documented, tested and
+working. The real failures appear where the interface ties the parts
+together: a flow that technically completes but leaves the user lost, a
+screen that renders data the user cannot read, an error that is swallowed.
+That is why TRACER validates flows, not only functions.
+
+### 10.1 Critical flows
+
+Every capability has at least one **critical flow**: a journey a person from
+its audience makes through the real interface, from the front end through the
+API to the data and back to what the person sees.
+
+- It is tested end to end, by driving the interface the way a person would.
+- It asserts what the person sees and can do, not what a function returns.
+- It runs against the deployed or production-like system, with real
+  persistence.
+
+### 10.2 Success and failure paths
+
+Each critical flow has its success path and its failure paths. For each
+failure, the spec states what the person must see and how they recover:
+
+| Failure | The person must see |
+| ------- | ------------------- |
+| File too large or wrong format | Which limit was hit and what is allowed, before the upload is lost |
+| Network or server error | That it failed, that nothing was saved twice, and a way to retry |
+| No permission | Why, in their words, and who can grant it |
+| Empty data | What this screen is for and the first action to take |
+
+**A failure path with no clear message and no way out is a failed test,**
+even if the API returned the right status code.
+
+### 10.3 Works and correct
+
+Every acceptance criterion is written in two halves:
+
+- **Works:** the technical result. *The file is stored and the API returns
+  201.*
+- **Correct:** what the audience must see and be able to do. *The file
+  appears under its real name with a thumbnail, can be found by searching its
+  title, can be selected with the keyboard, and a screen reader announces it.*
+
+Something can work and still be incorrect. The *correct* half is written with
+care, line by line, because it is the half agents and orchestrators skip and
+the half the verifier enforces. A *correct* criterion that cannot be checked
+is badly written and goes back to the empathy round.
+
+## 11. UI/UX anti-patterns
+
+Validations check what must happen. Anti-patterns catch what must not exist,
+even though no requirement forbids it. TRACER keeps a shared catalog, and
+every slice with an interface is checked against it. Its core entries:
+
+| Anti-pattern | Example |
+| ------------ | ------- |
+| Internal data on screen | UUIDs, storage keys, database ids, file paths, stack traces |
+| Asking for what the system knows | A field asking for a URL or an id the system already holds |
+| Lists without a way in | No search, no preview, no sorting, no empty state |
+| Icons without labels, or text without hierarchy | An icon-only navbar; a wall of same-weight text |
+| Destructive actions without a net | Delete with no confirmation and no undo |
+| Errors that explain nothing | "Something went wrong" with no cause and no next step |
+| The same action solved two ways | Uploading a file works differently on two screens |
+| Inaccessible controls | No keyboard focus, missing accessible names, contrast below WCAG AA, targets too small |
+| Jargon in the interface | Technical terms the audience profile says they do not know |
+| Silent states | No loading, success or error feedback |
+
+Part of the catalog can be checked automatically: layout and accessibility
+inspection, reading the rendered text for internal identifiers. The rest is
+checked by the verifier, walking the interface as the audience would. Every
+anti-pattern found after a slice was marked done joins the catalog, so the
+method improves from one project to the next.
+
+## 12. Lifecycle
 
 An MEV goes through six phases. Phases 0 and 1 happen once. Phase 3 repeats
 until every scenario is verified, and phase 4 runs alongside it.
@@ -189,27 +432,41 @@ Design horizon                    Execution horizon
 
 ### Phase 0 · Expectation contract
 
-Agree the metric, target, quality floor, validation window and validator.
+Agree the metric, target, quality floor, audience profile, validation window
+and validator.
 
 **Exit:** a signed-off contract.
 
 ### Phase 1 · Complete spec
 
-1. Write every MEV requirement, each with at least one scenario.
-2. Record the architecture decisions as ADRs for the destination: data model,
+1. **Base round:** write every MEV requirement, each with at least one
+   scenario (section 9.1).
+2. **Empathy round:** read every capability through the audience profile;
+   improve the specs, add the missing ones, classify expectations and apply
+   the MEV rule (sections 9.2 and 9.3). Record the deferred list.
+3. **Organize by capability** and check the map for duplicated behaviour
+   (section 9.5).
+4. **Write the critical flows** of each capability, with success and failure
+   paths and *works / correct* criteria (section 10).
+5. **Fix the identity** of the defining screens through variants (section
+   9.6).
+6. Record the architecture decisions as ADRs for the destination: data model,
    persistence, integrations, deployment.
-3. Validate the spec set strictly: no requirement without a scenario, no
-   scenario without an observable outcome.
-4. Order the requirements into a slice plan: which flow goes into the
+7. Validate the spec set strictly: no requirement without a scenario, no
+   scenario without an observable outcome, no capability without a critical
+   flow, no *correct* criterion that cannot be checked.
+8. Order the requirements into a slice plan: which flow goes into the
    skeleton, which slices follow.
 
-**Exit:** a validated spec set and its ADRs. No code yet, except a timeboxed
+**Exit:** a validated spec set, its critical flows and its ADRs, signed off
+by the outcome owner. No code yet, except a timeboxed
 spike when a risky assumption must be checked first.
 
 ### Phase 2 · Skeleton
 
 One flow, end to end, on the final architecture: real database, real
-deployment, CI, test harness and validation gates wired up.
+deployment, CI, test harness and validation gates wired up, including the
+end-to-end runner that drives the interface for critical flows.
 
 **Exit:** the skeleton is deployed and its scenarios pass.
 
@@ -224,14 +481,14 @@ specs and records its track.
 
 ### Phase 4 · Scope control
 
-Runs in parallel with phase 3. See section 12.
+Runs in parallel with phase 3. See section 15.
 
 ### Phase 5 · MEV release
 
 Release, run the validation window, measure the metric and take the exit
 decision.
 
-## 10. Slices
+## 13. Slices
 
 A slice is the unit of execution: small enough that an agent never works
 all-or-nothing, real enough that nothing gets rebuilt later.
@@ -247,7 +504,13 @@ all-or-nothing, real enough that nothing gets rebuilt later.
 
 ### Definition of Ready
 
-- Its requirements exist in the validated spec set, each with scenarios.
+- Its requirements exist in the validated spec set, each with scenarios, and
+  have been through the empathy round.
+- It lands on a capability in the capability map; no existing capability
+  already covers it.
+- Its audience is named, and its critical flows are written with success and
+  failure paths and *works / correct* criteria.
+- The component floors it inherits are listed.
 - It builds on the skeleton or on earlier slices. No new architecture appears
   inside a slice.
 - Its validation gates are known.
@@ -255,6 +518,12 @@ all-or-nothing, real enough that nothing gets rebuilt later.
 ### Definition of Done
 
 - Every scenario it covers has a passing test.
+- Every critical flow it touches passes end to end through the real
+  interface, success and failure paths alike.
+- Every *correct* criterion was verified as its audience would experience it,
+  not only every *works* criterion.
+- It meets the floors of the components it builds and shows none of the
+  catalogued anti-patterns.
 - It passed every validation gate.
 - A person reviewed and approved the change.
 - It is deployed and the system still works.
@@ -269,7 +538,7 @@ integration, small commits, collective code ownership, and pair programming
 
 The agent writes the code. A person owns the result.
 
-## 11. Validation gates
+## 14. Validation gates
 
 Gates are what make TRACER fast without being reckless: every slice is checked
 as it lands, so errors never pile up until the end.
@@ -277,10 +546,12 @@ as it lands, so errors never pile up until the end.
 | Gate               | Checks | Typical tooling |
 | ------------------ | ------ | --------------- |
 | **Scenario tests** | Every scenario in the slice passes | Unit, integration and end-to-end tests generated from WHEN/THEN |
-| **Regression**     | Earlier slices still pass | Full test suite in CI |
+| **Critical flows** | Each flow the slice touches passes end to end through the interface, on its success and failure paths, with its *correct* criteria | Browser-driven end-to-end tests against a production-like system |
+| **Regression**     | Earlier slices and their critical flows still pass | Full test suite in CI |
 | **Spec integrity** | No requirement without a scenario; no new code without a linked spec | Spec validator, traceability audit |
 | **Impact**         | What else the change touches | Call-graph and diff impact analysis |
-| **UI**             | Layout, responsiveness and visual regressions | Layout inspection and screenshot checks |
+| **UI and anti-patterns** | Layout, responsiveness, accessibility, component floors and the anti-pattern catalog | Layout and accessibility inspection, rendered-text scans for internal identifiers, a walkthrough as the audience |
+| **Static quality** | Duplication, complexity, known vulnerabilities and leaked secrets stay within limits | Duplicate detection, cyclomatic complexity, dependency and secret scanners |
 | **Quality floor**  | The MEV's thresholds still hold: accuracy, performance, cost per use | Benchmarks on real samples |
 | **Human review**   | A person approves the change | Pull request review |
 
@@ -288,7 +559,13 @@ A team chooses its own tools for each gate; the gates themselves are fixed. A
 slice that fails a gate goes back to implementation, and the failure counts as
 rework.
 
-## 12. Scope control during delivery
+**The verifier is not the builder.** The agent that built a slice already
+believes it is right. The critical-flow and anti-pattern gates are run by a
+separate agent or person, working from the specs, the audience profile and
+the catalogs, never from the builder's report. A builder's claim of success is
+not evidence.
+
+## 15. Scope control during delivery
 
 Specifying the whole MEV up front invites scope creep. This phase is the
 counterweight. New ideas are welcome, but none of them reaches the code
@@ -313,7 +590,7 @@ Some changes are not new ideas but corrections: a scenario was wrong, a
 constraint appeared. These go straight in as spec changes, since they keep the
 spec true, but they still update the forecast and are recorded in the track.
 
-## 13. Traceability
+## 16. Traceability
 
 TRACER needs one unbroken chain:
 
@@ -350,7 +627,7 @@ contract, with its requirements linked beneath it. MEV coverage is then a
 query rather than a spreadsheet, and any change can be traced back to the
 outcome it serves.
 
-## 14. Forecasting
+## 17. Forecasting
 
 Because the whole MEV is specified up front, its size in slices is known from
 day one. Dates come from how fast slices actually close, always as a range.
@@ -371,7 +648,7 @@ times in 100). Recompute every week and after every accepted scope change.
 The gap between the slice count planned in phase 1 and the count at release is
 itself a signal: it measures how much the spec missed.
 
-## 15. Metrics
+## 18. Metrics
 
 | Metric | What it measures | Healthy signal |
 | ------ | ---------------- | -------------- |
@@ -382,7 +659,15 @@ itself a signal: it measures how much the spec missed.
 | Drift | Specs whose linked code changed without a spec change | Resolved within the slice |
 | Spec growth | Slices at release ÷ slices planned in phase 1 | Under 1.3 |
 | Throwaway | Code deleted because it was built for a temporary shape | Zero |
+| Change fail rate | Deployed slices that caused a failure in production | Low and falling |
+| Deployment rework rate | Deployed work that had to be redone because it was wrong for its users, broken down by expectation level | Under 10%, near zero for basic expectations |
+| Escaped expectations | Basic expectations or anti-patterns found after a slice was marked done | Zero; each one joins a catalog |
+| Empathy yield | Specs improved or added by the empathy round ÷ base specs | Above zero; a yield of zero means the round was skipped |
 | Outcome | The MEV metric after the validation window | Target reached |
+
+Throughput (how fast slices close) and stability (how often they fail or come
+back) are read together. Agents raise throughput easily; only stability shows
+whether what they built was right.
 
 ### Calibration
 
@@ -393,33 +678,41 @@ itself a signal: it measures how much the spec missed.
 - **Cycle time above 3 days:** split slices further.
 - **Any throwaway:** an architecture decision was skipped. Add the missing
   ADR.
+- **Escaped expectations or rework on basic expectations:** the empathy round
+  or the floors were too shallow. Add what escaped to the component floors or
+  the anti-pattern catalog, and re-run the empathy round on the capabilities
+  it touched.
+- **Change fail rate rising:** critical flows miss failure paths. Add them.
 
-## 16. Roles and cadence
+## 19. Roles and cadence
 
 ### Roles
 
 | Role | Owns | Does not |
 | ---- | ---- | -------- |
-| **Outcome owner** | The expectation contract, the cut, scope decisions, the exit decision | Add scope without passing the filter |
-| **Spec lead** | The spec set, ADRs, the slice plan, spec integrity | Let code change behaviour before the spec does |
+| **Outcome owner** | The expectation contract, the audience profile, the cut, scope decisions, the exit decision | Add scope without passing the filter |
+| **Spec lead** | The spec set in both rounds, critical flows, ADRs, the slice plan, spec integrity | Let code change behaviour before the spec does |
 | **Builders** (people and their agents) | Slices, tests, links and tracks | Mark a slice done that skipped a gate |
+| **Verifier** (a person or a separate agent) | Critical flows, *correct* criteria and the anti-pattern check, walked as the audience | Verify their own work, or accept the builder's report as evidence |
 | **Reviewer** | Human approval of each slice | Approve without seeing gate results |
 
-One person can hold several roles. On a solo project, one person holds all
-four.
+One person can hold several roles, except that no one verifies their own
+slice. On a solo project, one person holds every role and a separate agent
+acts as verifier.
 
 ### Cadence
 
 | Event | When | Purpose |
 | ----- | ---- | ------- |
 | Expectation workshop | Once per MEV | Phase 0 |
-| Spec sessions | During phase 1 | Write and validate the whole spec set and its ADRs |
-| Slice review | Every slice | Gates, review, deploy, track |
+| Spec sessions | During phase 1 | Write the base round, the empathy round, critical flows and ADRs; validate them |
+| Slice review | Every slice | Gates, independent verification, review, deploy, track |
+| Catalog update | Whenever an expectation escapes | Add it to the component floors or the anti-pattern catalog |
 | Scope triage | Weekly, or when an idea arrives | Run the filter on spec changes |
 | Progress check | Weekly | MEV coverage, forecast, rework |
 | Outcome review | End of the validation window | Exit decision and retrospective |
 
-## 17. Edge cases
+## 20. Edge cases
 
 | Situation | TRACER response |
 | --------- | --------------- |
@@ -433,8 +726,25 @@ four.
 | Stakeholders want a demo before the MEV | Show the deployed slices; they are real. Never build a separate demo. |
 | Work starts on existing code with no specs | Reverse-engineer specs from the code first, curate them, link them, then define the MEV as a delta on top. |
 | The metric is reached with *Shoulds* still open | Release anyway. Remaining items go through the filter as post-MEV work. |
+| Nobody can describe the audience | Not ready for TRACER. Talk to someone from the audience, or to whoever serves them, before the empathy round. |
+| A task duplicates an existing capability | Extend the capability instead. If the two must differ, the difference is a spec change and goes through the filter. |
+| A slice works but is found incorrect after it was marked done | Reopen it as rework, add the missing *correct* criterion to its spec, and add the cause to a catalog so it cannot escape again. |
+| The empathy round produces more than the MEV can hold | Basic expectations of capabilities in the cut stay. Everything else goes through the filter or to the deferred list. |
+| An orchestrator marks tasks done on tests alone | Give it the critical flows, *correct* criteria and catalogs as its acceptance criteria, and run the verification gates with a separate verifier. |
 
-## 18. FAQ
+## 21. FAQ
+
+**Isn't the empathy round just scope creep?**
+No. Basic expectations are part of a capability, not additions to it: a file
+list nobody can search is broken, not small. Performance expectations and
+new ideas from the round still pass the scope filter, and what does not enter
+goes to the deferred list with its reason.
+
+**Why validate through the interface when the API is already tested?**
+Because that is where products fail. An API can return the right data while
+the screen shows a UUID, hides the error or traps keyboard users. The user
+only ever meets the interface.
+
 
 **Isn't specifying everything up front just waterfall?**
 Waterfall failed by doing three things together: planning everything, freezing
@@ -470,7 +780,7 @@ value is verified.
 Agents write code and tests inside a slice. People own the contract, the spec,
 the architecture decisions, the review and the exit decision.
 
-## 19. Adapting TRACER
+## 22. Adapting TRACER
 
 TRACER says how to build one MEV. It says nothing about which MEV goes first,
 or who builds it with how much capacity. Those questions depend on the
@@ -481,7 +791,7 @@ its context needs. It never redefines the base method.
 
 ### Invariants
 
-The seven principles. An adaptation that breaks one of them is a different
+The nine principles. An adaptation that breaks one of them is a different
 method.
 
 ### Tunable parameters
@@ -492,7 +802,7 @@ method.
 | Phase 1 share | 10 to 20% of MEV time | High-risk domains need more; well-known domains need less |
 | Validation window | 2 to 4 weeks | The metric needs a longer cycle to show |
 | Rework threshold | 15% | Stricter in regulated domains |
-| Gates | All seven | Never fewer; the tooling per gate is free |
+| Gates | All nine | Never fewer; the tooling per gate is free |
 
 ### Common questions adaptations answer
 
@@ -508,13 +818,13 @@ switch work is the end of a slice, and the unit of work is the slice.
 ### Writing an adaptation
 
 1. Name the context and the question TRACER leaves open there.
-2. List the rules that answer it, and check each against the seven principles.
+2. List the rules that answer it, and check each against the nine principles.
 3. Map its vocabulary to TRACER's: what a slice, an MEV and a gate are called
    there.
 4. Set the parameters for that context.
 5. Keep it short: an adaptation documents only what it adds.
 
-## 20. Templates
+## 23. Templates
 
 Ready-to-copy templates live in [`../templates`](../templates):
 
@@ -522,3 +832,8 @@ Ready-to-copy templates live in [`../templates`](../templates):
 - [Requirement with scenarios](../templates/requirement.md)
 - [Slice](../templates/slice.md)
 - [Scope change](../templates/scope-change.md)
+- [Audience profile](../templates/audience-profile.md)
+- [Empathy review](../templates/empathy-review.md)
+- [Critical flow](../templates/critical-flow.md)
+- [Component floors](../templates/component-floors.md)
+- [Anti-pattern catalog](../templates/anti-patterns.md)

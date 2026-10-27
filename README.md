@@ -22,6 +22,20 @@ The destination is the **Minimum Expected Value (MEV)**: the smallest scope
 that delivers an outcome the business already expects, defined by a metric, a
 target and a quality floor.
 
+Agents also produce work that *looks* finished: green tests, a rendered
+screen, and still a navbar without icons or a file picker that asks a
+non-technical user for a CDN path. TRACER closes that last 10%:
+
+- **See the product from the client's side.** Specs are written in two
+  rounds: a base round for what is sought, and an empathy round that reads
+  every capability through an audience profile and makes explicit what its
+  users take for granted.
+- **Done means correct, not just working.** Every capability has critical
+  flows tested end to end through the interface, with success and failure
+  paths, and every criterion states what *works* and what is *correct* for
+  its audience. Slices are checked against component floors and a catalog of
+  UI/UX anti-patterns by a verifier who did not build them.
+
 ## The acronym
 
 - **T**raceable: every requirement is linked to code and tests.
@@ -34,13 +48,14 @@ target and a quality floor.
 ## Read next
 
 - [The method](docs/method.md): the full handbook, from problem to templates.
-- [Templates](templates/): expectation contract, requirement, slice, scope
-  change.
+- [Templates](templates/): expectation contract, audience profile,
+  requirement, empathy review, critical flow, component floors, anti-pattern
+  catalog, slice, scope change.
 
 ## Claude Code plugin
 
 The `plugin/` folder packages TRACER for Claude Code: a `tracer` skill that
-keeps the agent inside the method, and three commands.
+walks the agent through the method step by step, and five commands.
 
 ```
 /plugin marketplace add Rixmerz/claude-plugins
@@ -53,8 +68,10 @@ does not require livespec; the plugin uses it as the reference toolchain.
 
 | Command | Phase | Does |
 | ------- | ----- | ---- |
-| `/tracer:contract` | 0-1 | Expectation contract, complete spec, ADRs, slice plan |
+| `/tracer:contract` | 0-1 | Expectation contract, audience profiles, base round, capability map, ADRs, slice plan |
+| `/tracer:empathy` | 1 | Empathy round: expectations, improved and new specs, critical flows |
 | `/tracer:slice` | 3 | One slice: ready check, test-first build, gates, track |
+| `/tracer:verify` | 3 | Independent verification: critical flows, CORRECT criteria, floors, anti-patterns |
 | `/tracer:scope` | 4 | Runs an idea or correction through the scope filter |
 
 ## License

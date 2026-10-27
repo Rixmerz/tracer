@@ -7,6 +7,7 @@ Metric:
 Current value:
 Target:
 Quality floor:
+Audience profiles: <one line per audience, details in audience-profile.md>
 Validation window:
 Validated by:
 Must (moves the metric):
