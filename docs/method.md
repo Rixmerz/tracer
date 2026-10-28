@@ -424,8 +424,8 @@ every slice with an interface is checked against it. Its core entries:
 | State shown only by color | A red or green dot with no icon, shape or text |
 | Interface built on data nobody provides | A "used in" count or a delete lock that depends on a field no API fills |
 | Work lost by moving on | Switching a tab cancels an upload in progress without a warning |
-| New item out of sight | "Add row" appends the row at the bottom of a long table and leaves the screen where it was |
-| Raw formats for a non-technical audience | A "JSON" tab in a form used by human resources |
+| Changes out of sight | "Add row" appends the row off screen and the view stays where it was; saving a field reloads the whole page |
+| Information the audience cannot read | A "JSON" tab in a form used by human resources; a download of raw records for a sales team |
 
 Part of the catalog can be checked automatically: layout and accessibility
 inspection, reading the rendered text for internal identifiers. The rest is

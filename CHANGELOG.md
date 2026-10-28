@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.1
+
+- The two anti-patterns added in 0.5.0 are generalized: changes out of sight
+  (any action that changes data must bring the user to where the change
+  happened, without a full page reload) and information the audience cannot
+  read (no information, or access to it, in a type or form the audience does
+  not understand).
+
 ## 0.5.0
 
 - New principle: mock first, then straight to the MEV. The interface is built

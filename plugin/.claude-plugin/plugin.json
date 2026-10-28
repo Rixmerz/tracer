@@ -1,6 +1,6 @@
 {
   "name": "tracer",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "The TRACER development method for AI agents: agree the Minimum Expected Value, specify all of it, then see it from the client's side, then build it in thin traced slices on the final architecture, verified through critical end-to-end flows and a UI/UX anti-pattern catalog. Uses livespec for spec-to-code traceability.",
   "author": {
     "name": "Juan Pablo Diaz",
