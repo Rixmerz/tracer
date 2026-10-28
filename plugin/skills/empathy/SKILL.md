@@ -30,6 +30,8 @@ For each capability, and each audience that uses it, answer in
    not be shown to them in that form.
 8. After each action that changes something, do they land where the change
    happened, in view and focused, without the whole page reloading?
+9. What would make them doubt what they see: numbers that do not add up,
+   old data, or machine-filled values they cannot tell from confirmed ones?
 
 Never answer with the most common solution you know for that kind of
 product. Answer from the profile: a human resources team picking training
@@ -39,8 +41,8 @@ material expects titles, thumbnails and search, not storage paths.
 
 List every expectation found, each classified as **basic** (its absence makes
 the product feel broken), **performance** (more is better) or
-**differentiator** (not expected, valued). Check the capability against the
-anti-pattern catalog and record each risk as a basic expectation.
+**differentiator** (not expected, valued). Check the capability against every
+principle of the anti-pattern catalog and record each risk as a basic expectation.
 
 Check duplication: search the capability map and livespec `search_similar`
 for an existing capability that already covers this behaviour. If one does,

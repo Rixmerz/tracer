@@ -195,8 +195,8 @@ decision.
 
 Whenever a basic expectation or an anti-pattern is found after a slice was
 marked done: reopen it as rework, add the missing CORRECT line to its spec,
-and add the cause to `floors.md` or `anti-patterns.md` so it cannot escape
-again. Count it as an escaped expectation.
+and add the cause to `floors.md`, or to `anti-patterns.md` under the
+principle it breaks, so it cannot escape again. Count it as an escaped expectation.
 
 ## Briefing an orchestrator or another agent
 

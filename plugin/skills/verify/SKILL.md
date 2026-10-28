@@ -41,7 +41,9 @@ deployed or production-like system):
   sizes (layout-inspector or an equivalent).
 - Rendered text scanned for UUIDs, storage keys, ids, file paths and stack
   traces.
-- Every entry of the anti-pattern catalog, one by one.
+- Every entry of the anti-pattern catalog, one by one; then each family's
+  principle against the screen as a whole. A case that breaks a principle
+  fails even if no entry names it.
 - The same action solved differently elsewhere (compare with the capability
   map).
 - Consistency with `identity.md`.
@@ -60,7 +62,8 @@ verdict: **pass** only if every line passes.
 
 If something fails that no spec, floor or catalog entry covered, say so: it
 is an escaped expectation. Propose the CORRECT line to add to the spec and
-the entry to add to `floors.md` or `anti-patterns.md`.
+the entry to add to `floors.md`, or to `anti-patterns.md` under the
+principle it breaks.
 
 On an existing product with no TRACER specs (a screen, a URL), derive the
 audience from the user first, then run steps 2 to 4 using the templates'

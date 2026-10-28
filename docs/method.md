@@ -170,7 +170,7 @@ is the reference list.
 | **Capability map**       | The spec set organized by what the user can do, used to stop the same capability from being built twice. |
 | **Critical flow**        | One user journey through the real interface, from the front end to the API and back, with its success path and its failure paths. |
 | **Works / Correct**      | The two halves of every acceptance criterion: *works* is the technical result; *correct* is what the audience must see and be able to do. |
-| **Anti-pattern**         | Something an interface must not show or do, even if no requirement forbids it. Kept in a shared catalog. |
+| **Anti-pattern**         | Something an interface must not show or do, even if no requirement forbids it. Kept in a shared catalog, grouped by the principle it breaks. |
 | **Deferred list**        | Expectations left out of the MEV on purpose, each with its reason. |
 
 ## 8. Defining the MEV
@@ -406,32 +406,39 @@ is badly written and goes back to the empathy round.
 
 Validations check what must happen. Anti-patterns catch what must not exist,
 even though no requirement forbids it. TRACER keeps a shared catalog, and
-every slice with an interface is checked against it. Its core entries:
+every slice with an interface is checked against it.
 
-| Anti-pattern | Example |
-| ------------ | ------- |
-| Internal data on screen | UUIDs, storage keys, database ids, file paths, stack traces |
-| Asking for what the system knows | A field asking for a URL or an id the system already holds |
-| Lists without a way in | No search, no preview, no sorting, no empty state |
-| Icons without labels, or text without hierarchy | An icon-only navbar; a wall of same-weight text |
-| Destructive actions without a net | Delete with no confirmation and no undo |
-| Errors that explain nothing | "Something went wrong" with no cause and no next step |
-| The same action solved two ways | Uploading a file works differently on two screens |
-| Inaccessible controls | No keyboard focus, missing accessible names, contrast below WCAG AA, targets too small |
-| Jargon in the interface | Technical terms the audience profile says they do not know |
-| Silent states | No loading, success or error feedback |
-| Words where a picture reads faster | A toolbar of text-only buttons; a status written as plain words; a table of numbers where a chart would show the trend |
-| State shown only by color | A red or green dot with no icon, shape or text |
-| Interface built on data nobody provides | A "used in" count or a delete lock that depends on a field no API fills |
-| Work lost by moving on | Switching a tab cancels an upload in progress without a warning |
-| Changes out of sight | "Add row" appends the row off screen and the view stays where it was; saving a field reloads the whole page |
-| Information the audience cannot read | A "JSON" tab in a form used by human resources; a download of raw records for a sales team |
+The catalog is organized by the principle each anti-pattern breaks. The
+principles matter more than the entries: an entry is one known way of
+breaking a principle, and a screen can break it in a way nobody has listed
+yet. The verifier checks every entry, then each principle against the screen
+as a whole.
+
+| Family | Principle | Examples |
+| ------ | --------- | -------- |
+| Attention and place | After every action the person sees its result where it happened, and nothing moves them away from where they were working | "Add row" appends the row off screen; saving one field reloads the whole page; closing a dialog loses the scroll position and the filters |
+| The audience's language | Every piece of information, and every way to reach it, is in a type and form the audience understands | A "JSON" tab in a form used by human resources; `IN_PROGRESS` instead of "In progress"; times in UTC for a team in one city |
+| Effort | The person provides only what only they know, once, in the form that is easiest for them | A field asking for a client code the system already holds; a phone number rejected for its spaces |
+| Feedback and state | Every action shows that it started, how it is going and how it ended, and every object shows its state | An upload that sits at 0 % until it finishes; "Saved" before the server answered; a disabled button with no reason |
+| Safety and recovery | Mistakes are cheap: whatever loses or changes something can be prevented, previewed or undone, and work is never lost by accident | A failed submit clears the form; a bulk delete that does not say how many items it affects |
+| Orientation and navigation | Every screen says where the person is and what they can do next, and lets them leave and come back | A success screen with nothing to do next; a filtered view that a reload or a shared link loses |
+| Consistency and identity | The same thing is named, looks and works the same everywhere, and the product looks like one product built from its design system | Two words for the same status; colors that are not in the design system |
+| Access | Everyone in the audience profile can perceive and operate every part, on their devices and in their context | Contrast below WCAG AA; a table that scrolls sideways on the phone the audience uses |
+| Recognition | People recognize at a glance instead of reading or remembering | A toolbar of text-only buttons; a step that needs a code from a previous screen |
+| Trust and honesty | What the screen says is true, current and traceable, and what a machine produced is told apart from what a person confirmed | A total that is not the sum of its rows; AI-filled fields that look the same as validated ones |
+| Permissions and visibility | Each person sees what they need and may use, and nothing else | An action refused only after the form is filled; administration tools shown to every user |
+| Perceived speed | The person keeps working while the system works, and waits only for what they asked for | A whole-screen loader to save one field; nothing shown until every part has loaded |
+
+The full catalog, with every entry and how to detect it, is the
+[anti-pattern catalog template](../plugin/templates/anti-patterns.md).
 
 Part of the catalog can be checked automatically: layout and accessibility
-inspection, reading the rendered text for internal identifiers. The rest is
-checked by the verifier, walking the interface as the audience would. Every
-anti-pattern found after a slice was marked done joins the catalog, so the
-method improves from one project to the next.
+inspection, reading the rendered text for internal identifiers, codes and raw
+formats. The rest is checked by the verifier, walking the interface as the
+audience would. Every anti-pattern found after a slice was marked done joins
+the catalog under the principle it breaks, and a case that no principle
+covers adds a new principle, so the method improves from one project to the
+next.
 
 ## 12. Lifecycle
 
@@ -612,9 +619,17 @@ tests, checked with the gates:
 | Only the happy path | Nothing interrupts, cancels or repeats the operation |
 | Claims from reading code | "It already works there" without running it where the audience uses it |
 | Broken test setup | A test module configured twice; tests that pass only in one order |
+| Tested as the wrong person | Screens verified as an administrator while the audience is a sales agent with fewer permissions |
+| Presence instead of meaning | A test checks that the total cell exists, not that it shows the right amount |
+| One size only | The suite runs at 1280 px while the audience works on phones |
+| Perfect data only | Tests use three short records; production has thousands, with empty fields and long names |
+| Tests bound to the clock | A test passes in UTC and fails in the audience's time zone, or fails on the last day of the month |
+| Dependencies that never fail | The AI provider is faked only with a valid answer |
 
-The rule behind them: a failure is only pre-existing if it also fails on the
-base commit, and a slice is only done after one clean full run.
+The rule behind them: a green run is evidence only when it ran in full, as
+the audience, under the conditions the audience lives in; a failure is only
+pre-existing if it also fails on the base commit; and a slice is only done
+after one clean full run.
 
 ## 15. Scope control during delivery
 

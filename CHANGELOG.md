@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.6.0
+
+- The anti-pattern catalog is organized by the principle each entry breaks,
+  in twelve families: attention and place, the audience's language, effort,
+  feedback and state, safety and recovery, orientation and navigation,
+  consistency and identity, access, recognition, trust and honesty,
+  permissions and visibility, and perceived speed. A screen is checked
+  against each principle, not only the listed entries, and a new case is
+  filed under the principle it breaks.
+- 65 new interface anti-patterns (81 in all), among them lost place, focus
+  dropped, feedback far from its cause, codes instead of names, formats of
+  the machine, asking twice, progress that does not progress, success before
+  it happened, work lost on error, dead ends, off-system look, numbers that
+  do not add up, machine output as fact and hidden is not forbidden.
+- Six new testing anti-patterns: tested as the wrong person, presence
+  instead of meaning, one size only, perfect data only, tests bound to the
+  clock and dependencies that never fail.
+- The verifier checks every principle on the screen as a whole; the empathy
+  round asks what would make the audience doubt what they see.
+
 ## 0.5.1
 
 - The two anti-patterns added in 0.5.0 are generalized: changes out of sight
