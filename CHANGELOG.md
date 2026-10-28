@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.0
+
+- New anti-pattern family, composition and space: the screen gives space in
+  proportion to the work. Ten entries: space against the task, columns by
+  count instead of need, reserved space for nothing, side by side too narrow,
+  embedded viewer too small, wide content in a narrow box, nested scroll
+  traps, fixed proportions only, actions far from their content and no
+  hierarchy.
+
 ## 0.6.0
 
 - The anti-pattern catalog is organized by the principle each entry breaks,

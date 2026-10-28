@@ -185,6 +185,25 @@ for what they asked for.
 | Blocking for a local action: a whole-screen loader for an action that affects one element | Run each action and note what becomes unusable while it runs |
 | All before anything: nothing is shown until everything has loaded | Load each screen on a slow connection |
 | Trapped while waiting: a long operation cannot be left, cancelled or picked up later | Start each long operation and try to do something else |
+
+## 13. Composition and space
+
+Principle: the screen gives space in proportion to the work: what the person
+reads or compares gets the most room, what they check once gets the least,
+and nothing important is squeezed, cut or pushed out of view by the layout.
+
+| Anti-pattern | How to detect |
+| --- | --- |
+| Space against the task: the element the person works on (the source to read, the form to fill, the table to edit) gets a narrow share of the screen while secondary content takes as much or more | Name the main task of the screen and measure the share of the viewport its element gets at common widths |
+| Columns by count, not by need: the screen is split into equal or fixed columns regardless of their content, so one is crammed while another sits mostly empty | Load the screen with real data, with little and with a lot, and measure each region's used and empty space |
+| Reserved space for nothing: a region keeps its room when it has little or nothing to show (an empty list, a short notice) | Load cases where each region is empty or short and check its space goes to the rest |
+| Side by side too narrow: things meant to be compared (an original and its extraction, before and after) sit next to each other only when each is too narrow to read, or they are not side by side at all | Compare them at common widths; check each is readable at its own size without zooming or horizontal scroll |
+| Embedded viewer too small: a document, map or preview is shown in a box so small the person must zoom, scroll inside it or open it elsewhere to read it | Open real documents in the viewer at common widths and try to read a line without zooming |
+| Wide content in a narrow box: a table, code or form with many fields is placed in a region narrower than it needs, so it scrolls sideways, wraps columns into nonsense or cuts values | Fill the widest content with real values and check nothing scrolls sideways or is cut |
+| Nested scroll traps: several regions scroll on their own inside a scrolling page, so the wheel or swipe moves the wrong one and the person loses where things are | Scroll with wheel, touch and keyboard over each region and note which one moves |
+| Fixed proportions only: regions cannot be resized, collapsed or swapped when the task needs more room for one of them | Try to give more room to each region; check the main one can take the screen when needed |
+| Actions far from their content: the actions for a region (save, add, confirm) sit in another region or at the far edge of the screen, out of sight while the person works | Do the main task and check each needed action is visible from where it happens |
+| No hierarchy: every region has the same weight, padding and type size, so nothing tells the eye where to start | Look at the screen for five seconds and say what the main task is; ask someone from the audience |
 ```
 
 ## Testing anti-patterns
