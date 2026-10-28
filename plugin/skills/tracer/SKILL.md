@@ -48,7 +48,7 @@ started TRACER: suggest `/tracer:contract` instead of improvising.
 ## Rules you never break
 
 1. **Design for the destination.** Never pick a temporary architecture (a
-   JSON file instead of the planned database, a mock instead of the planned
+   JSON file instead of the planned database, a stub instead of the planned
    integration) to go faster. If the ADRs do not cover a decision, stop and
    propose an ADR.
 2. **No throwaway code.** Build nothing the MEV does not need.
@@ -66,6 +66,11 @@ started TRACER: suggest `/tracer:contract` instead of improvising.
    flows pass end to end through the interface, its CORRECT criteria hold for
    its audience, and it shows no catalogued anti-pattern. Never mark your own
    slice done: verification is done by someone else, and a person approves.
+10. **Mock first, then straight to the MEV.** Before production code, build a
+    mock of the interface with every detail the client expects and iterate
+    it until the outcome owner validates it. Then development goes from the
+    validated mock straight to the MEV: there is no proof of concept and no
+    MVP.
 
 ## How to follow the method
 

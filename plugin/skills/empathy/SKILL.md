@@ -26,6 +26,10 @@ For each capability, and each audience that uses it, answer in
 5. What has the product genre taught them to expect?
 6. What would they recognize faster as a picture than as words: an icon on
    an action, a thumbnail, a chart, a status badge?
+7. What must they never see? Raw formats (JSON, ids, internal fields) are
+   for the system, not for an audience like human resources.
+8. After they add something (a row, an item), do they see it where it was
+   created, in view and focused?
 
 Never answer with the most common solution you know for that kind of
 product. Answer from the profile: a human resources team picking training

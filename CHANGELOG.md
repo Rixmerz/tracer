@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.5.0
+
+- New principle: mock first, then straight to the MEV. The interface is built
+  as a mock with every detail the client expects and validated by the outcome
+  owner before production code; there is no proof of concept and no MVP.
+  Phase 1 gains the mock step and its sign-off.
+- Anti-pattern catalog: new item out of sight (adding a row does not bring
+  it into view), raw formats for a non-technical audience (a JSON tab for
+  human resources).
+- Empathy round asks what the audience must never see and whether a new item
+  lands in view.
+- The rule against temporary architecture says stub, not mock, for a fake
+  integration.
+
 ## 0.4.0
 
 - Anti-pattern catalog: words where a picture reads faster, state shown only

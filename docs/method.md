@@ -113,7 +113,7 @@ Do not use it when:
 
 ## 6. Principles
 
-Nine rules that cannot be negotiated away. Drop any of them and it is no
+Ten rules that cannot be negotiated away. Drop any of them and it is no
 longer TRACER.
 
 1. **Design for the destination.** Architecture decisions are made for the
@@ -135,6 +135,12 @@ longer TRACER.
 9. **Done means correct, not just working.** A slice is done when its critical
    flows pass end to end through the real interface, its correctness criteria
    hold for its audience, and it shows none of the known anti-patterns.
+10. **Mock first, then straight to the MEV.** Before any production code, the
+    interface is built as a mock with every detail the client expects. The
+    mock is iterated until the outcome owner validates it as what they
+    expect. Only then does the definitive development start, and it goes
+    from the validated mock straight to the MEV. There is no proof of
+    concept and no MVP in between.
 
 ## 7. Vocabulary
 
@@ -418,6 +424,8 @@ every slice with an interface is checked against it. Its core entries:
 | State shown only by color | A red or green dot with no icon, shape or text |
 | Interface built on data nobody provides | A "used in" count or a delete lock that depends on a field no API fills |
 | Work lost by moving on | Switching a tab cancels an upload in progress without a warning |
+| New item out of sight | "Add row" appends the row at the bottom of a long table and leaves the screen where it was |
+| Raw formats for a non-technical audience | A "JSON" tab in a form used by human resources |
 
 Part of the catalog can be checked automatically: layout and accessibility
 inspection, reading the rendered text for internal identifiers. The rest is
@@ -458,16 +466,22 @@ and validator.
    paths and *works / correct* criteria (section 10).
 5. **Fix the identity** of the defining screens through variants (section
    9.6).
-6. Record the architecture decisions as ADRs for the destination: data model,
+6. **Build the mock and get it validated.** A clickable mock of every screen,
+   with all the details the client expects: real wording, states, empty and
+   error cases, the anti-pattern catalog already applied. Iterate it with the
+   outcome owner until they confirm it is what they expect. The mock is the
+   reference the slices are verified against; it is not grown into the
+   product.
+7. Record the architecture decisions as ADRs for the destination: data model,
    persistence, integrations, deployment.
-7. Validate the spec set strictly: no requirement without a scenario, no
+8. Validate the spec set strictly: no requirement without a scenario, no
    scenario without an observable outcome, no capability without a critical
    flow, no *correct* criterion that cannot be checked.
-8. Order the requirements into a slice plan: which flow goes into the
+9. Order the requirements into a slice plan: which flow goes into the
    skeleton, which slices follow.
 
-**Exit:** a validated spec set, its critical flows and its ADRs, signed off
-by the outcome owner. No code yet, except a timeboxed
+**Exit:** a validated spec set, its critical flows, its ADRs and the mock,
+all signed off by the outcome owner. No code yet, except a timeboxed
 spike when a risky assumption must be checked first.
 
 ### Phase 2 · Skeleton
@@ -793,7 +807,10 @@ system.
 Agents build for what they are asked. A proof of concept gets a
 proof-of-concept architecture, which the MVP then throws away or duplicates.
 TRACER's skeleton is as fast to reach as a proof of concept but already has
-the final shape.
+the final shape. What a proof of concept is usually asked to show, how the
+product will look and behave, is settled by the mock instead: once the client
+validates it, development goes from the mock straight to the MEV, with no
+proof of concept and no MVP.
 
 **What if we learn something that invalidates part of the spec?**
 That is expected. It becomes a spec change, goes through the filter, updates
@@ -828,7 +845,7 @@ its context needs. It never redefines the base method.
 
 ### Invariants
 
-The nine principles. An adaptation that breaks one of them is a different
+The ten principles. An adaptation that breaks one of them is a different
 method.
 
 ### Tunable parameters
@@ -855,7 +872,7 @@ switch work is the end of a slice, and the unit of work is the slice.
 ### Writing an adaptation
 
 1. Name the context and the question TRACER leaves open there.
-2. List the rules that answer it, and check each against the nine principles.
+2. List the rules that answer it, and check each against the ten principles.
 3. Map its vocabulary to TRACER's: what a slice, an MEV and a gate are called
    there.
 4. Set the parameters for that context.

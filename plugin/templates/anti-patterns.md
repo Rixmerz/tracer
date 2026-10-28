@@ -20,6 +20,8 @@ whenever one is found after a slice was marked done.
 | State shown only by color | Check every status in grayscale |
 | Interface built on data nobody provides: a field, count or flag that no API fills | Render each screen with real data from the system, not fixtures |
 | Work lost by moving on: leaving a screen or switching a tab cancels an upload, a save or a draft without warning | Start every long operation and navigate away mid-way |
+| New item out of sight: adding a row or item leaves it off screen, with no scroll, focus or highlight on where it was created | Add an item to a list or table longer than the screen and check it lands in view, focused |
+| Raw formats for a non-technical audience: a JSON, XML or raw-data view shown to people who do not read it (human resources, sales) | Compare every tab and panel with what the audience profile says they read |
 ```
 
 ## Testing anti-patterns
