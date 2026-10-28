@@ -625,11 +625,40 @@ tests, checked with the gates:
 | Perfect data only | Tests use three short records; production has thousands, with empty fields and long names |
 | Tests bound to the clock | A test passes in UTC and fails in the audience's time zone, or fails on the last day of the month |
 | Dependencies that never fail | The AI provider is faked only with a valid answer |
+| Baseline from the wrong commit | Two new failures called pre-existing because they were compared with an older commit than the slice's base |
+| Testing another build | The suite imports a cached installed copy of the package, or loads the previous version's jar, instead of the working tree |
+| Tests that collide | Tests fail because another session's emulator holds the port they need |
+| A guard skipped instead of fixed | A commit hook fires on a test fixture and the commit goes through with `--no-verify` |
+| Checks that change the person's state | A verification step runs `git diff` and rewrites the person's index |
+| A gate run differently | The local run skips the coverage flag the pipeline uses, so the real failure is missed; the type check never reads the test folder |
+| Trace links that do not resolve | Requirement ids longer than the traceability tool accepts, so most annotations link to nothing |
 
 The rule behind them: a green run is evidence only when it ran in full, as
 the audience, under the conditions the audience lives in; a failure is only
 pre-existing if it also fails on the base commit; and a slice is only done
 after one clean full run.
+
+### Delivery anti-patterns
+
+The report is checked too. A third list covers what a builder says and hands
+over:
+
+| Anti-pattern | Example |
+| ------------ | ------- |
+| Hearsay as fact | "The `server/` folder was deleted", taken from a worker's summary without looking at the repo |
+| Someone else's work as one's own | The report says "I removed" for changes a background worker made |
+| Done but not reachable | The plugin is fixed and committed, but not pushed or versioned, so the installed copy never updates |
+| Half the request, reported as whole | Four review findings asked, three fixed, the fourth not mentioned |
+| Spec read in part | A truncated task statement is implemented as if complete, skipping its last steps and criteria |
+| Context copied, not checked | A new card is filed under the previous card's epic instead of its own |
+| Irreversible write with unchecked fields | A card is created without labels with a tool that cannot edit or delete it afterwards |
+| One-environment architecture | CORS set for localhost, ignoring the per-environment pattern the other apps use |
+| Inputs the contract does not list | An orchestrator invents a task kind because the guide never lists the valid ones |
+| Silent end | A long run ends with no result, and the person has to ask what happened |
+
+The rule behind them: a report is evidence only when every claim was checked
+first-hand, everything asked is accounted for, and the audience can already
+reach the result.
 
 ## 15. Scope control during delivery
 

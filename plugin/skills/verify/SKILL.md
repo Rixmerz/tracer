@@ -53,6 +53,9 @@ deployed or production-like system):
   per icon, no state told by color alone.
 - The testing anti-patterns: the builder's last full run is clean, or its
   failures match the base list.
+- The delivery anti-patterns: every claim in the builder's report is checked
+  first-hand, every item asked is accounted for, and the result is reachable
+  the way the audience gets it.
 
 ## 4. Report
 

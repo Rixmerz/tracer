@@ -61,6 +61,7 @@ that is easiest for them.
 | Frequent action buried: the action the audience does most needs menus, mode switches or extra steps | Count the steps of the audience's most frequent tasks |
 | One by one where they work in batches: no bulk action when the audience handles many items at a time | Compare the audience's volumes with the actions available |
 | Missing or wrong defaults: no default where one value is the usual one, or a default the audience almost always changes | Check each default against real data |
+| Choices the audience cannot make: the person must pick among technical variants (platform, version, format, build) that the system could detect or that a single universal option would cover | List every choice the person makes; for each, ask whether the audience can answer it without help and whether the system could decide it |
 
 ## 4. Feedback and state
 
@@ -160,6 +161,7 @@ machine produced is told apart from what a person confirmed.
 | Numbers that do not add up: totals, counts or badges that do not match what they summarize (hidden filters, pages, rounding) | Recompute every total and count from the visible items and from the full data |
 | Stale shown as current: cached or old data with no sign of its age | Change the data elsewhere and look at the screen; look for when it was last updated |
 | Machine output as fact: automated or AI-generated content presented as confirmed, with no mark of what the machine filled and what a person validated | Find every machine-filled value and check it stays marked until a person confirms it |
+| Unknown origin: items with no record of who or what created or last changed them, so the person cannot tell their own from what someone or something else added | Pick items created by different people and by automations; check each one says who or what made it and when |
 | Leftover demo data: placeholder text, sample records or test users in a real environment | Scan the rendered text and data of the target environment |
 | Search and sort that mislead: search only over the loaded page, numbers or dates sorted as text | Search for an item on another page; sort values like 9 and 10, and dates across months |
 | Pressure and tricks: pre-selected choices, hidden ways out, shaming wording, false urgency | Read every choice and every way to cancel as the audience |
@@ -232,4 +234,35 @@ also fails on the base commit.
 | Perfect data only: tests run on empty or tidy data, never on the volumes, lengths and gaps of real data | Seed a run with the largest, longest and most incomplete real records |
 | Tests bound to the clock: results depend on today's date or the time zone | Run the suite in another time zone and on a date at a month or year boundary |
 | Dependencies that never fail: every external service is faked only in its success | Each external dependency has at least one failing-path test |
+| Baseline from the wrong commit: failures compared against a commit other than the slice's real base, so new failures pass as old ones | The base list names the commit the slice branched from, and that commit is the branch's merge base |
+| Testing another build: the run loads a cached package, an installed copy, an old jar or a stale bundle instead of the code in the slice | The run prints or asserts the path and version of what it loaded, and it is the working tree |
+| Tests that collide: tests share host resources (fixed ports, emulators, files, global services) and fail when another run or process holds them | Run the suite twice at once, and once with the usual ports already taken |
+| A guard skipped instead of fixed: a hook, lint or check bypassed (no-verify, skip flags, disabled rules) because it fired | Search the slice's commits and scripts for bypass flags; each one has a written reason, or the false positive is fixed in the guard |
+| Checks that change the person's state: a test or verification writes to the person's index, checkout, home, processes or real services | Snapshot the git index, the working tree and running processes before and after the full run; they are identical |
+| A gate run differently: the local check uses other flags, ports, filters or commands than the pipeline, or a command that does not exist, or leaves the test code itself unchecked (types, lint) | The slice's evidence shows the exact command of the pipeline, and it covers the test files |
+| Trace links that do not resolve: requirement ids or spec links are written but the traceability tool cannot resolve them (length, format, derivation mismatch) | Ask the traceability tool for each requirement's code and tests; every one returns links |
+```
+
+## Delivery anti-patterns
+
+Things a builder's report or hand-over must not do, even when the code is
+right. The verifier checks them before reading the report as evidence.
+
+Principle: what the builder reports is true, checked first-hand, complete and
+already reachable by its audience; what was not done or not verified is said
+so.
+
+```markdown
+| Anti-pattern | How to detect |
+| --- | --- |
+| Hearsay as fact: a claim about code, data or state repeated from a summary, another agent, a comment or a config, without checking the thing itself | Every claim in the report points to the file, command or screen that shows it; a claim taken from someone else is marked as theirs |
+| Someone else's work as one's own: the report says "I changed" for what another worker, a previous attempt or the person did | Compare the report's authorship with the commits and task history |
+| Done but not reachable: work committed but not pushed, released, versioned, listed or deployed where the audience gets it | Get the slice the way the audience does (install, update, open the environment) and find the change |
+| Half the request, reported as whole: steps, criteria or findings left out with no mention | Map every item of the request and its acceptance criteria to evidence or to an explicit "not done" |
+| Spec read in part: the work starts from a truncated, empty or wrong-project request instead of the full one | The slice cites the full request and its source; an empty or cut request stops the work instead of being guessed |
+| Context copied, not checked: a classification, parent, owner, label or setting is copied from the previous item instead of chosen for this one | For each such field, check it against the item's own content |
+| Irreversible write with unchecked fields: an action that cannot be undone with the available tools (create, publish, send, delete) runs before its fields are confirmed | List the slice's irreversible actions; each one shows its fields were checked before it ran |
+| One-environment architecture: configuration, origins, secrets or names fit the local machine and ignore how the existing product is deployed in every environment | Compare each setting with the pattern the product already uses in each environment |
+| Inputs the contract does not list: a tool, command or interface accepts a closed set of values but does not state it, so callers invent one | Read each contract the slice adds; every closed set of values is listed where callers read it |
+| Silent end: the work stops without a result, or narrates progress that did not happen | The last message states the outcome; every "done" or "sent" in it has its evidence |
 ```

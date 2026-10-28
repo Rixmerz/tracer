@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.8.0
+
+- New list, delivery anti-patterns, checked by the verifier before reading a
+  builder's report: hearsay as fact, someone else's work as one's own, done
+  but not reachable, half the request reported as whole, spec read in part,
+  context copied instead of checked, irreversible write with unchecked
+  fields, one-environment architecture, inputs the contract does not list
+  and silent end.
+- Seven testing anti-patterns: baseline from the wrong commit, testing
+  another build, tests that collide, a guard skipped instead of fixed, checks
+  that change the person's state, a gate run differently and trace links
+  that do not resolve.
+- Two interface anti-patterns: choices the audience cannot make (effort) and
+  unknown origin (trust and honesty).
+
 ## 0.7.0
 
 - New anti-pattern family, composition and space: the screen gives space in
