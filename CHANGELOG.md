@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.1
+
+- layout-inspector is a dependency of the plugin: the slice and verify steps
+  call its `check_design_system`, so installing tracer installs it.
+- Fixed a broken sentence in `/tracer:design-system` step 5.
+
 ## 0.10.0
 
 - Each design system in the catalog says what a brand may adjust and what

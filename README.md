@@ -64,7 +64,10 @@ catalog server.
 ```
 
 Installing it also installs [livespec](https://github.com/Rixmerz/livespec),
-which keeps the chain from requirements to code and tests. The method itself
+which keeps the chain from requirements to code and tests, and
+[layout-inspector](https://github.com/Rixmerz/layout-inspector-mcp), which
+measures each rendered screen against its design system. layout-inspector
+needs `uv` and Playwright's Chromium (see its README). The method itself
 does not require livespec; the plugin uses it as the reference toolchain.
 
 | Command | Phase | Does |
