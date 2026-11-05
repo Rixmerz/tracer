@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.10.0
+
+- Each design system in the catalog says what a brand may adjust and what
+  stays fixed (`limits`); `check_overlay` refuses a row that changes a fixed
+  part, and any row for a system used as published (GOV.UK, Polaris).
+- The CSS token prefixes of each system (`css_tokens`), read from its own
+  package files, so the render can be checked against it.
+- The slice and verify steps measure each screen with layout-inspector's
+  `check_design_system`: values outside the system's tokens and the
+  overlay, and text contrast on the real render.
+
 ## 0.9.0
 
 - Design catalog: documented design systems by category, with their owners,

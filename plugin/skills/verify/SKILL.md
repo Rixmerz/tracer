@@ -50,6 +50,10 @@ deployed or production-like system):
 - Consistency with `identity.md`, and with the base design system: its
   components and tokens as its documentation defines them, changed only by a
   row of the overlay in `design-system.md` (`check_overlay` on that table).
+  Measure it on the render: layout-inspector's `check_design_system` on each
+  screen, with the token prefixes `design-system.md` names and every overlay
+  value in `extra_tokens`. A contrast failure is a finding; so is an
+  off-token value with no overlay row.
 - Every value, count or flag on screen comes from data the system really
   provides.
 - Common actions are recognizable at a glance: icon plus label, one meaning

@@ -50,7 +50,10 @@ every color pair the overlay sets as `#fg on #bg`.
 
 ## 5. Check the overlay
 
-Call `check_overlay` with the base id and the table, and `check_contrast` for
+Call `check_overlay` with the base id and the table: besides the generic
+rules, it refuses a row that changes what the base keeps fixed (its
+`limits`), and some systems are used as published, with no overlay at all.
+Then and `check_contrast` for
 any pair it cannot read. Fix every problem before it is approved: a row
 without a base rule is an invented rule, a row that weakens focus, contrast,
 target size, labels, motion or errors is refused, and a pair under AA is
@@ -63,4 +66,6 @@ Every slice reads `design-system.md` before any interface code, installs the
 packages it lists, and uses the base's components and tokens; a component
 the base lacks is built from its tokens and documented there as an addition.
 The verifier checks each screen against the base's documentation and the
-overlay.
+overlay, and measures the render with layout-inspector's
+`check_design_system` (the token prefixes and the overlay values are in
+`design-system.md`).

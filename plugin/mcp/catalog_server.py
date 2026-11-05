@@ -16,7 +16,7 @@ from pathlib import Path
 
 CATALOG = Path(__file__).resolve().parent.parent / "catalog"
 PROTOCOL = "2025-06-18"
-VERSION = "0.9.0"
+VERSION = "0.10.0"
 
 # Rules a brand overlay may never weaken: they are the base system's
 # accessibility and behaviour, not its look.
@@ -190,6 +190,9 @@ def design_system_brief(system: str, style: str = "") -> dict:
         "Components, behaviour, accessibility, spacing scale and grid come from the base and its documentation, never from memory.",
         "",
         f"Theming in this system: {s['theming']}",
+        "",
+        "A brand may adjust: " + ("; ".join(s["limits"]["adjustable"]) or "nothing") + ".",
+        "Fixed by the base: " + "; ".join(s["limits"]["fixed"]) + ".",
         f"Japanese and CJK text: {s.get('cjk', 'not stated')}",
     ]
     if s.get("license_note"):
@@ -206,6 +209,16 @@ def design_system_brief(system: str, style: str = "") -> dict:
         ]
         if system not in st["carriers"]:
             lines += ["", f"Note: {s['name']} is not one of this style's usual carriers ({', '.join(st['carriers'])}). Say why it was chosen."]
+    css = s.get("css_tokens")
+    lines += [
+        "",
+        "## Checking the render",
+        "",
+        "Every slice with an interface runs layout-inspector's `check_design_system` on its screens"
+        + (f" with `token_prefixes` {json.dumps(css['prefixes'])} (read from `{css['read_from']}`)" if css else
+           ", passing the system's values in `extra_tokens` (this system's tokens are not CSS custom properties with one prefix)")
+        + " and every overlay value in `extra_tokens`. Contrast failures block; an off-token value is a missing overlay row or a hand-made style.",
+    ]
     lines += [
         "",
         "## Brand overlay",
@@ -219,9 +232,21 @@ def design_system_brief(system: str, style: str = "") -> dict:
     return {"markdown": "\n".join(lines) + "\n", "write_to": "docs/tracer/design-system.md"}
 
 
+def _fixed_hit(rule: str, fixed: list[str]) -> str | None:
+    """The fixed part of the base a row's rule names, if any."""
+    low = rule.lower()
+    for item in fixed:
+        if item.startswith("everything"):
+            return item
+        core = item.split(" (")[0].lower()
+        if core and (core in low or all(w in low for w in core.split() if len(w) > 3)):
+            return item
+    return None
+
+
 def check_overlay(base: str, overlay: str) -> dict:
     """Read the overlay table of a design-system.md and say what breaks."""
-    get_design_system(base)
+    fixed = get_design_system(base).get("limits", {}).get("fixed", [])
     rows, problems = [], []
     for line in overlay.splitlines():
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
@@ -235,6 +260,9 @@ def check_overlay(base: str, overlay: str) -> dict:
             problems.append(f"row '{' | '.join(cells)}': names no base token or rule — an overlay only changes what the base defines")
         if not reason:
             problems.append(f"row '{rule}': no reason")
+        hit = _fixed_hit(rule, fixed) if rule else None
+        if hit:
+            problems.append(f"row '{rule}': changes {hit}, which {base} keeps fixed; use what it lets a brand adjust")
         low = f"{rule} {value}".lower()
         for key, what in PROTECTED.items():
             if key in low and WEAKEN.search(value):

@@ -1,5 +1,5 @@
 {
-  "about": "Documented design systems a product can be built on. Each entry is a system its owner publishes and maintains, with its own rules, tokens and components. Packages, licenses and repositories were read from the npm registry on the date in `checked`; documentation addresses are the owners' published ones. Nothing here is a design system invented for one project.",
+  "about": "Documented design systems a product can be built on. Each entry is a system its owner publishes and maintains, with its own rules, tokens and components. Packages, licenses and repositories were read from the npm registry on the date in `checked`; documentation addresses are the owners' published ones. Nothing here is a design system invented for one project. CSS token prefixes were read from the packages' own files on the same date. `limits` says what a brand may adjust and what stays fixed, from how each system is themed.",
   "checked": "2026-11-05",
   "categories": {
     "enterprise-product": "Complex web products used every day at work: forms, tables, settings, workflows",
@@ -19,325 +19,1092 @@
       "name": "Material Design 3",
       "owner": "Google",
       "docs": "https://m3.material.io",
-      "categories": ["enterprise-product", "consumer", "platform"],
-      "fits": ["android", "cross-platform", "consumer app", "dynamic color", "personalization", "general purpose", "web app", "mobile"],
-      "avoid_for": ["a product that must not look like Google or Android"],
-      "platforms": ["web", "android", "flutter"],
+      "categories": [
+        "enterprise-product",
+        "consumer",
+        "platform"
+      ],
+      "fits": [
+        "android",
+        "cross-platform",
+        "consumer app",
+        "dynamic color",
+        "personalization",
+        "general purpose",
+        "web app",
+        "mobile"
+      ],
+      "avoid_for": [
+        "a product that must not look like Google or Android"
+      ],
+      "platforms": [
+        "web",
+        "android",
+        "flutter"
+      ],
       "packages": [
-        {"name": "@material/web", "role": "components", "license": "Apache-2.0", "repository": "https://github.com/material-components/material-web"},
-        {"name": "@material/material-color-utilities", "role": "tokens", "license": "Apache-2.0", "repository": "https://github.com/material-foundation/material-color-utilities"},
-        {"name": "@mui/material", "role": "components (third-party React implementation)", "license": "MIT", "repository": "https://github.com/mui/material-ui"}
+        {
+          "name": "@material/web",
+          "role": "components",
+          "license": "Apache-2.0",
+          "repository": "https://github.com/material-components/material-web"
+        },
+        {
+          "name": "@material/material-color-utilities",
+          "role": "tokens",
+          "license": "Apache-2.0",
+          "repository": "https://github.com/material-foundation/material-color-utilities"
+        },
+        {
+          "name": "@mui/material",
+          "role": "components (third-party React implementation)",
+          "license": "MIT",
+          "repository": "https://github.com/mui/material-ui"
+        }
       ],
       "theming": "Color comes from a source color through dynamic color schemes; type, shape and motion are token scales. A brand changes the source color, the type families and the shape scale, never the roles.",
-      "cjk": "Supported through font substitution; type scale is Latin-first"
+      "cjk": "Supported through font substitution; type scale is Latin-first",
+      "limits": {
+        "adjustable": [
+          "source color (dynamic color)",
+          "type families",
+          "shape scale"
+        ],
+        "fixed": [
+          "color roles",
+          "type scale",
+          "elevation",
+          "state layers",
+          "focus"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--md-"
+        ],
+        "read_from": "@material/web"
+      }
     },
     {
       "id": "carbon",
       "name": "Carbon Design System",
       "owner": "IBM",
       "docs": "https://carbondesignsystem.com",
-      "categories": ["enterprise-product", "data-dense", "developer-tools"],
-      "fits": ["enterprise", "b2b", "data table", "dashboard", "analytics", "cloud console", "ai product", "regulated", "accessibility"],
-      "avoid_for": ["playful consumer brands"],
-      "platforms": ["web"],
+      "categories": [
+        "enterprise-product",
+        "data-dense",
+        "developer-tools"
+      ],
+      "fits": [
+        "enterprise",
+        "b2b",
+        "data table",
+        "dashboard",
+        "analytics",
+        "cloud console",
+        "ai product",
+        "regulated",
+        "accessibility"
+      ],
+      "avoid_for": [
+        "playful consumer brands"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@carbon/react", "role": "components", "license": "Apache-2.0", "repository": "https://github.com/carbon-design-system/carbon"},
-        {"name": "@carbon/styles", "role": "tokens and styles", "license": "Apache-2.0", "repository": "https://github.com/carbon-design-system/carbon"}
+        {
+          "name": "@carbon/react",
+          "role": "components",
+          "license": "Apache-2.0",
+          "repository": "https://github.com/carbon-design-system/carbon"
+        },
+        {
+          "name": "@carbon/styles",
+          "role": "tokens and styles",
+          "license": "Apache-2.0",
+          "repository": "https://github.com/carbon-design-system/carbon"
+        }
       ],
       "theming": "Four themes (White, Gray 10, Gray 90, Gray 100) on a 2x grid; a brand customizes theme tokens and the IBM Plex families, keeping the grid and the component specs.",
-      "cjk": "IBM Plex Sans JP and other CJK Plex families exist"
+      "cjk": "IBM Plex Sans JP and other CJK Plex families exist",
+      "limits": {
+        "adjustable": [
+          "theme tokens",
+          "typeface (IBM Plex by default)"
+        ],
+        "fixed": [
+          "2x grid",
+          "spacing scale",
+          "component specs",
+          "focus",
+          "type scale"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--cds-"
+        ],
+        "read_from": "@carbon/styles"
+      }
     },
     {
       "id": "fluent-2",
       "name": "Fluent 2",
       "owner": "Microsoft",
       "docs": "https://fluent2.microsoft.design",
-      "categories": ["enterprise-product", "platform"],
-      "fits": ["microsoft 365", "teams app", "windows", "productivity", "office", "enterprise", "collaboration"],
-      "avoid_for": ["products that must not look like Microsoft"],
-      "platforms": ["web", "windows", "ios", "android"],
+      "categories": [
+        "enterprise-product",
+        "platform"
+      ],
+      "fits": [
+        "microsoft 365",
+        "teams app",
+        "windows",
+        "productivity",
+        "office",
+        "enterprise",
+        "collaboration"
+      ],
+      "avoid_for": [
+        "products that must not look like Microsoft"
+      ],
+      "platforms": [
+        "web",
+        "windows",
+        "ios",
+        "android"
+      ],
       "packages": [
-        {"name": "@fluentui/react-components", "role": "components", "license": "MIT", "repository": "https://github.com/microsoft/fluentui"},
-        {"name": "@fluentui/tokens", "role": "tokens", "license": "MIT", "repository": "https://github.com/microsoft/fluentui"}
+        {
+          "name": "@fluentui/react-components",
+          "role": "components",
+          "license": "MIT",
+          "repository": "https://github.com/microsoft/fluentui"
+        },
+        {
+          "name": "@fluentui/tokens",
+          "role": "tokens",
+          "license": "MIT",
+          "repository": "https://github.com/microsoft/fluentui"
+        }
       ],
       "theming": "Brand ramps of 16 shades generate the theme; neutral, shadow and type tokens stay as defined.",
-      "cjk": "Segoe UI falls back to system CJK fonts"
+      "cjk": "Segoe UI falls back to system CJK fonts",
+      "limits": {
+        "adjustable": [
+          "brand color ramp"
+        ],
+        "fixed": [
+          "neutral tokens",
+          "shadow tokens",
+          "type ramp",
+          "focus"
+        ]
+      }
     },
     {
       "id": "atlassian",
       "name": "Atlassian Design System",
       "owner": "Atlassian",
       "docs": "https://atlassian.design",
-      "categories": ["enterprise-product", "data-dense", "developer-tools"],
-      "fits": ["project management", "collaboration", "issue tracking", "b2b", "team tool", "workflow"],
-      "avoid_for": ["consumer brands"],
-      "platforms": ["web"],
+      "categories": [
+        "enterprise-product",
+        "data-dense",
+        "developer-tools"
+      ],
+      "fits": [
+        "project management",
+        "collaboration",
+        "issue tracking",
+        "b2b",
+        "team tool",
+        "workflow"
+      ],
+      "avoid_for": [
+        "consumer brands"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@atlaskit/button", "role": "components", "license": "Apache-2.0", "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror"},
-        {"name": "@atlaskit/tokens", "role": "tokens", "license": "Apache-2.0", "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror"}
+        {
+          "name": "@atlaskit/button",
+          "role": "components",
+          "license": "Apache-2.0",
+          "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+        },
+        {
+          "name": "@atlaskit/tokens",
+          "role": "tokens",
+          "license": "Apache-2.0",
+          "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+        }
       ],
       "theming": "Design tokens with light and dark themes; component behaviour and spacing are fixed.",
-      "cjk": "System font stack"
+      "cjk": "System font stack",
+      "limits": {
+        "adjustable": [
+          "theme (light, dark)"
+        ],
+        "fixed": [
+          "component behaviour",
+          "spacing scale",
+          "color roles",
+          "focus"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--ds-"
+        ],
+        "read_from": "@atlaskit/tokens"
+      }
     },
     {
       "id": "lightning",
       "name": "Salesforce Lightning Design System",
       "owner": "Salesforce",
       "docs": "https://www.lightningdesignsystem.com",
-      "categories": ["enterprise-product", "data-dense"],
-      "fits": ["crm", "sales", "b2b", "records", "salesforce app", "enterprise forms"],
-      "avoid_for": ["consumer brands"],
-      "platforms": ["web"],
+      "categories": [
+        "enterprise-product",
+        "data-dense"
+      ],
+      "fits": [
+        "crm",
+        "sales",
+        "b2b",
+        "records",
+        "salesforce app",
+        "enterprise forms"
+      ],
+      "avoid_for": [
+        "consumer brands"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@salesforce-ux/design-system", "role": "css and tokens", "license": "BSD-3-Clause"}
+        {
+          "name": "@salesforce-ux/design-system",
+          "role": "css and tokens",
+          "license": "BSD-3-Clause"
+        }
       ],
       "theming": "Styling hooks (CSS custom properties) change brand color and density; blueprints define markup and behaviour.",
-      "cjk": "System font stack"
+      "cjk": "System font stack",
+      "limits": {
+        "adjustable": [
+          "brand color",
+          "density"
+        ],
+        "fixed": [
+          "blueprint markup",
+          "component behaviour",
+          "focus"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--slds-"
+        ],
+        "read_from": "@salesforce-ux/design-system"
+      }
     },
     {
       "id": "spectrum",
       "name": "Spectrum",
       "owner": "Adobe",
       "docs": "https://spectrum.adobe.com",
-      "categories": ["enterprise-product", "consumer"],
-      "fits": ["creative tool", "editor", "media", "canvas", "pro tool", "accessibility", "internationalization"],
+      "categories": [
+        "enterprise-product",
+        "consumer"
+      ],
+      "fits": [
+        "creative tool",
+        "editor",
+        "media",
+        "canvas",
+        "pro tool",
+        "accessibility",
+        "internationalization"
+      ],
       "avoid_for": [],
-      "platforms": ["web"],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@adobe/react-spectrum", "role": "components", "license": "Apache-2.0", "repository": "https://github.com/adobe/react-spectrum"},
-        {"name": "@adobe/spectrum-tokens", "role": "tokens", "license": "Apache-2.0"}
+        {
+          "name": "@adobe/react-spectrum",
+          "role": "components",
+          "license": "Apache-2.0",
+          "repository": "https://github.com/adobe/react-spectrum"
+        },
+        {
+          "name": "@adobe/spectrum-tokens",
+          "role": "tokens",
+          "license": "Apache-2.0"
+        }
       ],
       "theming": "Color themes and scales (medium, large) are tokens; React Aria under it carries behaviour and accessibility, usable alone for a custom look.",
-      "cjk": "Adobe Clean Han for CJK in the type guidance"
+      "cjk": "Adobe Clean Han for CJK in the type guidance",
+      "limits": {
+        "adjustable": [
+          "color theme",
+          "scale (medium, large)"
+        ],
+        "fixed": [
+          "component behaviour",
+          "focus",
+          "type scale"
+        ]
+      }
     },
     {
       "id": "fiori",
       "name": "SAP Fiori",
       "owner": "SAP",
       "docs": "https://experience.sap.com/fiori-design-web/",
-      "categories": ["enterprise-product", "data-dense"],
-      "fits": ["erp", "back office", "operations", "procurement", "finance", "manufacturing"],
-      "avoid_for": ["consumer brands"],
-      "platforms": ["web"],
+      "categories": [
+        "enterprise-product",
+        "data-dense"
+      ],
+      "fits": [
+        "erp",
+        "back office",
+        "operations",
+        "procurement",
+        "finance",
+        "manufacturing"
+      ],
+      "avoid_for": [
+        "consumer brands"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@ui5/webcomponents", "role": "components", "license": "Apache-2.0", "repository": "https://github.com/UI5/webcomponents"}
+        {
+          "name": "@ui5/webcomponents",
+          "role": "components",
+          "license": "Apache-2.0",
+          "repository": "https://github.com/UI5/webcomponents"
+        }
       ],
       "theming": "Themes (Horizon and others) through theming parameters; floorplans fix the page structure.",
-      "cjk": "Supported"
+      "cjk": "Supported",
+      "limits": {
+        "adjustable": [
+          "theme"
+        ],
+        "fixed": [
+          "floorplans",
+          "component behaviour",
+          "focus"
+        ]
+      }
     },
     {
       "id": "ant-design",
       "name": "Ant Design",
       "owner": "Ant Group",
       "docs": "https://ant.design",
-      "categories": ["enterprise-product", "data-dense"],
-      "fits": ["admin", "back office", "dashboard", "dense data", "forms", "tables", "b2b", "chinese"],
-      "avoid_for": ["editorial or brand-first marketing pages"],
-      "platforms": ["web"],
+      "categories": [
+        "enterprise-product",
+        "data-dense"
+      ],
+      "fits": [
+        "admin",
+        "back office",
+        "dashboard",
+        "dense data",
+        "forms",
+        "tables",
+        "b2b",
+        "chinese"
+      ],
+      "avoid_for": [
+        "editorial or brand-first marketing pages"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "antd", "role": "components", "license": "MIT", "repository": "https://github.com/ant-design/ant-design"}
+        {
+          "name": "antd",
+          "role": "components",
+          "license": "MIT",
+          "repository": "https://github.com/ant-design/ant-design"
+        }
       ],
       "theming": "Seed tokens (primary color, radius, font size) generate map and alias tokens; components take component tokens.",
-      "cjk": "Designed with Chinese text in mind"
+      "cjk": "Designed with Chinese text in mind",
+      "limits": {
+        "adjustable": [
+          "primary color",
+          "radius",
+          "font size (seed tokens)"
+        ],
+        "fixed": [
+          "component behaviour",
+          "focus",
+          "spacing scale"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--ant-"
+        ],
+        "read_from": "antd"
+      }
     },
     {
       "id": "primer",
       "name": "Primer",
       "owner": "GitHub",
       "docs": "https://primer.style",
-      "categories": ["developer-tools", "enterprise-product"],
-      "fits": ["developer tool", "code", "repository", "devops", "open source", "technical", "dark mode"],
-      "avoid_for": ["non-technical consumer audiences"],
-      "platforms": ["web"],
+      "categories": [
+        "developer-tools",
+        "enterprise-product"
+      ],
+      "fits": [
+        "developer tool",
+        "code",
+        "repository",
+        "devops",
+        "open source",
+        "technical",
+        "dark mode"
+      ],
+      "avoid_for": [
+        "non-technical consumer audiences"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@primer/react", "role": "components", "license": "MIT", "repository": "https://github.com/primer/react"},
-        {"name": "@primer/primitives", "role": "tokens", "license": "MIT", "repository": "https://github.com/primer/primitives"}
+        {
+          "name": "@primer/react",
+          "role": "components",
+          "license": "MIT",
+          "repository": "https://github.com/primer/react"
+        },
+        {
+          "name": "@primer/primitives",
+          "role": "tokens",
+          "license": "MIT",
+          "repository": "https://github.com/primer/primitives"
+        }
       ],
       "theming": "Primitives define functional color, size and type tokens for light, dark and high-contrast themes.",
-      "cjk": "System font stack"
+      "cjk": "System font stack",
+      "limits": {
+        "adjustable": [
+          "theme (light, dark, high contrast)"
+        ],
+        "fixed": [
+          "functional color roles",
+          "spacing scale",
+          "focus",
+          "type scale"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--fgColor-",
+          "--bgColor-",
+          "--borderColor-",
+          "--base-"
+        ],
+        "read_from": "@primer/primitives"
+      }
     },
     {
       "id": "polaris",
       "name": "Polaris",
       "owner": "Shopify",
       "docs": "https://polaris.shopify.com",
-      "categories": ["commerce", "enterprise-product"],
-      "fits": ["merchant", "store admin", "e-commerce back office", "shopify app", "orders", "inventory"],
-      "avoid_for": ["storefronts (Polaris is for merchant admin)"],
-      "platforms": ["web"],
+      "categories": [
+        "commerce",
+        "enterprise-product"
+      ],
+      "fits": [
+        "merchant",
+        "store admin",
+        "e-commerce back office",
+        "shopify app",
+        "orders",
+        "inventory"
+      ],
+      "avoid_for": [
+        "storefronts (Polaris is for merchant admin)"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@shopify/polaris", "role": "components", "license": "custom (read LICENSE.md: use is tied to Shopify)", "repository": "https://github.com/Shopify/polaris"},
-        {"name": "@shopify/polaris-tokens", "role": "tokens", "license": "custom (read LICENSE.md)"}
+        {
+          "name": "@shopify/polaris",
+          "role": "components",
+          "license": "custom (read LICENSE.md: use is tied to Shopify)",
+          "repository": "https://github.com/Shopify/polaris"
+        },
+        {
+          "name": "@shopify/polaris-tokens",
+          "role": "tokens",
+          "license": "custom (read LICENSE.md)"
+        }
       ],
       "theming": "Meant to look like Shopify admin; apps inside Shopify follow it as is.",
       "cjk": "System font stack",
-      "license_note": "The license limits use outside the Shopify platform: read it before choosing Polaris for anything else."
+      "license_note": "The license limits use outside the Shopify platform: read it before choosing Polaris for anything else.",
+      "limits": {
+        "adjustable": [],
+        "fixed": [
+          "everything: Polaris is used as published inside Shopify"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--p-"
+        ],
+        "read_from": "@shopify/polaris-tokens"
+      }
     },
     {
       "id": "base-web",
       "name": "Base Web",
       "owner": "Uber",
       "docs": "https://baseweb.design",
-      "categories": ["enterprise-product", "data-dense", "composable"],
-      "fits": ["marketplace", "operations", "logistics", "internal tools", "overrides"],
+      "categories": [
+        "enterprise-product",
+        "data-dense",
+        "composable"
+      ],
+      "fits": [
+        "marketplace",
+        "operations",
+        "logistics",
+        "internal tools",
+        "overrides"
+      ],
       "avoid_for": [],
-      "platforms": ["web"],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "baseui", "role": "components", "license": "MIT", "repository": "https://github.com/uber/baseweb"}
+        {
+          "name": "baseui",
+          "role": "components",
+          "license": "MIT",
+          "repository": "https://github.com/uber/baseweb"
+        }
       ],
       "theming": "Theme objects and per-component overrides.",
-      "cjk": "System font stack"
+      "cjk": "System font stack",
+      "limits": {
+        "adjustable": [
+          "theme object",
+          "component overrides"
+        ],
+        "fixed": [
+          "focus",
+          "component behaviour"
+        ]
+      }
     },
     {
       "id": "govuk",
       "name": "GOV.UK Design System",
       "owner": "UK Government Digital Service",
       "docs": "https://design-system.service.gov.uk",
-      "categories": ["public-service"],
-      "fits": ["government", "public service", "forms", "transactions", "plain language", "accessibility", "everyone", "low digital skills"],
-      "avoid_for": ["anything that is not a UK government service may reuse patterns but must not use the GOV.UK brand, crown or typeface"],
-      "platforms": ["web"],
+      "categories": [
+        "public-service"
+      ],
+      "fits": [
+        "government",
+        "public service",
+        "forms",
+        "transactions",
+        "plain language",
+        "accessibility",
+        "everyone",
+        "low digital skills"
+      ],
+      "avoid_for": [
+        "anything that is not a UK government service may reuse patterns but must not use the GOV.UK brand, crown or typeface"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "govuk-frontend", "role": "components and styles", "license": "MIT", "repository": "https://github.com/alphagov/govuk-frontend"}
+        {
+          "name": "govuk-frontend",
+          "role": "components and styles",
+          "license": "MIT",
+          "repository": "https://github.com/alphagov/govuk-frontend"
+        }
       ],
       "theming": "Not themed: services use it as is. Outside UK government, reuse its patterns and research, never its brand.",
-      "cjk": "Not designed for CJK"
+      "cjk": "Not designed for CJK",
+      "limits": {
+        "adjustable": [],
+        "fixed": [
+          "everything: GOV.UK services use it as published; others reuse patterns, never its brand"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--govuk-"
+        ],
+        "read_from": "govuk-frontend"
+      }
     },
     {
       "id": "uswds",
       "name": "U.S. Web Design System",
       "owner": "U.S. General Services Administration",
       "docs": "https://designsystem.digital.gov",
-      "categories": ["public-service"],
-      "fits": ["government", "public service", "civic", "accessibility", "section 508", "forms", "everyone"],
+      "categories": [
+        "public-service"
+      ],
+      "fits": [
+        "government",
+        "public service",
+        "civic",
+        "accessibility",
+        "section 508",
+        "forms",
+        "everyone"
+      ],
       "avoid_for": [],
-      "platforms": ["web"],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@uswds/uswds", "role": "components, tokens and styles", "license": "custom (read LICENSE.md: public domain work plus third-party parts)", "repository": "https://github.com/uswds/uswds"}
+        {
+          "name": "@uswds/uswds",
+          "role": "components, tokens and styles",
+          "license": "custom (read LICENSE.md: public domain work plus third-party parts)",
+          "repository": "https://github.com/uswds/uswds"
+        }
       ],
       "theming": "Settings and design tokens (color grades, spacing units) themed through Sass settings; color grades keep contrast predictable by number.",
-      "cjk": "Not designed for CJK"
+      "cjk": "Not designed for CJK",
+      "limits": {
+        "adjustable": [
+          "theme settings",
+          "color grades within the system palette"
+        ],
+        "fixed": [
+          "spacing units",
+          "focus",
+          "component behaviour"
+        ]
+      }
     },
     {
       "id": "digital-agency-jp",
       "name": "Digital Agency Design System (デジタル庁デザインシステム)",
       "owner": "Digital Agency, Government of Japan",
       "docs": "https://design.digital.go.jp",
-      "categories": ["public-service", "japanese"],
-      "fits": ["japan", "japanese", "government", "public service", "local government", "accessibility", "forms", "everyone"],
+      "categories": [
+        "public-service",
+        "japanese"
+      ],
+      "fits": [
+        "japan",
+        "japanese",
+        "government",
+        "public service",
+        "local government",
+        "accessibility",
+        "forms",
+        "everyone"
+      ],
       "avoid_for": [],
-      "platforms": ["web"],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@digital-go-jp/design-tokens", "role": "tokens", "license": "MIT", "repository": "https://github.com/digital-go-jp/design-tokens"},
-        {"name": "@digital-go-jp/tailwind-theme-plugin", "role": "tailwind theme", "license": "MIT", "repository": "https://github.com/digital-go-jp/tailwind-theme-plugin"}
+        {
+          "name": "@digital-go-jp/design-tokens",
+          "role": "tokens",
+          "license": "MIT",
+          "repository": "https://github.com/digital-go-jp/design-tokens"
+        },
+        {
+          "name": "@digital-go-jp/tailwind-theme-plugin",
+          "role": "tailwind theme",
+          "license": "MIT",
+          "repository": "https://github.com/digital-go-jp/tailwind-theme-plugin"
+        }
       ],
       "theming": "Tokens for color, type, spacing and elevation built for Japanese text; services build on them.",
-      "cjk": "Built for Japanese"
+      "cjk": "Built for Japanese",
+      "limits": {
+        "adjustable": [
+          "service accent within the token palette"
+        ],
+        "fixed": [
+          "type scale",
+          "spacing scale",
+          "focus",
+          "color roles"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--color-",
+          "--font-",
+          "--elevation-"
+        ],
+        "read_from": "@digital-go-jp/design-tokens"
+      }
     },
     {
       "id": "smarthr",
       "name": "SmartHR Design System",
       "owner": "SmartHR",
       "docs": "https://smarthr.design",
-      "categories": ["enterprise-product", "japanese"],
-      "fits": ["japan", "japanese", "hr", "back office", "saas", "forms", "workflow", "b2b", "plain language"],
+      "categories": [
+        "enterprise-product",
+        "japanese"
+      ],
+      "fits": [
+        "japan",
+        "japanese",
+        "hr",
+        "back office",
+        "saas",
+        "forms",
+        "workflow",
+        "b2b",
+        "plain language"
+      ],
       "avoid_for": [],
-      "platforms": ["web"],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "smarthr-ui", "role": "components", "license": "MIT", "repository": "https://github.com/kufu/smarthr-ui"}
+        {
+          "name": "smarthr-ui",
+          "role": "components",
+          "license": "MIT",
+          "repository": "https://github.com/kufu/smarthr-ui"
+        }
       ],
       "theming": "Theme provider over color, space and type tokens; writing guidelines for Japanese UI text are part of the system.",
-      "cjk": "Built for Japanese"
+      "cjk": "Built for Japanese",
+      "limits": {
+        "adjustable": [
+          "theme provider colors"
+        ],
+        "fixed": [
+          "spacing scale",
+          "writing guidelines",
+          "focus",
+          "component behaviour"
+        ]
+      }
     },
     {
       "id": "spindle",
       "name": "Spindle",
       "owner": "CyberAgent (Ameba)",
       "docs": "https://spindle.ameba.design",
-      "categories": ["consumer", "japanese"],
-      "fits": ["japan", "japanese", "consumer", "media", "blog", "community", "mobile web"],
+      "categories": [
+        "consumer",
+        "japanese"
+      ],
+      "fits": [
+        "japan",
+        "japanese",
+        "consumer",
+        "media",
+        "blog",
+        "community",
+        "mobile web"
+      ],
       "avoid_for": [],
-      "platforms": ["web"],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@openameba/spindle-ui", "role": "components", "license": "MIT", "repository": "https://github.com/openameba/spindle"},
-        {"name": "@openameba/spindle-tokens", "role": "tokens", "license": "MIT", "repository": "https://github.com/openameba/spindle"}
+        {
+          "name": "@openameba/spindle-ui",
+          "role": "components",
+          "license": "MIT",
+          "repository": "https://github.com/openameba/spindle"
+        },
+        {
+          "name": "@openameba/spindle-tokens",
+          "role": "tokens",
+          "license": "MIT",
+          "repository": "https://github.com/openameba/spindle"
+        }
       ],
       "theming": "Tokens for color, type and motion; accessibility guidelines in Japanese.",
-      "cjk": "Built for Japanese"
+      "cjk": "Built for Japanese",
+      "limits": {
+        "adjustable": [
+          "theme colors"
+        ],
+        "fixed": [
+          "motion tokens",
+          "spacing scale",
+          "focus"
+        ]
+      }
     },
     {
       "id": "vibes",
       "name": "Vibes",
       "owner": "freee",
       "docs": "https://vibes.freee.co.jp",
-      "categories": ["enterprise-product", "data-dense", "japanese"],
-      "fits": ["japan", "japanese", "accounting", "finance", "back office", "small business", "saas", "tables"],
+      "categories": [
+        "enterprise-product",
+        "data-dense",
+        "japanese"
+      ],
+      "fits": [
+        "japan",
+        "japanese",
+        "accounting",
+        "finance",
+        "back office",
+        "small business",
+        "saas",
+        "tables"
+      ],
       "avoid_for": [],
-      "platforms": ["web"],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@freee_jp/vibes", "role": "components", "license": "Apache-2.0", "repository": "https://github.com/freee/vibes"}
+        {
+          "name": "@freee_jp/vibes",
+          "role": "components",
+          "license": "Apache-2.0",
+          "repository": "https://github.com/freee/vibes"
+        }
       ],
       "theming": "Components and tokens of freee's products; built for dense Japanese business screens.",
-      "cjk": "Built for Japanese"
+      "cjk": "Built for Japanese",
+      "limits": {
+        "adjustable": [
+          "product colors"
+        ],
+        "fixed": [
+          "component behaviour",
+          "spacing scale",
+          "focus"
+        ]
+      }
     },
     {
       "id": "guardian-source",
       "name": "Source",
       "owner": "Guardian News & Media",
       "docs": "https://theguardian.design",
-      "categories": ["editorial"],
-      "fits": ["news", "editorial", "publication", "magazine", "long read", "journalism", "reading"],
-      "avoid_for": ["the Guardian's brand and typefaces are its own: reuse the patterns, license the fonts yourself"],
-      "platforms": ["web"],
+      "categories": [
+        "editorial"
+      ],
+      "fits": [
+        "news",
+        "editorial",
+        "publication",
+        "magazine",
+        "long read",
+        "journalism",
+        "reading"
+      ],
+      "avoid_for": [
+        "the Guardian's brand and typefaces are its own: reuse the patterns, license the fonts yourself"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@guardian/source", "role": "components and foundations", "license": "Apache-2.0", "repository": "https://github.com/guardian/csnx"}
+        {
+          "name": "@guardian/source",
+          "role": "components and foundations",
+          "license": "Apache-2.0",
+          "repository": "https://github.com/guardian/csnx"
+        }
       ],
       "theming": "Foundations (palette, type, space, breakpoints) and components; the typefaces are proprietary.",
-      "cjk": "Not designed for CJK"
+      "cjk": "Not designed for CJK",
+      "limits": {
+        "adjustable": [
+          "palette within foundations"
+        ],
+        "fixed": [
+          "typefaces (proprietary)",
+          "breakpoints",
+          "spacing scale",
+          "focus"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--source-"
+        ],
+        "read_from": "@guardian/source"
+      }
     },
     {
       "id": "radix-themes",
       "name": "Radix Themes",
       "owner": "WorkOS",
       "docs": "https://www.radix-ui.com/themes",
-      "categories": ["composable", "developer-tools", "enterprise-product"],
-      "fits": ["saas", "startup", "dashboard", "developer tool", "react", "custom brand", "dark mode"],
+      "categories": [
+        "composable",
+        "developer-tools",
+        "enterprise-product"
+      ],
+      "fits": [
+        "saas",
+        "startup",
+        "dashboard",
+        "developer tool",
+        "react",
+        "custom brand",
+        "dark mode"
+      ],
       "avoid_for": [],
-      "platforms": ["web"],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "@radix-ui/themes", "role": "components", "license": "MIT", "repository": "https://github.com/radix-ui/themes"},
-        {"name": "@radix-ui/colors", "role": "tokens", "license": "MIT"}
+        {
+          "name": "@radix-ui/themes",
+          "role": "components",
+          "license": "MIT",
+          "repository": "https://github.com/radix-ui/themes"
+        },
+        {
+          "name": "@radix-ui/colors",
+          "role": "tokens",
+          "license": "MIT"
+        }
       ],
       "theming": "Accent and gray scales of 12 steps, radius, scaling and panel background; each step of a scale has a documented use, which keeps contrast when the accent changes.",
-      "cjk": "System font stack"
+      "cjk": "System font stack",
+      "limits": {
+        "adjustable": [
+          "accent scale",
+          "gray scale",
+          "radius",
+          "scaling",
+          "panel background"
+        ],
+        "fixed": [
+          "step meaning of each 12-step scale",
+          "focus",
+          "component behaviour"
+        ]
+      },
+      "css_tokens": {
+        "prefixes": [
+          "--accent-",
+          "--gray-",
+          "--space-",
+          "--radius-",
+          "--font-size-"
+        ],
+        "read_from": "@radix-ui/themes"
+      }
     },
     {
       "id": "shadcn-ui",
       "name": "shadcn/ui",
       "owner": "shadcn",
       "docs": "https://ui.shadcn.com",
-      "categories": ["composable", "developer-tools"],
-      "fits": ["saas", "startup", "dashboard", "react", "tailwind", "next.js", "custom brand"],
-      "avoid_for": ["teams that need a maintained package: the code is copied into the project and becomes the project's to maintain"],
-      "platforms": ["web"],
+      "categories": [
+        "composable",
+        "developer-tools"
+      ],
+      "fits": [
+        "saas",
+        "startup",
+        "dashboard",
+        "react",
+        "tailwind",
+        "next.js",
+        "custom brand"
+      ],
+      "avoid_for": [
+        "teams that need a maintained package: the code is copied into the project and becomes the project's to maintain"
+      ],
+      "platforms": [
+        "web"
+      ],
       "packages": [
-        {"name": "shadcn", "role": "cli that copies components (Radix primitives and Tailwind) into the project", "license": "MIT", "repository": "https://github.com/shadcn-ui/ui"}
+        {
+          "name": "shadcn",
+          "role": "cli that copies components (Radix primitives and Tailwind) into the project",
+          "license": "MIT",
+          "repository": "https://github.com/shadcn-ui/ui"
+        }
       ],
       "theming": "CSS variables for semantic colors (background, foreground, primary, muted…) and radius; components are owned by the project once copied.",
-      "cjk": "Inherits the project's fonts"
+      "cjk": "Inherits the project's fonts",
+      "limits": {
+        "adjustable": [
+          "semantic color variables",
+          "radius",
+          "components (owned by the project)"
+        ],
+        "fixed": [
+          "accessible behaviour of the Radix primitives",
+          "focus"
+        ]
+      }
     },
     {
       "id": "apple-hig",
       "name": "Human Interface Guidelines",
       "owner": "Apple",
       "docs": "https://developer.apple.com/design/human-interface-guidelines",
-      "categories": ["platform", "consumer"],
-      "fits": ["ios", "ipados", "macos", "visionos", "watchos", "native app", "apple"],
-      "avoid_for": ["web products that would imitate Apple's system UI"],
-      "platforms": ["ios", "macos", "visionos", "watchos", "tvos"],
+      "categories": [
+        "platform",
+        "consumer"
+      ],
+      "fits": [
+        "ios",
+        "ipados",
+        "macos",
+        "visionos",
+        "watchos",
+        "native app",
+        "apple"
+      ],
+      "avoid_for": [
+        "web products that would imitate Apple's system UI"
+      ],
+      "platforms": [
+        "ios",
+        "macos",
+        "visionos",
+        "watchos",
+        "tvos"
+      ],
       "packages": [],
       "theming": "Native: system colors, Dynamic Type and SF Symbols adapt by themselves; a brand sets the accent (tint) color.",
-      "cjk": "System fonts cover CJK"
+      "cjk": "System fonts cover CJK",
+      "limits": {
+        "adjustable": [
+          "accent (tint) color"
+        ],
+        "fixed": [
+          "system colors",
+          "Dynamic Type",
+          "SF Symbols",
+          "focus",
+          "controls"
+        ]
+      }
     }
   ]
 }

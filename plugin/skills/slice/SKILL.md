@@ -39,7 +39,9 @@ Mark it "in progress" in `docs/tracer/slices.md`.
    and confirm they fail.
 3. Implement until they pass. Touch only what the slice's requirements need.
 4. Link every new or changed symbol and test to its requirement (`@spec:`).
-5. Self-check the screens against the anti-pattern catalog, and the tests
+5. Run layout-inspector's `check_design_system` on each screen (prefixes
+   and overlay values from `design-system.md`) and fix every contrast failure
+   and off-token value. Self-check the screens against the anti-pattern catalog, and the tests
    against its testing anti-patterns.
 6. Anything you notice outside the slice: note it for `/tracer:scope`, do not
    build it.
