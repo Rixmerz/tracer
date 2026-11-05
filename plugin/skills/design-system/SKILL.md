@@ -53,8 +53,7 @@ every color pair the overlay sets as `#fg on #bg`.
 Call `check_overlay` with the base id and the table: besides the generic
 rules, it refuses a row that changes what the base keeps fixed (its
 `limits`), and some systems are used as published, with no overlay at all.
-Then and `check_contrast` for
-any pair it cannot read. Fix every problem before it is approved: a row
+Then call `check_contrast` for any pair it cannot read. Fix every problem before it is approved: a row
 without a base rule is an invented rule, a row that weakens focus, contrast,
 target size, labels, motion or errors is refused, and a pair under AA is
 changed. Record the choice in `identity.md` with a link to
