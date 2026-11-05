@@ -123,6 +123,10 @@ the product looks like one product built from its design system.
 | Off-system look: colors, type, spacing or components that do not come from the product's design system or identity | Compare the rendered styles with the design system's tokens and scan the code for raw values |
 | Moving controls: the primary action, save or close sits in a different place on each screen | Compare the position of common actions across screens |
 | One component, several behaviours: the same component validates, sorts or saves differently on two screens | Compare each repeated component's behaviour across screens |
+| Invented design system: tokens, components or rules made up for the project instead of taken from a documented design system | `docs/tracer/design-system.md` names a documented base with its packages; every token in the code traces to the base or to a row of its overlay |
+| Overlay over the rules: the brand overlay changes behaviour or accessibility the base owns (focus, contrast, target size, labels, motion, errors), or a value no base token defines | Run `check_overlay` on the overlay table and compare the rendered focus, contrast and target sizes with the base's documentation |
+| A style taken for a system: a visual style (glass, neumorphism, neon, pixel type) used without its base system's components and accessibility | Check each styled component is the base's component with overlay tokens, and test the style's catalogued risks |
+| Rebuilt base component: a component the base system provides, rebuilt by hand with different behaviour | List the base's components and search the code for hand-made equivalents |
 
 ## 8. Access
 

@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.9.0
+
+- Design catalog: documented design systems by category, with their owners,
+  documentation, packages and licenses (read from the npm registry), and
+  visual styles by family, each with its accessibility risks and the systems
+  that carry it.
+- `tracer-design-catalog`, an MCP server in the plugin (standard library
+  Python): ranks systems and styles for a context, writes the starting
+  `docs/tracer/design-system.md`, checks a brand overlay against its base and
+  checks WCAG contrast.
+- `/tracer:design-system`: the product is built on a documented design
+  system; a style or a company's brand is an overlay of only what it
+  changes, never an invented system. The contract, slice and verify steps
+  read `design-system.md`.
+- Four anti-patterns under consistency and identity: invented design system,
+  overlay over the rules, a style taken for a system and a rebuilt base
+  component.
+
 ## 0.8.0
 
 - New list, delivery anti-patterns, checked by the verifier before reading a

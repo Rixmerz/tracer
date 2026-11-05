@@ -347,6 +347,27 @@ them side by side, and record the choice as an identity guideline (palette,
 type, tone, motion). Later slices follow the guideline instead of returning
 to the average.
 
+The variants are never a design system invented for the occasion. The
+product is built on a design system that exists, is documented by its owner
+and is known to work in production: its rules, tokens, components and
+accessibility come from its documentation, not from the agent's memory. The
+company's identity is a **brand overlay** on it: a table of only the tokens
+and rules it changes, each naming what it changes in the base and why, and
+never weakening focus, contrast, target size, labels, motion or error
+behaviour. A visual style (calm craft, editorial, technical dark, soft 3D…)
+is an aesthetic direction, not a system: it has no components and no tested
+values, so it too is applied as an overlay on a base that can carry it.
+
+The plugin carries a design catalog for this choice: documented design
+systems by category (enterprise, dense data, commerce, public service,
+editorial, developer tools, consumer, Japanese, composable, platform), with
+their owners, documentation, packages and licenses, and visual styles by
+family, each with its accessibility risks and the systems that carry it. Its
+MCP server ranks systems and styles for a context, writes the starting
+`docs/tracer/design-system.md` and checks an overlay against its base,
+including the contrast of every color pair it sets. The outcome owner
+chooses; the catalog only proposes with reasons.
+
 ### 9.7 The deferred list
 
 Every expectation left out of the MEV goes to a deferred list with its

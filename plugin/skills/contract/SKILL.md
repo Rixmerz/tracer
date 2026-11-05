@@ -43,8 +43,10 @@ sign-off before phase 1.
    existing ones (livespec `search_similar`); extend instead of duplicating.
 3. **Empathy round.** Run the `/tracer:empathy` procedure on every
    capability: expectations, the MEV rule, improved and new specs, critical
-   flows, inherited floors and the deferred list. Then fix the identity of
-   the defining screens through two or three variants chosen by the user.
+   flows, inherited floors and the deferred list. Then choose the documented
+   design system with `/tracer:design-system` and fix the identity of the
+   defining screens through two or three variants of its brand overlay,
+   chosen by the user.
 4. Record architecture decisions for the destination as ADRs: data model,
    persistence, integrations, deployment.
 5. Validate strictly: no requirement without a scenario, no scenario without

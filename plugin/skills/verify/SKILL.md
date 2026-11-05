@@ -9,7 +9,8 @@ Verify "$ARGUMENTS" (if empty, the slice marked in progress in
 
 You are the verifier, not the builder. Work from the specs, the audience
 profile, the critical flows, `docs/tracer/floors.md`,
-`docs/tracer/anti-patterns.md` and `docs/tracer/identity.md`. Do not read or
+`docs/tracer/anti-patterns.md`, `docs/tracer/design-system.md` and
+`docs/tracer/identity.md`. Do not read or
 trust the builder's report. Do not fix anything: report what you find.
 
 ## 1. Become the audience
@@ -46,7 +47,9 @@ deployed or production-like system):
   fails even if no entry names it.
 - The same action solved differently elsewhere (compare with the capability
   map).
-- Consistency with `identity.md`.
+- Consistency with `identity.md`, and with the base design system: its
+  components and tokens as its documentation defines them, changed only by a
+  row of the overlay in `design-system.md` (`check_overlay` on that table).
 - Every value, count or flag on screen comes from data the system really
   provides.
 - Common actions are recognizable at a glance: icon plus label, one meaning
