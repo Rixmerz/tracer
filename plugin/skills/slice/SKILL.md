@@ -31,7 +31,7 @@ Mark it "in progress" in `docs/tracer/slices.md`.
 ## 2. Build
 
 1. Read the audience profile, the critical flows, the floors,
-   `docs/tracer/identity.md` and the anti-pattern catalog before any code.
+   `docs/tracer/design-system.md`, `docs/tracer/identity.md` and the anti-pattern catalog before any code.
    Never fill an unspecified interface detail with the common default: if
    the specs do not say, ask or propose a spec change.
 2. Turn each scenario into a test first, and each critical flow into an

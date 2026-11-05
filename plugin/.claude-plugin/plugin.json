@@ -1,13 +1,32 @@
 {
   "name": "tracer",
-  "version": "0.8.0",
-  "description": "The TRACER development method for AI agents: agree the Minimum Expected Value, specify all of it, then see it from the client's side, then build it in thin traced slices on the final architecture, verified through critical end-to-end flows and a UI/UX anti-pattern catalog. Uses livespec for spec-to-code traceability.",
+  "version": "0.9.0",
+  "description": "The TRACER development method for AI agents: agree the Minimum Expected Value, specify all of it, then see it from the client's side, then build it in thin traced slices on the final architecture, verified through critical end-to-end flows and a UI/UX anti-pattern catalog, on a documented design system chosen from a catalog. Uses livespec for spec-to-code traceability.",
   "author": {
     "name": "Juan Pablo Diaz",
     "email": "juanpablo516@gmail.com"
   },
   "homepage": "https://github.com/Rixmerz/tracer",
   "license": "CC-BY-4.0",
-  "keywords": ["methodology", "spec-driven", "traceability", "ai-agents", "slices", "e2e", "ux"],
-  "dependencies": ["livespec"]
+  "keywords": [
+    "methodology",
+    "spec-driven",
+    "traceability",
+    "ai-agents",
+    "slices",
+    "e2e",
+    "ux",
+    "design-system"
+  ],
+  "dependencies": [
+    "livespec"
+  ],
+  "mcpServers": {
+    "tracer-design-catalog": {
+      "command": "python3",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp/catalog_server.py"
+      ]
+    }
+  }
 }

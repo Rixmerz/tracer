@@ -36,6 +36,7 @@ Keep TRACER state in the repository, so it survives sessions:
 | `docs/tracer/flows/<capability>.md` | Critical flows with success and failure paths and WORKS / CORRECT criteria |
 | `docs/tracer/floors.md` | Component floors for this project (start from the template) |
 | `docs/tracer/anti-patterns.md` | Anti-pattern catalog for this project (start from the template) |
+| `docs/tracer/design-system.md` | The documented design system the product is built on, its style and the brand overlay that adapts it |
 | `docs/tracer/identity.md` | Identity guideline chosen from variants |
 | `docs/tracer/deferred.md` | Expectations left out on purpose, each with its reason |
 | `docs/tracer/slices.md` | Slice plan: status, capability, requirements, flows, rework |
@@ -123,9 +124,12 @@ started TRACER: suggest `/tracer:contract` instead of improvising.
      checkable. A CORRECT line you cannot check is badly written: rewrite it.
 7. **Component floors.** List the components each capability uses and copy
    their floors from `floors.md`, tuned to the audience.
-8. **Identity.** For the screens that define the product, produce two or
-   three variants, let the outcome owner choose, and record the choice in
-   `identity.md`.
+8. **Design system and identity.** Choose the base with
+   `/tracer:design-system`: a documented design system from the design
+   catalog (or the company's own documented one), never one invented for the
+   project. For the screens that define the product, produce two or three
+   variants as brand overlays of that base, let the outcome owner choose, and
+   record the choice in `design-system.md` and `identity.md`.
 9. **ADRs** for the destination: data model, persistence, integrations,
    deployment.
 10. **Validate strictly:** no requirement without a scenario, no scenario
@@ -150,7 +154,8 @@ architecture; it fits in 1 to 3 days.
 
 **Build:**
 
-1. Read the audience profile, the flows, the floors and `identity.md` first.
+1. Read the audience profile, the flows, the floors, `design-system.md` and
+   `identity.md` first. Use the base system's components and tokens.
 2. Turn scenarios and critical flows into failing tests: unit and integration
    for the WORKS halves, interface-driven end-to-end tests for the flows and
    their CORRECT halves.
@@ -202,9 +207,20 @@ principle it breaks, so it cannot escape again. Count it as an escaped expectati
 
 When you hand a slice to another agent or an orchestrator, its brief carries
 the audience profile, the critical flows with their WORKS and CORRECT lines,
-the inherited floors, the anti-pattern catalog and `identity.md`. Its
+the inherited floors, the anti-pattern catalog, `design-system.md` and `identity.md`. Its
 acceptance criteria are the CORRECT lines and the flows, not only the test
 command. Tests passing is necessary and never sufficient.
+
+## The design catalog
+
+The plugin's `tracer-design-catalog` server answers from a catalog of
+documented design systems (owner, documentation, packages and licenses read
+from the npm registry) and of visual styles (traits, accessibility risks and
+the systems that carry them): `search_design_systems`, `get_design_system`,
+`search_styles`, `get_style`, `design_system_brief`, `check_overlay` and
+`check_contrast`. A style is never a design system: it is a brand overlay on
+one. An overlay only changes what its base defines, and never weakens focus,
+contrast, target size, labels, motion or error behaviour.
 
 ## Traceability with livespec
 

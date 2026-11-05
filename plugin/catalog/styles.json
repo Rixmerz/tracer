@@ -1,0 +1,513 @@
+{
+  "about": "Visual styles: an aesthetic direction (type, color mood, shape, density, motion), never a design system. A style has no components, no tested tokens and no accessibility review of its own, so it is always applied as a brand overlay on a documented system from systems.json. The members are the styles of the author's own research, grouped where they are the same idea; their example values were drafts and are not kept.",
+  "styles": [
+    {
+      "id": "calm-craft",
+      "name": "Calm craft (Japanese minimalism)",
+      "members": [
+        "wabi-sabi-craft",
+        "ceramic-minimal-luxe",
+        "nordic-hygge"
+      ],
+      "traits": [
+        "generous empty space (ma)",
+        "few elements per screen",
+        "warm off-white and ink neutrals",
+        "serif (mincho) for display, sans (gothic) for interface",
+        "asymmetric balance",
+        "slow, quiet motion"
+      ],
+      "fits": [
+        "craft",
+        "artisan",
+        "luxury",
+        "hospitality",
+        "tea",
+        "ceramics",
+        "wellness",
+        "brand site",
+        "portfolio",
+        "lifestyle"
+      ],
+      "avoid_for": [
+        "dense tools",
+        "dashboards",
+        "transactions where people compare many options"
+      ],
+      "risks": [
+        "Low-contrast greys on warm paper fall under WCAG AA: check every text pair",
+        "Vertical writing (tategaki, writing-mode: vertical-rl) is for Japanese text only and must fall back to horizontal on narrow screens",
+        "Large empty space pushes the primary action below the fold on phones"
+      ],
+      "carriers": [
+        "digital-agency-jp",
+        "spindle",
+        "radix-themes",
+        "material-3"
+      ]
+    },
+    {
+      "id": "dense-commercial",
+      "name": "Dense commercial (Japanese marketplace)",
+      "members": [
+        "commercial-maximalism",
+        "fintech-dashboard-pro",
+        "dashboard-micro-saas"
+      ],
+      "traits": [
+        "high information density",
+        "badges for price, points, shipping and stock",
+        "compact cards",
+        "strong red or brand color for offers",
+        "everything visible without changing screens"
+      ],
+      "fits": [
+        "marketplace",
+        "price comparison",
+        "e-commerce japan",
+        "dense catalog",
+        "trading",
+        "back office",
+        "dashboard"
+      ],
+      "avoid_for": [
+        "brand storytelling",
+        "audiences with low digital skills"
+      ],
+      "risks": [
+        "Red text on yellow banners often fails contrast",
+        "Color alone used for status and offers (breaks the 'status with icon or text' floor)",
+        "Small type: keep body text at the base system's minimum size"
+      ],
+      "carriers": [
+        "vibes",
+        "ant-design",
+        "carbon",
+        "smarthr"
+      ]
+    },
+    {
+      "id": "editorial",
+      "name": "Editorial",
+      "members": [
+        "editorial-luxury",
+        "editorial-magazine",
+        "editorial-minimal-mono",
+        "minimal-creator-blog",
+        "neo-editorial-luxury",
+        "editorial-luxury-monochrome",
+        "brutalist-newspaper-print",
+        "bento-editorial-asymmetric"
+      ],
+      "traits": [
+        "type as the main element",
+        "serif display with a readable body face",
+        "measure of about 60-75 characters",
+        "thin rules instead of boxes",
+        "monochrome with one accent"
+      ],
+      "fits": [
+        "news",
+        "magazine",
+        "blog",
+        "newsletter",
+        "publication",
+        "fashion",
+        "gallery",
+        "architecture studio",
+        "long read"
+      ],
+      "avoid_for": [
+        "data-dense tools"
+      ],
+      "risks": [
+        "Very thin display serifs (Didone) break at small sizes and on low-density screens",
+        "Grey body text on white for elegance falls under AA"
+      ],
+      "carriers": [
+        "guardian-source",
+        "radix-themes",
+        "material-3"
+      ]
+    },
+    {
+      "id": "rational-grid",
+      "name": "Rational grid (Swiss and Bauhaus)",
+      "members": [
+        "swiss-typographic",
+        "bauhaus-constructivist",
+        "corporate-flat-minimal"
+      ],
+      "traits": [
+        "strict modular grid",
+        "flush-left sans type",
+        "hierarchy by scale and weight",
+        "flat color, primary accents",
+        "no decoration"
+      ],
+      "fits": [
+        "corporate",
+        "institution",
+        "b2b",
+        "documentation",
+        "signage",
+        "museum",
+        "architecture",
+        "product catalog"
+      ],
+      "avoid_for": [
+        "brands that need warmth or play"
+      ],
+      "risks": [
+        "Primary red and yellow on white fail contrast for small text",
+        "Giant display type pushes content below the fold on phones"
+      ],
+      "carriers": [
+        "carbon",
+        "uswds",
+        "govuk",
+        "material-3"
+      ]
+    },
+    {
+      "id": "technical-dark",
+      "name": "Technical dark",
+      "members": [
+        "dark-mode-glow",
+        "bento-grid-dark",
+        "cyberpunk-hacker-terminal",
+        "retro-terminal-command",
+        "cyber-command-dark",
+        "cyber-command-terminal",
+        "holographic-hud-space",
+        "bionic-tech-interface"
+      ],
+      "traits": [
+        "dark surfaces",
+        "1px borders",
+        "one luminous accent",
+        "monospace for data and code",
+        "precise, fast motion"
+      ],
+      "fits": [
+        "developer tool",
+        "ai product",
+        "infrastructure",
+        "observability",
+        "security",
+        "cli",
+        "console"
+      ],
+      "avoid_for": [
+        "audiences who read long text",
+        "public services"
+      ],
+      "risks": [
+        "Glow and neon accents on dark backgrounds pass contrast for large text only",
+        "Monospace body text slows reading: keep it for code and data",
+        "A dark theme still needs a light one when the audience profile says so"
+      ],
+      "carriers": [
+        "primer",
+        "carbon",
+        "radix-themes",
+        "shadcn-ui"
+      ]
+    },
+    {
+      "id": "neo-brutalist",
+      "name": "Neo-brutalist",
+      "members": [
+        "neo-brutalist-clean",
+        "neo-brutalism-vivid",
+        "neo-brutalist-soft-pop",
+        "modern-saas-minimal",
+        "agency-experimental-brutalist",
+        "swiss-brutalist",
+        "kinetic-brutal-ticker",
+        "brutalist-mesh-glitch"
+      ],
+      "traits": [
+        "thick dark borders",
+        "hard offset shadows without blur",
+        "flat saturated fills",
+        "heavy grotesque type",
+        "visible grid"
+      ],
+      "fits": [
+        "creator economy",
+        "indie product",
+        "agency",
+        "portfolio",
+        "festival",
+        "launch page",
+        "young audience"
+      ],
+      "avoid_for": [
+        "regulated or trust-first products",
+        "dense enterprise screens"
+      ],
+      "risks": [
+        "Moving tickers and marquees need a pause control (WCAG 2.2.2)",
+        "Saturated fills behind text: check every pair",
+        "Hard shadows on every element remove hierarchy: keep them for primary surfaces"
+      ],
+      "carriers": [
+        "radix-themes",
+        "shadcn-ui",
+        "base-web"
+      ]
+    },
+    {
+      "id": "soft-3d",
+      "name": "Soft 3D",
+      "members": [
+        "claymorphism-puffy",
+        "clay-3d-playful",
+        "soft-neumorphism-wellness",
+        "voxel-3d-isometric"
+      ],
+      "traits": [
+        "rounded volumes",
+        "double soft shadows or inner light",
+        "pastel surfaces",
+        "pressable buttons",
+        "large radius"
+      ],
+      "fits": [
+        "education",
+        "kids",
+        "gamified learning",
+        "wellness",
+        "meditation",
+        "consumer app",
+        "simulation"
+      ],
+      "avoid_for": [
+        "forms with many fields",
+        "data-dense screens",
+        "older audiences with low vision"
+      ],
+      "risks": [
+        "Neumorphism draws controls by shadow alone: their edges fall far under the 3:1 non-text contrast of WCAG 1.4.11",
+        "Pressed and unpressed states look alike: give state a second cue (icon, text, fill)",
+        "Heavy shadows cost rendering on low-end phones"
+      ],
+      "carriers": [
+        "material-3",
+        "radix-themes",
+        "spindle"
+      ]
+    },
+    {
+      "id": "translucent",
+      "name": "Translucent and spatial",
+      "members": [
+        "glassmorphism-spatial",
+        "aurora-gradient-blur",
+        "bento-mesh-holographic",
+        "bento-glass-ios-widgets"
+      ],
+      "traits": [
+        "frosted panels with backdrop blur",
+        "soft gradient light behind",
+        "large radius",
+        "depth by layers"
+      ],
+      "fits": [
+        "saas landing",
+        "spatial computing",
+        "media",
+        "product launch",
+        "widgets"
+      ],
+      "avoid_for": [
+        "text-heavy screens",
+        "public services"
+      ],
+      "risks": [
+        "Text over a moving or blurred background has no fixed contrast: test it on the worst part of the background",
+        "backdrop-filter is costly on low-end devices",
+        "Respect prefers-reduced-transparency and prefers-reduced-motion"
+      ],
+      "carriers": [
+        "fluent-2",
+        "apple-hig",
+        "material-3",
+        "radix-themes"
+      ]
+    },
+    {
+      "id": "retro-digital",
+      "name": "Retro digital",
+      "members": [
+        "y2k-skeuomorphism",
+        "cyber-y2k-chrome",
+        "vaporwave-neon-nostalgia",
+        "retrofuturism-synthwave",
+        "brutalist-web1",
+        "y2k-retro-arcade",
+        "showa-cyberpunk",
+        "cyberpunk-dystopia",
+        "cyber-yakuza-neon",
+        "psychedelic-acid-mesh"
+      ],
+      "traits": [
+        "period references (90s operating systems, 80s neon, 2000s chrome)",
+        "pixel or display type",
+        "bevels or glow",
+        "dark backgrounds with neon"
+      ],
+      "fits": [
+        "games",
+        "music",
+        "entertainment",
+        "fashion",
+        "events",
+        "nostalgia brand"
+      ],
+      "avoid_for": [
+        "productivity",
+        "public services",
+        "anything people use for hours"
+      ],
+      "risks": [
+        "Pixel fonts are illegible for body text: display only",
+        "Scanlines, flicker and glow can trigger discomfort: never flash more than three times a second (WCAG 2.3.1)",
+        "Neon on dark passes for large text only"
+      ],
+      "carriers": [
+        "radix-themes",
+        "shadcn-ui"
+      ]
+    },
+    {
+      "id": "playful",
+      "name": "Playful and kawaii",
+      "members": [
+        "kawaii-pop",
+        "cozy-kawaii-craft",
+        "memphis-postmodern",
+        "neo-memphis-geometric",
+        "paper-cutout-craft"
+      ],
+      "traits": [
+        "rounded type (maru gothic)",
+        "mascots and illustration",
+        "pastel with one strong accent",
+        "bouncy motion",
+        "decorative shapes"
+      ],
+      "fits": [
+        "kids",
+        "education",
+        "food",
+        "bakery",
+        "stationery",
+        "community",
+        "friendly public notices"
+      ],
+      "avoid_for": [
+        "finance",
+        "health decisions",
+        "legal"
+      ],
+      "risks": [
+        "Pastel text pairs fail contrast",
+        "Decorative shapes behind text reduce legibility",
+        "Bouncy motion needs prefers-reduced-motion"
+      ],
+      "carriers": [
+        "spindle",
+        "material-3",
+        "radix-themes"
+      ]
+    },
+    {
+      "id": "organic-eco",
+      "name": "Organic and eco",
+      "members": [
+        "biophilic-eco-organic",
+        "botanical-organic-curved",
+        "retro-futurism-solarpunk"
+      ],
+      "traits": [
+        "earth and leaf greens",
+        "asymmetric organic radius",
+        "natural textures",
+        "calm type"
+      ],
+      "fits": [
+        "sustainability",
+        "agriculture",
+        "natural cosmetics",
+        "outdoor",
+        "clean tech",
+        "wellness"
+      ],
+      "avoid_for": [
+        "dense tools"
+      ],
+      "risks": [
+        "Green-on-green pairs fail contrast and confuse red-green color blindness with status colors",
+        "Leaf-shaped corners on inputs hide where a field begins"
+      ],
+      "carriers": [
+        "material-3",
+        "radix-themes",
+        "carbon"
+      ]
+    },
+    {
+      "id": "heritage-ornamental",
+      "name": "Heritage and ornamental",
+      "members": [
+        "miyabi-heritage",
+        "art-deco-digital",
+        "yokai-gothic"
+      ],
+      "traits": [
+        "traditional patterns (wagara, deco geometry)",
+        "gold or lacquer accents",
+        "ceremonial symmetry",
+        "decorative serif display"
+      ],
+      "fits": [
+        "premium spirits",
+        "hotels",
+        "culture",
+        "museums",
+        "heritage brands",
+        "fantasy games"
+      ],
+      "avoid_for": [
+        "tools",
+        "forms"
+      ],
+      "risks": [
+        "Gold on cream and gold on black often fail contrast for body text",
+        "Patterned backgrounds behind text",
+        "Decorative display faces at body size"
+      ],
+      "carriers": [
+        "material-3",
+        "radix-themes",
+        "digital-agency-jp"
+      ]
+    }
+  ],
+  "layouts": {
+    "about": "Layout patterns found in the research. They are composition, not style: any system above can lay out a screen this way.",
+    "patterns": [
+      {
+        "id": "bento-grid",
+        "members": [
+          "modern-bento-grid",
+          "bento-grid-light",
+          "bento-grid-dark"
+        ],
+        "use": "feature overviews and dashboards of unequal cards; follow the composition anti-patterns (space in proportion to the work)"
+      }
+    ]
+  }
+}
