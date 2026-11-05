@@ -134,3 +134,27 @@ class Protocol(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Limits(unittest.TestCase):
+    def test_every_system_has_limits(self):
+        for s in cs.load("systems.json")["systems"]:
+            with self.subTest(s["id"]):
+                self.assertTrue(s["limits"]["fixed"])
+                for p in s.get("css_tokens", {}).get("prefixes", []):
+                    self.assertTrue(p.startswith("--") and p.endswith("-"), p)
+
+    def test_a_row_on_a_fixed_part_is_refused(self):
+        table = "| Base token or rule | Base value | Overlay value | Reason |\n| --- | --- | --- | --- |\n| spacing scale | 8px steps | 10px steps | roomier |\n"
+        r = cs.check_overlay("carbon", table)
+        self.assertTrue(any("keeps fixed" in p for p in r["problems"]), r["problems"])
+
+    def test_a_system_used_as_published_refuses_any_row(self):
+        table = "| Base token or rule | Base value | Overlay value | Reason |\n| --- | --- | --- | --- |\n| link color | #1d70b8 | #6929c4 | brand |\n"
+        self.assertFalse(cs.check_overlay("govuk", table)["ok"])
+
+    def test_brief_tells_how_to_check_the_render(self):
+        md = cs.design_system_brief("carbon")["markdown"]
+        self.assertIn('check_design_system', md)
+        self.assertIn('"--cds-"', md)
+        self.assertIn("Fixed by the base", md)

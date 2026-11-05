@@ -95,7 +95,9 @@ Tools: `search_design_systems`, `get_design_system`, `search_styles`,
 `get_style`, `design_system_brief`, `check_overlay`, `check_contrast`. A
 product is never given an invented design system: a style or a company's
 brand is an overlay of only what it changes on a documented base, checked
-against it.
+against it, and the render is measured against its tokens with
+[layout-inspector](https://github.com/Rixmerz/layout-inspector-mcp)'s
+`check_design_system`.
 
 To add a system, add an entry to `systems.json` with its owner's
 documentation and the packages and licenses its registry states, and run
