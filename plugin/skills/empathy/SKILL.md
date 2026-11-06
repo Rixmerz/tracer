@@ -1,4 +1,5 @@
 ---
+name: empathy
 description: Run the TRACER empathy round on one capability or all of them - see it from its audience's side, classify expectations, improve and add specs, write critical flows (phase 1)
 argument-hint: "[capability name; defaults to every capability in the map]"
 disable-model-invocation: true

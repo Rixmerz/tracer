@@ -1,4 +1,5 @@
 ---
+name: scope
 description: Run a new idea, correction or architecture change through the TRACER scope filter (phase 4)
 argument-hint: "[the proposed change in one sentence]"
 disable-model-invocation: true

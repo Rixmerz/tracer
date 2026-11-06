@@ -1,4 +1,5 @@
 ---
+name: slice
 description: Build one TRACER slice - check it is ready, implement it test-first, pass the gates and record its track (phase 3)
 argument-hint: "[slice number or name; defaults to the next planned slice]"
 disable-model-invocation: true

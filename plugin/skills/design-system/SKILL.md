@@ -1,4 +1,5 @@
 ---
+name: design-system
 description: Choose the documented design system a TRACER product is built on, the style it wears and the brand overlay that adapts it, from the design catalog (part of phase 1, identity)
 argument-hint: "[what the product is and who uses it]"
 disable-model-invocation: true

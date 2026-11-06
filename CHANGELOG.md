@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.2
+
+- Every skill names itself (`name`, as the Agent Skills spec requires; six of seven had none), and
+  `plugin/mcp/test_skills.py` checks each skill's frontmatter against the spec as anthropics/skills'
+  validator does: allowed keys, a kebab-case name equal to its folder, a description of at most
+  1024 characters with no angle brackets, YAML a strict parser reads, under 500 lines.
+
 ## 0.10.1
 
 - layout-inspector is a dependency of the plugin: the slice and verify steps
