@@ -1,4 +1,5 @@
 ---
+name: verify
 description: Independently verify a TRACER slice or an existing screen - drive its critical flows through the interface, check every CORRECT line, the component floors and the anti-pattern catalog (phase 3)
 argument-hint: "[slice number, capability or URL; defaults to the slice in progress]"
 disable-model-invocation: true

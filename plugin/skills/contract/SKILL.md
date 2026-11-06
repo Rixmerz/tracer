@@ -1,4 +1,5 @@
 ---
+name: contract
 description: Start a TRACER MEV - write the expectation contract and audience profiles, the base round of specs, the capability map, the ADRs and the slice plan (phases 0 and 1)
 argument-hint: "[short name of the MEV]"
 disable-model-invocation: true
