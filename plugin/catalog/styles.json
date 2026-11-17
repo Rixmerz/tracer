@@ -115,7 +115,10 @@
         "fashion",
         "gallery",
         "architecture studio",
-        "long read"
+        "long read",
+        "law firm",
+        "professional services",
+        "institutional site"
       ],
       "avoid_for": [
         "data-dense tools"

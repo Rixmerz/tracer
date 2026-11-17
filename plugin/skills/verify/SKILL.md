@@ -65,6 +65,28 @@ deployed or production-like system):
   first-hand, every item asked is accounted for, and the result is reachable
   the way the audience gets it.
 
+- Identity: `check_genericity` on each page, and every finding against
+  family 14 of the catalog ("Identity, not template").
+- Content: every literal line of `docs/tracer/content.md` reads exactly as
+  given, and no statement of fact on screen is missing from it.
+- Selectors and baselines: every selector of the slice matches an element;
+  the screens of earlier slices match their baselines in
+  `docs/tracer/baselines/`, at every width of the profile.
+- History: the slice's publish was based on the live version, and its
+  decision-log entry exists.
+
+## When the render cannot be checked here
+
+If this environment has no browser driver or layout-inspector, or forbids
+checking the render, do not pass anything that needs the render. Either:
+
+- verify from screenshots the person provides at each width of the profile,
+  with `${CLAUDE_PLUGIN_ROOT}/templates/visual-rubric.md`, each line with the
+  place on the image that decides it; or
+- hand the person the verification request
+  (`${CLAUDE_PLUGIN_ROOT}/templates/verification-request.md`) and give the
+  verdict **built, not verified**.
+
 ## 4. Report
 
 One table: each flow, CORRECT line, floor and anti-pattern as passed or

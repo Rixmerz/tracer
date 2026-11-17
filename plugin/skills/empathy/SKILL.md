@@ -10,9 +10,13 @@ Run the empathy round on "$ARGUMENTS" (if empty, every capability in
 production code is written in this command.
 
 Read first: `docs/tracer/contract.md`, `docs/tracer/audiences.md`,
-`docs/tracer/floors.md`, `docs/tracer/anti-patterns.md` and the capability's
-base-round specs. If there is no audience profile, stop and run the profile
-step of `/tracer:contract` first.
+`docs/tracer/floors.md`, `docs/tracer/anti-patterns.md`, `docs/tracer/content.md`
+and the capability's base-round specs. If there is no audience profile, stop
+and run the profile step of `/tracer:contract` first.
+
+This round is a gate: it runs before the first mock or variant is built,
+never after the design exists. If a mock already exists, run it now and treat
+what it finds as rework of the mock.
 
 ## 1. See it from the audience's side
 
@@ -33,6 +37,9 @@ For each capability, and each audience that uses it, answer in
    happened, in view and focused, without the whole page reloading?
 9. What would make them doubt what they see: numbers that do not add up,
    old data, or machine-filled values they cannot tell from confirmed ones?
+10. In their first five seconds, on their device, what must they find, and
+    how urgent is it? (Someone whose relative was just detained needs to call
+    now, from a phone, without reading.)
 
 Never answer with the most common solution you know for that kind of
 product. Answer from the profile: a human resources team picking training

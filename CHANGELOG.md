@@ -1,5 +1,72 @@
 # Changelog
 
+## 0.13.0
+
+- Examples book (`docs/examples/`): a one-page professional site in light
+  mode, a product slice with its gates and an escaped expectation, a team
+  sprint with the real output of `team_assign` and `team_balance`, a
+  retrospective, and a scope change.
+- `team_assign` ends every relay at the LT and flags a relay gap when fewer
+  than two other people may hold a card.
+- Every template and test is in English.
+
+## 0.12.0
+
+- Teams adaptation (`docs/adaptations/teams.md`): every card carries
+  complexity and responsibility (a rubric, highest factor wins); repository
+  profiles add a complexity multiplier and a responsibility floor; card types
+  (execution, diagnosis, analysis, exploration), with analysis timeboxed into
+  a spec; dynamic capacity from expertise per repository and speed per type;
+  responsibility capped by role and by repository expertise, with a
+  co-holder above the ceiling; cells of three with a relay A → B → C → LT
+  that never returns to A; evidence-based progress checks placed by
+  responsibility; a protected free margin of 20 to 25 %; capped pay for
+  absorbed load; technical leads' load; cross-team pull requests reviewed in
+  the margin; worst-case velocity and a speed / cruise / balance mode with
+  hysteresis and a bus-factor floor; metrics, parameters and risks.
+- Templates in `plugin/templates/team/`: card, responsibility rubric,
+  repository profile, person, assignment procedure, balance report.
+- `team_assign` and `team_balance` in the catalog server (`plugin/mcp/team.py`).
+- `/tracer:team`.
+
+## 0.11.0
+
+From the retrospective of a one-page site built without the toolchain (#5).
+
+- Anti-pattern catalog: a new family, **Identity, not template** (eyebrow
+  labels, middle-dot metadata, decorative monospace, big number with small
+  label, one word in color, numbering without a sequence, entrance effects
+  everywhere, endless motion, hover on every card, arrows in buttons,
+  template palette, one card style, ornaments sized apart from what they
+  frame); orphans in a grid and dead title columns under composition; client
+  words rewritten and facts nobody provided under trust; publishing over an
+  unread version, "not verified" reported as done and history with no
+  reasons under delivery; selectors that match nothing and no visual
+  baseline under testing.
+- `check_genericity` in the design catalog server: counts those traits in a
+  page's HTML and CSS.
+- The client's content is a requirement: `client-content.md` inventories it
+  as literal or free, each literal line is a scenario, and the builder adds
+  no fact the client did not give.
+- Verification without the toolchain: a slice that cannot be checked on its
+  render is "built, not verified" and hands the person a verification request
+  (390, 768 and 1440 px, the critical flow, the literal content, contrast);
+  `visual-rubric.md` for a separate verifier reading screenshots.
+- Audience profiles and the empathy round are a gate before the first mock,
+  with a light mode for small products; profiles name urgency and what the
+  person looks for in five seconds.
+- Decision log (`decisions.md`): one entry per slice, publish or version, with
+  the version it was based on; publishing checks the live version first.
+- Visual baselines per closed slice, compared by the next one.
+- Handbook: the client's content (8.4.1), decisions and versions (16), an
+  institutional-site profile and environments without the plugin (22), new
+  edge cases.
+- `/tracer:retro`: a retrospective from the decision log and the history,
+  marked fact, inference or hypothesis, whose lessons feed the floors and the
+  catalog.
+- The editorial style fits law firms, professional services and institutional
+  sites, so a brand look comes from the catalog instead of being invented.
+
 ## 0.10.2
 
 - Every skill names itself (`name`, as the Agent Skills spec requires; six of seven had none), and

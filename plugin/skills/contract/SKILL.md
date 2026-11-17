@@ -24,20 +24,33 @@ Ask the user, one question at a time, until each field has a concrete answer:
    know, their words, context, accessibility needs (default WCAG 2.2 AA),
    what they must never see, and the product genre. If nobody can describe
    an audience, stop until someone who knows them can.
-6. The candidate items as a MoSCoW list. For each one ask: does it move the
+6. The client's content. Inventory every text the client gave in
+   `docs/tracer/content.md` (template
+   `${CLAUDE_PLUGIN_ROOT}/templates/client-content.md`): literal (shown as
+   given: calls to action, headlines, claims) or free (may be grouped or
+   ordered, never given new facts). A cut or missing source is a question
+   for the client, never text you complete.
+7. The candidate items as a MoSCoW list. For each one ask: does it move the
    metric? Items that do not are *Could* and go to the post-MEV backlog.
 
 Write `docs/tracer/contract.md` from the expectation contract template
 `${CLAUDE_PLUGIN_ROOT}/templates/expectation-contract.md`, and write
-`docs/tracer/audiences.md` and `docs/tracer/backlog.md`. Copy the component
+`docs/tracer/audiences.md`, `docs/tracer/content.md`, `docs/tracer/backlog.md`
+and an empty `docs/tracer/decisions.md` from
+`${CLAUDE_PLUGIN_ROOT}/templates/decision-log.md`. Copy the component
 floors and anti-pattern catalog templates into `docs/tracer/floors.md` and
 `docs/tracer/anti-patterns.md`. Show the contract and wait for the user's
 sign-off before phase 1.
 
+For a small product (a one-page site, a landing page), use the
+institutional-site profile of the handbook (section 22): the metric is the
+right person contacting by the right channel; the profiles may be one line
+per field. Light mode never skips the profiles or the content inventory.
+
 ## Phase 1: complete spec
 
 1. **Base round.** Write every MEV requirement with at least one WHEN/THEN
-   scenario, in the project's spec tool (OpenSpec by default:
+   scenario (every literal line of the content inventory is one), in the project's spec tool (OpenSpec by default:
    `### Requirement:` / `#### Scenario:`), using the requirement template.
 2. **Capability map.** Group requirements by what the user can do and write
    `docs/tracer/capabilities.md`. Before adding a capability, search the

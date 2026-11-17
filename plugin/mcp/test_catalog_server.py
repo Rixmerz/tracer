@@ -158,3 +158,43 @@ class Limits(unittest.TestCase):
         self.assertIn('check_design_system', md)
         self.assertIn('"--cds-"', md)
         self.assertIn("Fixed by the base", md)
+
+
+class Genericity(unittest.TestCase):
+    SLOP = """<style>
+    .eyebrow{text-transform:uppercase;letter-spacing:.2em}
+    .k{text-transform:uppercase;letter-spacing:.1em}
+    .meta{font-family:'IBM Plex Mono',monospace}
+    @keyframes rise{from{opacity:0}} @keyframes stamp{to{transform:rotate(3deg)}} @keyframes shine{to{left:100%}}
+    .shine{animation:shine 3s infinite}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .card:hover{transform:translateY(-4px)} .row:hover{box-shadow:0 4px 8px #0003} .s:hover{transform:scale(1.02)}
+    </style>
+    <p class=eyebrow>Lawyer · Litigator · Santiago</p>
+    <h1>Your defence in <em>court.</em></h1>
+    <a class=btn href=#c>Request a consultation →</a>"""
+
+    def test_template_traits_are_found(self):
+        out = cs.check_genericity(self.SLOP)
+        found = {f["entry"] for f in out["findings"]}
+        self.assertFalse(out["ok"])
+        for entry in ("eyebrow labels", "middle-dot metadata", "decorative monospace", "entrance effects",
+                      "motion on its own", "hover on every card", "arrows glued to buttons", "orphans in a grid",
+                      "one word in color"):
+            self.assertIn(entry, found)
+
+    def test_a_plain_page_passes(self):
+        page = """<style>body{font-family:Fraunces,serif}.stages{display:grid;grid-template-columns:repeat(5,1fr)}
+        @keyframes ink{to{stroke-dashoffset:0}} @media (prefers-reduced-motion:reduce){*{animation:none}}</style>
+        <h1>Your defence, in the hands of the one who will stand in court.</h1><a href=#c>Request a consultation</a>"""
+        out = cs.check_genericity(page)
+        self.assertTrue(out["ok"], out["findings"])
+
+    def test_title_dots_do_not_count(self):
+        self.assertEqual(cs.check_genericity("<title>A · B · C</title><p>Text</p>")["counts"]["middle-dot metadata"], 0)
+
+
+class BrandStyles(unittest.TestCase):
+    def test_a_law_firm_site_is_offered_a_catalogued_style(self):
+        out = cs.search_styles("institutional site for a law firm, trial lawyer")
+        self.assertEqual(out["results"][0]["id"], "editorial")

@@ -216,8 +216,30 @@ Who will use the system, written before any spec:
 - **The product genre** the system belongs to (a learning platform, a store,
   a back office) and the conventions people bring from it.
 
+- **Their urgency** and **what they look for in their first five
+  seconds:** the one thing that decides whether they stay or act.
+
 If a system has several audiences (learners and administrators), write one
 profile each. Every capability later names the audience it serves.
+
+A small product (a one-page site) may write each profile in one line per
+field. It still writes them, and before the first mock: a design made first
+and read through the audience later is redesigned, not reviewed.
+
+### 8.4.1 The client's content
+
+Whatever text the client provides (calls to action, headlines, claims,
+service lists, biographies) is inventoried before any design, line by line,
+as **literal** (shown word for word; only the client changes it) or **free**
+(may be grouped, ordered or shortened, never given new facts). Each literal
+line becomes a requirement with a scenario, so changing it fails a test.
+
+The builder never adds a statement of fact the client did not provide: no
+dates, deadlines, guarantees, availability or professional claims. For a
+lawyer, a doctor or an accountant, each such statement is theirs to answer
+for. A missing or truncated source is a question for the client, not text to
+complete, and a request for a different tone is answered with hierarchy,
+order and design, not with new content.
 
 ### 8.5 The validation window
 
@@ -449,13 +471,16 @@ as a whole.
 | Trust and honesty | What the screen says is true, current and traceable, and what a machine produced is told apart from what a person confirmed | A total that is not the sum of its rows; AI-filled fields that look the same as validated ones |
 | Permissions and visibility | Each person sees what they need and may use, and nothing else | An action refused only after the form is filled; administration tools shown to every user |
 | Perceived speed | The person keeps working while the system works, and waits only for what they asked for | A whole-screen loader to save one field; nothing shown until every part has loaded |
+| Composition and space | The screen gives space in proportion to the work, and nothing important is squeezed, cut or orphaned | The document being read in a narrow column; the last card alone on its own row |
+| Identity, not template | The look comes from the client's world and the audience's task, not from a generator's defaults; every ornament has a reason | Upper-case labels over every title; every section fading in on scroll; a cream, serif and terracotta palette chosen for nobody |
 
 The full catalog, with every entry and how to detect it, is the
 [anti-pattern catalog template](../plugin/templates/anti-patterns.md).
 
 Part of the catalog can be checked automatically: layout and accessibility
 inspection, reading the rendered text for internal identifiers, codes and raw
-formats. The rest is checked by the verifier, walking the interface as the
+formats, and counting the traits of a template in the page's source (the
+design catalog's `check_genericity`). The rest is checked by the verifier, walking the interface as the
 audience would. Every anti-pattern found after a slice was marked done joins
 the catalog under the principle it breaks, and a case that no principle
 covers adds a new principle, so the method improves from one project to the
@@ -494,7 +519,8 @@ and validator.
    paths and *works / correct* criteria (section 10).
 5. **Fix the identity** of the defining screens through variants (section
    9.6).
-6. **Build the mock and get it validated.** A clickable mock of every screen,
+6. **Build the mock and get it validated.** Only after the audience profiles,
+   the content inventory and the empathy round: the mock answers them. A clickable mock of every screen,
    with all the details the client expects: real wording, states, empty and
    error cases, the anti-pattern catalog already applied. Iterate it with the
    outcome owner until they confirm it is what they expect. The mock is the
@@ -621,6 +647,23 @@ separate agent or person, working from the specs, the audience profile and
 the catalogs, never from the builder's report. A builder's claim of success is
 not evidence.
 
+**Not verified is a status, not a silence.** When the environment cannot
+render or measure the interface, or forbids it (some hosts allow no render
+check unless the person asks), the slice is *built, not verified*. It is
+handed to the person with a verification request: the widths to check (a
+phone of about 390 px, a tablet of about 768 px, a desktop of about 1440 px),
+the critical flow as steps, the literal content to compare and the contrast
+pairs already computed. What the person finds counts as rework, exactly as a
+verifier's finding does. When screenshots exist but no person from the
+audience does, a separate verifier, a person or a model that did not build
+the screen, scores them against the visual rubric, each line with the place
+on the image that decides it.
+
+**Every closed slice leaves a visual baseline.** Screenshots at each width of
+the profile are stored with the slice, and the next slice compares the screens
+it touches against them, so a change that breaks an earlier layout is caught
+by the gate, not by the person.
+
 **Evidence must show the target.** A screenshot of the login page, a measure
 of the wrong screen or a run in the wrong project proves nothing. Every piece
 of evidence names the screen, the signed-in audience and the data it ran on.
@@ -726,6 +769,24 @@ livespec for keeping specs linked to code.
 | Analyse impact | livespec | Call graph and diff impact before each review |
 | Record history | livespec tracks | Per range: which specs and symbols changed, and why |
 | Measure progress | livespec | Per-scenario verified flag, coverage audit |
+
+### Decisions and versions
+
+The chain also keeps its reasons. Every iteration that changes what the
+person sees (a slice, a publish, an artifact version, a commit) gets a short
+entry in the decision log: what triggered it, what changed, the alternative
+dropped, the criterion that decided, and the version or commit it was based
+on. When the work lives in a hosted artifact with no repository, the
+artifact's version ids play the role of commits, and the log is kept beside
+it.
+
+Before publishing, the builder checks the live version is the one the work
+started from. If someone else changed it, the builder reads it and merges
+before publishing, and says what was merged. A publish that overwrites a
+version nobody read loses work silently.
+
+A retrospective (`/tracer:retro`) is then assembled from the log and the
+history instead of reconstructed from memory.
 
 ### How each phase uses it
 
@@ -846,6 +907,10 @@ acts as verifier.
 | A task duplicates an existing capability | Extend the capability instead. If the two must differ, the difference is a spec change and goes through the filter. |
 | A slice works but is found incorrect after it was marked done | Reopen it as rework, add the missing *correct* criterion to its spec, and add the cause to a catalog so it cannot escape again. |
 | The empathy round produces more than the MEV can hold | Basic expectations of capabilities in the cut stay. Everything else goes through the filter or to the deferred list. |
+| The environment cannot or may not check the render | The slice is *built, not verified*; the person gets a verification request with each publish. Never report it as done. |
+| The client's content is cut, missing or ambiguous | Ask the client. Never complete it, and never write facts the client did not give. |
+| The live version changed since the builder read it | Read it, merge, publish, and record what was merged in the decision log. |
+| The client asks for a "less generic" or "more human" tone | Remove template traits (catalog family 14) and change hierarchy and order; keep the client's words and facts. |
 | An orchestrator marks tasks done on tests alone | Give it the critical flows, *correct* criteria and catalogs as its acceptance criteria, and run the verification gates with a separate verifier. |
 
 ## 21. FAQ
@@ -930,6 +995,37 @@ method.
 | In-house team with shifting priorities | Priority scoring between MEVs; switching only at a slice boundary, never mid-slice; notification rules for internal stakeholders |
 | Agency or team serving several clients | Capacity reserved per client; estimating and quoting in slices; time tracking per slice |
 | Regulated domain | Extra compliance gate; stricter rework threshold; audit trail built from tracks |
+| Institutional site or landing page | See the profile below |
+| A team of people sharing the slices | [Teams: responsibility, capacity and relay](adaptations/teams.md): complexity and responsibility per card, repository profiles, dynamic expertise, cells of three with a relay, progress checks, a protected free margin and a speed or balance mode |
+
+### Profile: institutional site or landing page
+
+A one-page site for a professional (a lawyer, a clinic, a studio) has no
+stateful flows and no obvious business metric, so the method is easy to drop.
+The profile keeps it, lighter:
+
+| TRACER | On an institutional site |
+| ------ | ------------------------ |
+| MEV metric | The right person contacts by the right channel: calls, messages or form sends per audience |
+| Audiences | Usually three or four: the person with an urgent need, the person comparing, the company or institution, the referred visitor who checks credentials |
+| Critical flows | Contact in an emergency from a phone, in two taps; check who the professional is and what they have done; reach the page meant for one's own case |
+| Client content | Inventoried and literal by default: in a professional's site, every claim is theirs to answer for |
+| Slices | One section, or one audience's path, each one verified or declared not verified |
+| Identity | A style from the catalog worn on a documented base, with its palette and type traced to the client's trade |
+| Gates | All nine; static quality and impact are small, never skipped |
+
+### Environments without the plugin
+
+The method does not depend on its toolchain. When an agent works where the
+plugin, livespec or layout-inspector are missing (a hosted design canvas, a
+chat agent, another editor), it says which tools are missing and keeps the
+method by hand: the contract, profiles, content inventory, empathy reviews,
+flows and decision log are markdown, written in the repository or beside the
+artifact; requirement links are kept by hand; the catalog is read from its
+JSON files. What cannot be done by hand is the render check, and that becomes
+a verification request to the person. When the host's own rules forbid
+checking the render, they win, and the slice says so instead of claiming it
+is done.
 
 Every adaptation plugs into the same two points of TRACER: the moment to
 switch work is the end of a slice, and the unit of work is the slice.
@@ -956,3 +1052,12 @@ Ready-to-copy templates live in [`../plugin/templates`](../plugin/templates):
 - [Critical flow](../plugin/templates/critical-flow.md)
 - [Component floors](../plugin/templates/component-floors.md)
 - [Anti-pattern catalog](../plugin/templates/anti-patterns.md)
+- [Client content inventory](../plugin/templates/client-content.md)
+- [Decision log](../plugin/templates/decision-log.md)
+- [Verification request](../plugin/templates/verification-request.md)
+- [Visual rubric](../plugin/templates/visual-rubric.md)
+- [Retrospective](../plugin/templates/retrospective.md)
+- [Design system](../plugin/templates/design-system.md)
+- [Team templates](../plugin/templates/team/)
+
+Worked examples of every step are in the [examples book](examples/).

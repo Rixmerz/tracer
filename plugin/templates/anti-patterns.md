@@ -169,6 +169,8 @@ machine produced is told apart from what a person confirmed.
 | Leftover demo data: placeholder text, sample records or test users in a real environment | Scan the rendered text and data of the target environment |
 | Search and sort that mislead: search only over the loaded page, numbers or dates sorted as text | Search for an item on another page; sort values like 9 and 10, and dates across months |
 | Pressure and tricks: pre-selected choices, hidden ways out, shaming wording, false urgency | Read every choice and every way to cancel as the audience |
+| Client words rewritten: text the client gave as fixed (a call to action, a headline, a legal claim, a service name) changed for tone or style | Compare every literal line of `docs/tracer/content.md` with the rendered text, word for word |
+| Facts nobody provided: statements of fact (dates, deadlines, guarantees, legal or medical claims, availability) written by the builder, not taken from a source the client owns | Every factual sentence on screen traces to a line of the content inventory, or is a question to the client and not on screen |
 
 ## 11. Permissions and visibility
 
@@ -210,6 +212,30 @@ and nothing important is squeezed, cut or pushed out of view by the layout.
 | Fixed proportions only: regions cannot be resized, collapsed or swapped when the task needs more room for one of them | Try to give more room to each region; check the main one can take the screen when needed |
 | Actions far from their content: the actions for a region (save, add, confirm) sit in another region or at the far edge of the screen, out of sight while the person works | Do the main task and check each needed action is visible from where it happens |
 | No hierarchy: every region has the same weight, padding and type size, so nothing tells the eye where to start | Look at the screen for five seconds and say what the main task is; ask someone from the audience |
+| Orphans in a grid: an automatic grid (`auto-fit`, `auto-fill`, wrapping flex) leaves the last item alone on its own row at some width | Count the items and render the grid at every width of the profile; set the columns from the item count, or check the last row never holds a single item |
+| Dead title column: a section split into a narrow title on one side and the text on the other, leaving most of the width empty | Measure the empty area of each two-column section at desktop width; the title goes above the text when the text is the main content |
+
+## 14. Identity, not template
+
+Principle: the look comes from the client's world and the audience's task,
+not from the defaults a generator reaches for; every ornament has a reason
+someone can name.
+
+| Anti-pattern | How to detect |
+| --- | --- |
+| Eyebrow labels: a small upper-case, letter-spaced label over every title ("01 · SERVICES") | Count elements with `text-transform: uppercase` and `letter-spacing` above headings (`check_genericity`); more than one per screen needs a reason |
+| Middle-dot metadata: facts strung together with `·` instead of written as a sentence | Search the rendered text for ` · `; outside a page title, each one needs a reason |
+| Decorative monospace: a monospaced face for labels, dates or small data in a product that shows no code | List the font families; a monospace one is used only for code or values the audience types |
+| Big number, small label: statistics as a large figure over a caption ("40+ years") by default, including figures that mean nothing ("1 lawyer") | List every large figure; each one is a measure the audience compares, not decoration |
+| One word in color: one word of a headline set in another color, weight or italic for emphasis | Scan headings for a single styled `em`, `span` or `strong` |
+| Numbering without a sequence: 01, 02, 03 on items that are not steps in an order | Check every numbered list is a real sequence the person follows |
+| Entrance effects everywhere: every section fades or slides in on scroll | Count the distinct animations and scroll-driven reveals; motion has one moment, tied to meaning or to an action |
+| Motion on its own: loops, marquees, shimmers and pulsing dots that run without an action and show no state | Load the page and wait without touching it; anything that keeps moving names the state it shows |
+| Hover on every card: every block lifts, glows or scales on hover, clickable or not | Hover each block; only what is clickable reacts |
+| Arrows glued to buttons: "→" appended to button text as decoration | Search button labels for arrows; an arrow marks navigation to another place, as an icon, not text |
+| Template palette: off-white with a display serif and one warm accent, or near-black with one neon accent, chosen with no reason from the client's world | `identity.md` names where the palette and type come from (the client's trade, materials, documents); "elegant" or "modern" is not a reason |
+| Same card everywhere: every block is a card with the same radius, border and shadow | Count components that share one radius and shadow; a section that is not a card is not drawn as one |
+| Ornament that does not fit its medium: a decorative shape sized apart from the photo or block it frames, so it overflows or falls short at some widths | Render at every width of the profile; decoration derives its size from what it decorates (a shadow or border on the element itself) |
 ```
 
 ## Testing anti-patterns
@@ -235,6 +261,8 @@ also fails on the base commit.
 | Tested as the wrong person: verification signed in as an administrator or the developer's account instead of the audience's role | Every piece of evidence names the account and role it ran as; the critical flows run as each audience |
 | Presence instead of meaning: tests assert that an element exists, not what the audience reads in it (its text, value or state) | Read the assertions of each critical-flow test |
 | One size only: the suite runs at a single viewport while the audience uses several devices | Run the end-to-end suite at each device size of the audience profile |
+| Selectors that match nothing: a style or test selector written for markup that is not there (`.list>div` over `<li>`), so it silently applies to nothing | Check every selector of the slice matches at least one element in the render (layout-inspector, or `querySelectorAll` in the browser) |
+| No visual baseline: a closed slice leaves no reference screenshots, so a later change that breaks its layout is noticed only by a person | Each closed slice stores screenshots at each width of the profile; the next slice compares against them |
 | Perfect data only: tests run on empty or tidy data, never on the volumes, lengths and gaps of real data | Seed a run with the largest, longest and most incomplete real records |
 | Tests bound to the clock: results depend on today's date or the time zone | Run the suite in another time zone and on a date at a month or year boundary |
 | Dependencies that never fail: every external service is faked only in its success | Each external dependency has at least one failing-path test |
@@ -269,4 +297,7 @@ so.
 | One-environment architecture: configuration, origins, secrets or names fit the local machine and ignore how the existing product is deployed in every environment | Compare each setting with the pattern the product already uses in each environment |
 | Inputs the contract does not list: a tool, command or interface accepts a closed set of values but does not state it, so callers invent one | Read each contract the slice adds; every closed set of values is listed where callers read it |
 | Silent end: the work stops without a result, or narrates progress that did not happen | The last message states the outcome; every "done" or "sent" in it has its evidence |
+| Published over a version not read: a publish, push or save replaces a live version that changed since the builder read it (a person's edit, another agent's work) | Before each publish, the live version id or commit equals the one the work started from; if not, the builder read it, merged and said so |
+| Not verified, reported as done: the environment forbade or lacked a render check, and the report says "done" instead of "built, not verified" with what the person must check | Every slice states its verification status; "not verified" carries the checklist handed to the person |
+| History with no reasons: versions, commits or publishes with no description, so nobody can tell later what changed and why | Each version or commit of the slice has an entry in `docs/tracer/decisions.md`: trigger, change, alternative dropped, reason |
 ```
