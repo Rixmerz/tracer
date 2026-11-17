@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.11.0
+
+From the retrospective of a one-page site built without the toolchain (#5).
+
+- Anti-pattern catalog: a new family, **Identity, not template** (eyebrow
+  labels, middle-dot metadata, decorative monospace, big number with small
+  label, one word in color, numbering without a sequence, entrance effects
+  everywhere, endless motion, hover on every card, arrows in buttons,
+  template palette, one card style, ornaments sized apart from what they
+  frame); orphans in a grid and dead title columns under composition; client
+  words rewritten and facts nobody provided under trust; publishing over an
+  unread version, "not verified" reported as done and history with no
+  reasons under delivery; selectors that match nothing and no visual
+  baseline under testing.
+- `check_genericity` in the design catalog server: counts those traits in a
+  page's HTML and CSS.
+- The client's content is a requirement: `client-content.md` inventories it
+  as literal or free, each literal line is a scenario, and the builder adds
+  no fact the client did not give.
+- Verification without the toolchain: a slice that cannot be checked on its
+  render is "built, not verified" and hands the person a verification request
+  (390, 768 and 1440 px, the critical flow, the literal content, contrast);
+  `visual-rubric.md` for a separate verifier reading screenshots.
+- Audience profiles and the empathy round are a gate before the first mock,
+  with a light mode for small products; profiles name urgency and what the
+  person looks for in five seconds.
+- Decision log (`decisions.md`): one entry per slice, publish or version, with
+  the version it was based on; publishing checks the live version first.
+- Visual baselines per closed slice, compared by the next one.
+- Handbook: the client's content (8.4.1), decisions and versions (16), an
+  institutional-site profile and environments without the plugin (22), new
+  edge cases.
+- `/tracer:retro`: a retrospective from the decision log and the history,
+  marked fact, inference or hypothesis, whose lessons feed the floors and the
+  catalog.
+- The editorial style fits law firms, professional services and institutional
+  sites, so a brand look comes from the catalog instead of being invented.
+
 ## 0.10.2
 
 - Every skill names itself (`name`, as the Agent Skills spec requires; six of seven had none), and

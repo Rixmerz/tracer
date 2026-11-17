@@ -27,6 +27,12 @@ Check and report each item. If one fails, stop and say what is missing.
 - The test environment runs: the full suite runs on the base commit, and the
   failures already there are recorded in the slice.
 
+- Its base is recorded: the commit or artifact version you read before
+  building ("Based on" in the slice).
+- How it will be verified is known: the browser and layout-inspector, or,
+  when the environment lacks them or forbids a render check, the
+  verification request the person will receive.
+
 Mark it "in progress" in `docs/tracer/slices.md`.
 
 ## 2. Build
@@ -42,10 +48,17 @@ Mark it "in progress" in `docs/tracer/slices.md`.
 4. Link every new or changed symbol and test to its requirement (`@spec:`).
 5. Run layout-inspector's `check_design_system` on each screen (prefixes
    and overlay values from `design-system.md`) and fix every contrast failure
-   and off-token value. Self-check the screens against the anti-pattern catalog, and the tests
+   and off-token value. Run `check_genericity` on each page and answer each
+   finding with its reason or remove it. Check every selector you wrote
+   matches an element of the render. Self-check the screens against the anti-pattern catalog, and the tests
    against its testing anti-patterns.
-6. Anything you notice outside the slice: note it for `/tracer:scope`, do not
+6. Never change or add to the client's literal content
+   (`docs/tracer/content.md`), and add no statement of fact it does not hold.
+7. Anything you notice outside the slice: note it for `/tracer:scope`, do not
    build it.
+8. Before publishing, pushing or saving, compare the live version with the
+   "Based on" version. If someone changed it, read it, merge, and say what
+   you merged. Then write the entry in `docs/tracer/decisions.md`.
 
 ## 3. Gates
 
@@ -63,6 +76,10 @@ Run and report each gate with its evidence:
 | Quality floor | The contract's thresholds still hold |
 | Human review | Hand the diff and the gate results to the user; wait for approval |
 
+If no gate that needs the render can run here, the slice is **built, not
+verified**: fill `${CLAUDE_PLUGIN_ROOT}/templates/verification-request.md`
+and hand it to the person with the publish. Never report it as done.
+
 A failed gate sends the slice back to step 3 and counts as rework: note it in
 `docs/tracer/slices.md`. If verification finds something no spec covered,
 add the CORRECT line and the catalog entry it proposes, and count an escaped
@@ -73,5 +90,8 @@ expectation.
 After the user approves and the slice is deployed:
 
 - Mark it "done" with its cycle time in days and any rework.
+- Store its visual baseline: screenshots at each width of the profile in
+  `docs/tracer/baselines/<slice>/`, and compare the screens of the slices it
+  touched against theirs.
 - Record its track: which specs and symbols changed, and why.
 - Report MEV coverage, slices remaining and the updated forecast.

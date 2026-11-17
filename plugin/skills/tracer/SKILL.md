@@ -31,6 +31,8 @@ Keep TRACER state in the repository, so it survives sessions:
 | ---- | ----- |
 | `docs/tracer/contract.md` | Expectation contract: metric, target, quality floor, audiences, validation window, validator, Must/Should |
 | `docs/tracer/audiences.md` | One audience profile per audience |
+| `docs/tracer/content.md` | The client's content inventory: every text they gave, literal or free, and the open questions |
+| `docs/tracer/decisions.md` | Decision log: one entry per slice, publish or version, with trigger, change, alternative dropped, reason and the version it was based on |
 | `docs/tracer/capabilities.md` | The capability map: what the user can do, each entry linked to its requirements |
 | `docs/tracer/empathy/<capability>.md` | The empathy review of each capability |
 | `docs/tracer/flows/<capability>.md` | Critical flows with success and failure paths and WORKS / CORRECT criteria |
@@ -41,6 +43,8 @@ Keep TRACER state in the repository, so it survives sessions:
 | `docs/tracer/deferred.md` | Expectations left out on purpose, each with its reason |
 | `docs/tracer/slices.md` | Slice plan: status, capability, requirements, flows, rework |
 | `docs/tracer/backlog.md` | Post-MEV backlog |
+| `docs/tracer/baselines/` | Reference screenshots of each closed slice, at each width of the profile |
+| `docs/tracer/retros/` | Retrospectives (`/tracer:retro`) |
 
 Specs and ADRs live wherever the project's spec tool keeps them (OpenSpec
 `openspec/` by default). If `docs/tracer/` is missing, the project has not
@@ -72,6 +76,31 @@ started TRACER: suggest `/tracer:contract` instead of improvising.
     it until the outcome owner validates it. Then development goes from the
     validated mock straight to the MEV: there is no proof of concept and no
     MVP.
+11. **The client's words are requirements.** Text the client gave as fixed
+    (calls to action, headlines, claims, service names) is shown as given,
+    and you never add a statement of fact the client did not provide. A
+    missing fact is a question to the client, not text on screen. A request
+    for a different tone changes hierarchy, order and design, not the facts.
+12. **Not verified is said, never hidden.** If the environment cannot render
+    or measure the interface, or forbids it, the slice is "built, not
+    verified" and you hand the person the verification request; you never
+    report it as done.
+13. **Never publish over what you did not read.** Before a publish, push or
+    save, check the live version is the one you started from; if not, read
+    it and merge.
+14. **Every iteration leaves its reason.** Each slice, publish or version
+    gets an entry in `decisions.md`.
+
+## Size of the project
+
+A small product (a one-page site, a landing page, an institutional site)
+runs the same method in light mode, with the institutional-site profile of
+the handbook (section 22): the metric is the right person contacting by the
+right channel, the critical flows are the urgent contact from a phone and
+checking the credentials, and a slice is a section. Light mode shortens the
+documents, never the order: audience profiles and the empathy round come
+before the first mock, the client's content is inventoried before any
+design, and every slice is verified or declared not verified.
 
 ## How to follow the method
 
@@ -80,14 +109,18 @@ started TRACER: suggest `/tracer:contract` instead of improvising.
 1. Ask, one question at a time: outcome owner; metric, current value and
    target (no metric means not ready for TRACER); quality floor; validation
    window and validator.
-2. **Audience profile, for each audience:** who they are, what they are
+2. **Client content.** Inventory every text the client gave in
+   `docs/tracer/content.md` (template `client-content.md`): literal or free,
+   where it goes, and the questions for what is missing or cut. A truncated
+   source is a question, never something to complete.
+3. **Audience profile, for each audience:** who they are, what they are
    trying to get done, what they know and do not know, their words, their
    devices and context, accessibility needs (default WCAG 2.2 AA), what they
    must never see, and the product genre they recognise. If nobody can
    describe the audience, stop: talk to someone who knows them first.
-3. MoSCoW list; for each item ask whether it moves the metric. Items that do
+4. MoSCoW list; for each item ask whether it moves the metric. Items that do
    not are *Could* and go to the backlog.
-4. Write the contract and the profiles. Wait for sign-off.
+5. Write the contract, the profiles and the content inventory. Wait for sign-off.
 
 ### Phase 1 · Complete spec (`/tracer:contract`, then `/tracer:empathy`)
 
@@ -129,7 +162,11 @@ started TRACER: suggest `/tracer:contract` instead of improvising.
    catalog (or the company's own documented one), never one invented for the
    project. For the screens that define the product, produce two or three
    variants as brand overlays of that base, let the outcome owner choose, and
-   record the choice in `design-system.md` and `identity.md`.
+   record the choice in `design-system.md` and `identity.md`. A look
+   asked for by the client (a law firm's, a hotel's) is a style from the
+   catalog worn as an overlay, never an aesthetic invented for the occasion,
+   and `identity.md` names where each choice comes from in the client's
+   world. Check the variants with `check_genericity`.
 9. **ADRs** for the destination: data model, persistence, integrations,
    deployment.
 10. **Validate strictly:** no requirement without a scenario, no scenario
@@ -162,7 +199,11 @@ architecture; it fits in 1 to 3 days.
 3. Implement until they pass. Touch only what the slice needs; anything else
    goes to `/tracer:scope`.
 4. Link code and tests to requirements (`@spec:`).
-5. Self-check against the anti-pattern catalog before handing over.
+5. Self-check against the anti-pattern catalog before handing over,
+   including `check_genericity` on each page and a check that every selector
+   you wrote matches an element of the render.
+6. Before publishing, compare the live version with the one you read
+   (rule 13), then write the decision-log entry.
 
 **Gates** (all nine, each with evidence):
 
@@ -183,8 +224,11 @@ the builder** (`/tracer:verify`, or a separate agent or person), working from
 the specs, profiles and catalogs, never from the builder's report. A failed
 gate sends the slice back and counts as rework.
 
-**Close:** mark it done with cycle time and rework, record its track, report
-MEV coverage and the updated forecast.
+**Close:** mark it done with cycle time and rework, store its visual
+baseline (screenshots at each width of the profile in
+`docs/tracer/baselines/<slice>/`), record its track, report MEV coverage and
+the updated forecast. The next slice compares its screens against the
+baselines of the slices it touches.
 
 ### Phase 4 · Scope control (`/tracer:scope`)
 
@@ -203,6 +247,25 @@ marked done: reopen it as rework, add the missing CORRECT line to its spec,
 and add the cause to `floors.md`, or to `anti-patterns.md` under the
 principle it breaks, so it cannot escape again. Count it as an escaped expectation.
 
+## Without the plugin
+
+The method does not need the plugin. When its tools are missing, say once
+which ones, and keep going by hand:
+
+| Needs the plugin or its servers | Works in any agent |
+| --- | --- |
+| Commands (`/tracer:*`) | The same steps, read from this skill or the handbook |
+| livespec links and audits | Requirement ids written next to the code and in the slice, checked by hand |
+| layout-inspector measures | The verification request (`verification-request.md`) handed to the person, and the visual rubric (`visual-rubric.md`) for a separate verifier reading screenshots |
+| `tracer-design-catalog` tools | `catalog/systems.json` and `styles.json` read directly; contrast computed by script |
+| | Contract, profiles, content inventory, empathy reviews, flows, decision log: markdown files in the repository, or in the artifact when there is no repository |
+
+When the host forbids rendering or checking the result (some artifact
+types do), that rule wins, and the slice is "built, not verified": say so and
+hand over the verification request with each publish. Ask the person whether
+a render check may be run; their permission lifts the host's rule for that
+slice.
+
 ## Briefing an orchestrator or another agent
 
 When you hand a slice to another agent or an orchestrator, its brief carries
@@ -217,8 +280,9 @@ The plugin's `tracer-design-catalog` server answers from a catalog of
 documented design systems (owner, documentation, packages and licenses read
 from the npm registry) and of visual styles (traits, accessibility risks and
 the systems that carry them): `search_design_systems`, `get_design_system`,
-`search_styles`, `get_style`, `design_system_brief`, `check_overlay` and
-`check_contrast`. A style is never a design system: it is a brand overlay on
+`search_styles`, `get_style`, `design_system_brief`, `check_overlay`,
+`check_contrast` and `check_genericity` (the traits of the "Identity, not
+template" family in a page's HTML and CSS). A style is never a design system: it is a brand overlay on
 one. An overlay only changes what its base defines, and never weakens focus,
 contrast, target size, labels, motion or error behaviour.
 
@@ -251,3 +315,4 @@ any untraced code.
 | `/tracer:slice` | 3 | One slice: ready check, test-first build, gates, track |
 | `/tracer:verify` | 3 | Independent verification: critical flows, CORRECT lines, floors and anti-patterns |
 | `/tracer:scope` | 4 | Runs an idea or correction through the scope filter |
+| `/tracer:retro` | any | Retrospective from the decision log and the history; its lessons become floors and catalog entries |

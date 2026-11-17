@@ -16,7 +16,7 @@ from pathlib import Path
 
 CATALOG = Path(__file__).resolve().parent.parent / "catalog"
 PROTOCOL = "2025-06-18"
-VERSION = "0.10.0"
+VERSION = "0.11.0"
 
 # Rules a brand overlay may never weaken: they are the base system's
 # accessibility and behaviour, not its look.
@@ -279,6 +279,59 @@ def check_overlay(base: str, overlay: str) -> dict:
             "ok": not problems and bool(rows)}
 
 
+# --- Genericity: the defaults a generator reaches for -----------------------
+
+_RULE = re.compile(r"([^{}]+)\{([^{}]*)\}")
+_TAG = re.compile(r"<[^>]+>")
+
+
+def _blocks(css: str) -> list[tuple[str, str]]:
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    return [(sel.strip(), body.lower()) for sel, body in _RULE.findall(css)]
+
+
+def check_genericity(html: str, css: str = "") -> dict:
+    """Count the traits of the "Identity, not template" family in a page's markup and styles.
+
+    A count above its limit is a question for the builder, not a verdict: each
+    finding names the catalog entry and asks for the reason from the client's
+    world. Styles inside <style> elements of the html are read too.
+    """
+    styles = css + "\n" + "\n".join(re.findall(r"<style[^>]*>(.*?)</style>", html, re.S | re.I))
+    blocks = _blocks(styles)
+    body = re.sub(r"<(script|style|title)[^>]*>.*?</\1>", "", html, flags=re.S | re.I)
+    text = re.sub(r"\s+", " ", _TAG.sub(" ", body))
+    counts = {
+        "eyebrow labels": sum(1 for _, b in blocks if "uppercase" in b and "letter-spacing" in b),
+        "middle-dot metadata": len(re.findall(r"\S\s+[·•]\s+\S", text)),
+        "decorative monospace": len({b for _, b in blocks if re.search(r"font-family:[^;]*mono", b)}),
+        "entrance effects": len(re.findall(r"@keyframes", styles, re.I))
+        + len(re.findall(r"animation-timeline\s*:\s*view", styles, re.I)),
+        "motion on its own": len(re.findall(r"\binfinite\b", styles, re.I)),
+        "hover on every card": sum(1 for sel, b in blocks if ":hover" in sel and re.search(r"transform|box-shadow|translate|scale", b)),
+        "arrows glued to buttons": len(re.findall(r"<(?:a|button)\b[^>]*>[^<]*(?:→|->|&rarr;)\s*</(?:a|button)>", html, re.I)),
+        "orphans in a grid": len(re.findall(r"repeat\(\s*auto-(?:fit|fill)", styles, re.I)),
+        "numbering without a sequence": len(re.findall(r"(?<![\d.,])0[1-9](?![\d.,%])", text)),
+        "one word in color": len(re.findall(r"<h[1-3][^>]*>[^<]*<(?:em|span|strong|i)\b[^>]*>[^<]{1,24}</(?:em|span|strong|i)>[^<]*</h[1-3]>", html, re.I)),
+    }
+    shadows = {}
+    for _, b in blocks:
+        m = re.search(r"box-shadow:([^;]+)", b)
+        r = re.search(r"border-radius:([^;]+)", b)
+        if m and r:
+            key = (m.group(1).strip(), r.group(1).strip())
+            shadows[key] = shadows.get(key, 0) + 1
+    counts["same card everywhere"] = max(shadows.values(), default=0)
+    limits = {"eyebrow labels": 1, "middle-dot metadata": 1, "decorative monospace": 0, "entrance effects": 2,
+              "motion on its own": 0, "hover on every card": 2, "arrows glued to buttons": 0, "orphans in a grid": 0,
+              "numbering without a sequence": 3, "one word in color": 0, "same card everywhere": 3}
+    findings = [{"entry": k, "count": counts[k], "limit": limits[k],
+                 "ask": f"Name the reason for each from the client's world or the audience's task, or remove it ('{k}' in the anti-pattern catalog, family 14)."}
+                for k in counts if counts[k] > limits[k]]
+    return {"counts": counts, "findings": findings, "ok": not findings,
+            "note": "Heuristics on the source, not the render: a finding is a question; the verifier still walks the page."}
+
+
 # --- MCP over stdio ----------------------------------------------------------
 
 def _schema(props: dict, required: list[str]) -> dict:
@@ -296,6 +349,7 @@ TOOLS = {
     "get_style": (get_style, "One visual style: traits, fits, accessibility risks and the systems that can carry it.", _schema({"id": S}, ["id"])),
     "design_system_brief": (design_system_brief, "The starting text of docs/tracer/design-system.md for a base system and an optional style: sources, packages, licenses and an empty overlay table.", _schema({"system": S, "style": S}, ["system"])),
     "check_overlay": (check_overlay, "Check a brand overlay table against its base: every row names a base rule, has a reason, weakens no protected rule, and every 'X on Y' color pair passes AA.", _schema({"base": S, "overlay": S}, ["base", "overlay"])),
+    "check_genericity": (check_genericity, "Count the traits of the anti-pattern family 'Identity, not template' in a page's HTML and CSS (eyebrow labels, middle dots, decorative monospace, entrance effects, endless motion, hover on every card, arrows in buttons, auto-fit grids, fake numbering, one word in color, one card style everywhere). Each count over its limit is a question for the builder.", _schema({"html": S, "css": S}, ["html"])),
     "check_contrast": (check_contrast, "WCAG contrast ratio of two hex colors, with AA and AAA verdicts.", _schema({"foreground": S, "background": S}, ["foreground", "background"])),
 }
 

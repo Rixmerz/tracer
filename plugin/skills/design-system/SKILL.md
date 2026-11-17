@@ -35,10 +35,16 @@ to their owner's platform). The outcome owner chooses; record why.
 ## 3. Propose a style, if the identity needs one
 
 When the contract or the owner asks for a look beyond the base (calm craft,
-editorial, technical dark…), call `search_styles`. A style brings traits and
+editorial, technical dark…), or the client's trade has one of its own (a
+law firm, a hotel, a studio), call `search_styles` with that trade. Never
+answer a brand request with an aesthetic you invent. A style brings traits and
 risks, never components or tested values. Prefer a style whose `carriers`
 include the chosen base; if not, say why the base still fits. Then produce
 the two or three identity variants of phase 1 as overlays of this one base.
+Each variant names where its palette, type and motion come from in the
+client's world (their documents, materials, trade), and passes
+`check_genericity`: a template palette or a page of entrance effects is not
+an identity.
 
 ## 4. Write the design system file
 
