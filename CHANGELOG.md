@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.13.0
+
+- Examples book (`docs/examples/`): a one-page professional site in light
+  mode, a product slice with its gates and an escaped expectation, a team
+  sprint with the real output of `team_assign` and `team_balance`, a
+  retrospective, and a scope change.
+- `team_assign` ends every relay at the LT and flags a relay gap when fewer
+  than two other people may hold a card.
+- Every template and test is in English.
+
 ## 0.12.0
 
 - Teams adaptation (`docs/adaptations/teams.md`): every card carries

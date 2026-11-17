@@ -170,9 +170,9 @@ class Genericity(unittest.TestCase):
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
     .card:hover{transform:translateY(-4px)} .row:hover{box-shadow:0 4px 8px #0003} .s:hover{transform:scale(1.02)}
     </style>
-    <p class=eyebrow>Abogada · Litigante · Santiago</p>
-    <h1>Su defensa en el <em>tribunal.</em></h1>
-    <a class=btn href=#c>Solicitar consulta →</a>"""
+    <p class=eyebrow>Lawyer · Litigator · Santiago</p>
+    <h1>Your defence in <em>court.</em></h1>
+    <a class=btn href=#c>Request a consultation →</a>"""
 
     def test_template_traits_are_found(self):
         out = cs.check_genericity(self.SLOP)
@@ -186,7 +186,7 @@ class Genericity(unittest.TestCase):
     def test_a_plain_page_passes(self):
         page = """<style>body{font-family:Fraunces,serif}.stages{display:grid;grid-template-columns:repeat(5,1fr)}
         @keyframes ink{to{stroke-dashoffset:0}} @media (prefers-reduced-motion:reduce){*{animation:none}}</style>
-        <h1>Su defensa, en manos de quien estará en el tribunal.</h1><a href=#c>Solicitar consulta</a>"""
+        <h1>Your defence, in the hands of the one who will stand in court.</h1><a href=#c>Request a consultation</a>"""
         out = cs.check_genericity(page)
         self.assertTrue(out["ok"], out["findings"])
 

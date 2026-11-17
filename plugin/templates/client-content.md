@@ -10,8 +10,8 @@ Complete? yes / no: <where it is cut or what is missing>
 
 | Id | Text (as given) | Kind (literal / free) | Where it goes | Requirement |
 | --- | --- | --- | --- | --- |
-| C1 | Solicitar consulta | literal: call to action | Primary button, every screen | REQ-cta |
-| C2 | Más de 40 años de trayectoria | literal: claim | Home | REQ-home-claims |
+| C1 | Request a consultation | literal: call to action | Primary button, every screen | REQ-cta |
+| C2 | Over 40 years in practice | literal: claim | Home | REQ-home-claims |
 | C3 | <service list> | free: may be grouped, not reworded | Services | REQ-services |
 
 Literal: shown word for word; only the client changes it.
@@ -27,7 +27,7 @@ Each literal line becomes a scenario:
 ```markdown
 #### Scenario: the call to action is the client's
 - WHEN any screen renders
-- THEN the primary button reads "Solicitar consulta"
+- THEN the primary button reads "Request a consultation"
 - WORKS: the button text equals content C1
 - CORRECT: the person reads exactly the client's words, in every width
 ```

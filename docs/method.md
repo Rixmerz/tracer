@@ -1058,3 +1058,6 @@ Ready-to-copy templates live in [`../plugin/templates`](../plugin/templates):
 - [Visual rubric](../plugin/templates/visual-rubric.md)
 - [Retrospective](../plugin/templates/retrospective.md)
 - [Design system](../plugin/templates/design-system.md)
+- [Team templates](../plugin/templates/team/)
+
+Worked examples of every step are in the [examples book](examples/).

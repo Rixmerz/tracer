@@ -19,7 +19,7 @@ from team import assign as team_assign, team_balance  # noqa: E402
 
 CATALOG = Path(__file__).resolve().parent.parent / "catalog"
 PROTOCOL = "2025-06-18"
-VERSION = "0.12.0"
+VERSION = "0.13.0"
 
 # Rules a brand overlay may never weaken: they are the base system's
 # accessibility and behaviour, not its look.

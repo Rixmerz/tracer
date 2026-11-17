@@ -32,6 +32,12 @@ class Team(unittest.TestCase):
         a = team.assign(people, REPOS, [{"id": "k", "c": 4, "r": 4, "repos": ["payments"]}])["assignments"][0]
         self.assertEqual((a["primary"], a["co_holder"]), ("junior", "lead"))
 
+    def test_relay_ends_at_the_lead(self):
+        people = [person("ana", payments="reference"), person("bo"), person("cy")]
+        a = team.assign(people, REPOS, [{"id": "k", "c": 2, "r": 5, "repos": ["payments"]}])["assignments"][0]
+        self.assertEqual(a["relay"], ["LT"])
+        self.assertIn("relay_gap", a)
+
     def test_margin_is_never_planned(self):
         people = [person("a", h=10, site="reference")]
         a = team.assign(people, REPOS, [{"id": "big", "c": 11, "r": 1, "repos": ["site"]}])["assignments"][0]

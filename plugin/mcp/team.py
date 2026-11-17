@@ -81,6 +81,9 @@ def assign(people: list[dict], repos: dict, cards: list[dict], rotation: float =
         load[p["name"]] += t
         rload[p["name"]] += er
         relay = [r[1]["name"] for r in sorted(rows, key=lambda r: r[0]) if r[1]["name"] != p["name"] and r[3]][:2]
+        if len(relay) < 2:
+            entry["relay_gap"] = "fewer than two others may hold this card: the relay ends at the LT; raise the bus factor"
+        relay.append("LT")
         entry.update({"primary": p["name"], "expected_time": t, "relay": relay})
         out.append(entry)
     return {"assignments": out, "load": load,
