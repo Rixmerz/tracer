@@ -315,4 +315,5 @@ any untraced code.
 | `/tracer:slice` | 3 | One slice: ready check, test-first build, gates, track |
 | `/tracer:verify` | 3 | Independent verification: critical flows, CORRECT lines, floors and anti-patterns |
 | `/tracer:scope` | 4 | Runs an idea or correction through the scope filter |
+| `/tracer:team` | 3 | Teams adaptation: assignment, checks, relay, speed or balance |
 | `/tracer:retro` | any | Retrospective from the decision log and the history; its lessons become floors and catalog entries |

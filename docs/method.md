@@ -996,6 +996,7 @@ method.
 | Agency or team serving several clients | Capacity reserved per client; estimating and quoting in slices; time tracking per slice |
 | Regulated domain | Extra compliance gate; stricter rework threshold; audit trail built from tracks |
 | Institutional site or landing page | See the profile below |
+| A team of people sharing the slices | [Teams: responsibility, capacity and relay](adaptations/teams.md): complexity and responsibility per card, repository profiles, dynamic expertise, cells of three with a relay, progress checks, a protected free margin and a speed or balance mode |
 
 ### Profile: institutional site or landing page
 

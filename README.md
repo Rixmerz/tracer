@@ -48,6 +48,8 @@ non-technical user for a CDN path. TRACER closes that last 10%:
 ## Read next
 
 - [The method](docs/method.md): the full handbook, from problem to templates.
+- [Teams adaptation](docs/adaptations/teams.md): responsibility, capacity,
+  cells of three with a relay, progress checks, free margin, speed and balance.
 - [Templates](plugin/templates/): expectation contract, audience profile,
   requirement, empathy review, critical flow, component floors, anti-pattern
   catalog, slice, scope change, design system, client content inventory,
@@ -56,7 +58,7 @@ non-technical user for a CDN path. TRACER closes that last 10%:
 ## Claude Code plugin
 
 The `plugin/` folder packages TRACER for Claude Code: a `tracer` skill that
-walks the agent through the method step by step, seven commands and a design
+walks the agent through the method step by step, eight commands and a design
 catalog server.
 
 ```
@@ -79,6 +81,7 @@ does not require livespec; the plugin uses it as the reference toolchain.
 | `/tracer:slice` | 3 | One slice: ready check, test-first build, gates, track |
 | `/tracer:verify` | 3 | Independent verification: critical flows, CORRECT criteria, floors, anti-patterns |
 | `/tracer:scope` | 4 | Runs an idea or correction through the scope filter |
+| `/tracer:team` | 3 | Teams adaptation: assign cards by expected time within capacity and responsibility, run checks and relays, set the speed or balance mode |
 | `/tracer:retro` | any | Retrospective from the decision log and the history; its lessons become floors and catalog entries |
 
 ### Design catalog
@@ -98,7 +101,8 @@ library only) over [`plugin/catalog/`](plugin/catalog/):
 
 Tools: `search_design_systems`, `get_design_system`, `search_styles`,
 `get_style`, `design_system_brief`, `check_overlay`, `check_contrast`,
-`check_genericity`. A
+`check_genericity`, and for the teams adaptation `team_assign` and
+`team_balance`. A
 product is never given an invented design system: a style or a company's
 brand is an overlay of only what it changes on a documented base, checked
 against it, and the render is measured against its tokens with

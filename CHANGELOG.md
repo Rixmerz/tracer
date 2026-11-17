@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.12.0
+
+- Teams adaptation (`docs/adaptations/teams.md`): every card carries
+  complexity and responsibility (a rubric, highest factor wins); repository
+  profiles add a complexity multiplier and a responsibility floor; card types
+  (execution, diagnosis, analysis, exploration), with analysis timeboxed into
+  a spec; dynamic capacity from expertise per repository and speed per type;
+  responsibility capped by role and by repository expertise, with a
+  co-holder above the ceiling; cells of three with a relay A → B → C → LT
+  that never returns to A; evidence-based progress checks placed by
+  responsibility; a protected free margin of 20 to 25 %; capped pay for
+  absorbed load; technical leads' load; cross-team pull requests reviewed in
+  the margin; worst-case velocity and a speed / cruise / balance mode with
+  hysteresis and a bus-factor floor; metrics, parameters and risks.
+- Templates in `plugin/templates/team/`: card, responsibility rubric,
+  repository profile, person, assignment procedure, balance report.
+- `team_assign` and `team_balance` in the catalog server (`plugin/mcp/team.py`).
+- `/tracer:team`.
+
 ## 0.11.0
 
 From the retrospective of a one-page site built without the toolchain (#5).

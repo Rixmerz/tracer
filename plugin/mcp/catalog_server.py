@@ -14,9 +14,12 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from team import assign as team_assign, team_balance  # noqa: E402
+
 CATALOG = Path(__file__).resolve().parent.parent / "catalog"
 PROTOCOL = "2025-06-18"
-VERSION = "0.11.0"
+VERSION = "0.12.0"
 
 # Rules a brand overlay may never weaken: they are the base system's
 # accessibility and behaviour, not its look.
@@ -339,6 +342,7 @@ def _schema(props: dict, required: list[str]) -> dict:
 
 
 S = {"type": "string"}
+A = {"type": "array", "items": {"type": "object"}}
 TOOLS = {
     "list_categories": (list_categories, "List the catalog's categories of documented design systems and its style families.", _schema({}, [])),
     "search_design_systems": (search_design_systems,
@@ -350,6 +354,8 @@ TOOLS = {
     "design_system_brief": (design_system_brief, "The starting text of docs/tracer/design-system.md for a base system and an optional style: sources, packages, licenses and an empty overlay table.", _schema({"system": S, "style": S}, ["system"])),
     "check_overlay": (check_overlay, "Check a brand overlay table against its base: every row names a base rule, has a reason, weakens no protected rule, and every 'X on Y' color pair passes AA.", _schema({"base": S, "overlay": S}, ["base", "overlay"])),
     "check_genericity": (check_genericity, "Count the traits of the anti-pattern family 'Identity, not template' in a page's HTML and CSS (eyebrow labels, middle dots, decorative monospace, entrance effects, endless motion, hover on every card, arrows in buttons, auto-fit grids, fake numbering, one word in color, one card style everywhere). Each count over its limit is a question for the builder.", _schema({"html": S, "css": S}, ["html"])),
+    "team_assign": (team_assign, "Teams adaptation: assign cards (C, R, repositories, type) to people by lowest expected time within capacity, free margin, responsibility ceiling (role and repository expertise) and budget; gives the relay, the checks, co-holders and rotation cards.", _schema({"people": A, "repos": {"type": "object"}, "cards": A, "rotation": {"type": "number"}}, ["people", "repos", "cards"])),
+    "team_balance": (team_balance, "Teams adaptation: nominal and worst-case velocity (without the most critical person), bus factor of critical repositories, and the speed / cruise / balance mode for the next sprint with its rotation share.", _schema({"people": A, "repos": {"type": "object"}, "cards": A, "slip": {"type": "number"}, "mode": S, "x": {"type": "number"}, "y": {"type": "number"}}, ["people", "repos", "cards"])),
     "check_contrast": (check_contrast, "WCAG contrast ratio of two hex colors, with AA and AAA verdicts.", _schema({"foreground": S, "background": S}, ["foreground", "background"])),
 }
 
