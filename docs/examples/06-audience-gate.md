@@ -1,9 +1,30 @@
 # Example 6. The audience gate
 
 The learning platform of example 2. Human resources commissions it; employees
-take the courses. In an earlier project, HR approved the mock, test users
-rejected it after the interface was built, and it was built twice. This
-example shows the same situation with the audience gate in place.
+take the courses. Names, companies and figures are anonymized.
+
+## The case that motivated it
+
+A real project, anonymized. Company X (a mid-sized employer) hired a team to
+build an internal training platform.
+
+```markdown
+Sponsor: the HR department of Company X
+Audience: employees who take the courses (never consulted before code)
+What happened:
+1. HR described what it needed and approved the UI/UX design.
+2. The interface was built to that design.
+3. Test users (employees) tried it and rejected the design.
+4. The test users produced their own design, which they did like.
+5. The team had to rewrite the UI/UX code: the interface was built twice.
+Root cause: not poor communication with the client (HR's requirements were
+understood and met), but late feedback from the end user. The only person
+who validated the design was the sponsor, who is not the one who uses it.
+Missing gate: an audience test before code.
+```
+
+The rest of this example replays the same project with the audience gate in
+place.
 
 ## The contract names sponsor and representatives
 
