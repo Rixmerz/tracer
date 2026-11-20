@@ -11,6 +11,12 @@
   and brand; the outcome owner settles conflicts in the decision log.
 - Presentation kept replaceable in the skeleton (tokens, overlay, no business
   rules in components) so late feedback costs less.
+- Audience gate (blocking): no production interface code for an audience
+  without an audience test marked *met* or a waiver signed by the outcome
+  owner in the decision log; blank contract fields block phase 0 the same
+  way. Enforced in `tracer`, `slice` and `contract` skills; waiver format in
+  `decision-log.md`.
+- Example 6 in the examples book: the audience gate.
 - New template `audience-test.md`; roles, cadence, edge cases and FAQ updated.
 
 ## 0.13.0

@@ -1,6 +1,7 @@
 # Audience test
 
-One per audience and round. Real members of the audience do real tasks on
+One per audience and round, saved in `docs/tracer/audience-tests/`. A
+test marked *met* opens the audience gate for that audience's screens. Real members of the audience do real tasks on
 the sketches or the mock, without help; someone watches and records.
 
 ```markdown

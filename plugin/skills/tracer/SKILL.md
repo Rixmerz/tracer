@@ -181,6 +181,18 @@ design, and every slice is verified or declared not verified.
 11. **Slice plan:** the skeleton first, then slices of 1 to 3 days, each on
     one capability. Forecast: slice count × 2 days, as a wide range.
 
+### Audience gate (blocking)
+
+Before writing any production interface code (the skeleton's screens or any
+slice), check, for every audience whose screens you will touch, that
+`docs/tracer/audience-tests/` holds a test of the current mock with result
+**met**, or that `docs/tracer/decisions.md` holds a **waiver** signed by the
+outcome owner covering that audience and those screens (template
+`decision-log.md`). If neither exists, **stop**: say which audience and
+screens are blocked and ask for a test or a waiver. Never infer one from
+"the client approved the mock", a deadline, or silence, and never write the
+waiver yourself: you draft it, a person signs it.
+
 ### Phase 2 · Skeleton
 
 One flow end to end on the final architecture: real database, real

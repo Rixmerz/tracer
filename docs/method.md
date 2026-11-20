@@ -442,6 +442,24 @@ decides with the evidence on the table and records the decision and its
 reason in the decision log; a decision against the audience's evidence is
 recorded as an accepted risk.
 
+**The audience gate.** This is a block, not a recommendation. No production
+interface code is written for an audience (no skeleton screen, no slice)
+until one of two records exists for it:
+
+1. **Passed:** an audience test of the current mock whose result is *met*.
+2. **Waiver:** an explicit, written authorization from the outcome owner in
+   the decision log: which audience and screens it covers, why the test
+   cannot be run, the risk accepted (for example, "the interface may be
+   rebuilt"), the proxies used instead, and the pilot slice that puts it in
+   front of real users first. A waiver expires when its reason does: once
+   representatives are available, the test is run.
+
+Silence is neither. "The client approved it", "there was no time" or an
+empty *Representatives* field does not open the gate; the agent stops and
+asks for one of the two. The same holds for an undefined field in the
+contract: sponsor, audiences or representatives left blank keep phase 0
+open unless the outcome owner signs a waiver for that field.
+
 **Keeping a late change cheap.** Even with tests, some feedback only appears
 in production. The skeleton keeps presentation replaceable: screens read
 their look from the design system's tokens and the brand overlay, components
@@ -564,7 +582,8 @@ Agree the metric, target, quality floor, audience profile, validation window
 and validator. Name the sponsor and, per audience, its representatives and
 the date of the first audience test.
 
-**Exit:** a signed-off contract.
+**Exit:** a signed-off contract with no blank field; a field that cannot be
+filled (for example, no representatives yet) carries a signed waiver.
 
 ### Phase 1 · Complete spec
 
@@ -609,6 +628,8 @@ spike when a risky assumption must be checked first.
 One flow, end to end, on the final architecture: real database, real
 deployment, CI, test harness and validation gates wired up, including the
 end-to-end runner that drives the interface for critical flows.
+
+**Entry:** the audience gate is open for the screens of its flow (section 9.7).
 
 **Exit:** the skeleton is deployed and its scenarios pass.
 
@@ -656,6 +677,9 @@ all-or-nothing, real enough that nothing gets rebuilt later.
 - It builds on the skeleton or on earlier slices. No new architecture appears
   inside a slice.
 - Its validation gates are known.
+- **The audience gate is open** for every audience whose screens it touches:
+  an audience test of the current mock marked *met*, or a signed waiver in
+  the decision log (section 9.7). Otherwise the slice is blocked.
 - Its target is confirmed: the repository, the screen and, for any external
   action that cannot be undone (a ticket, a release, a deletion), its exact
   destination. Never copied from an earlier task.
@@ -973,7 +997,7 @@ acts as verifier.
 | The metric is reached with *Shoulds* still open | Release anyway. Remaining items go through the filter as post-MEV work. |
 | The sponsor and the audience are different people (human resources commissions, learners use it) | Name audience representatives in the contract and run audience tests on sketches and on the mock before code. The sponsor's approval does not validate the audience's experience. |
 | Test users reject a design the sponsor approved, after code exists | Treat it as an escaped expectation: run an audience test on a revised mock first, change the overlay and components, not the logic; record the cost as rework and add an audience test to the gate that let it through. |
-| The sponsor will not give access to the audience | Record it as a risk the outcome owner accepts in writing; test with the closest proxies (new employees, people from a similar role) and plan an early pilot slice with a few real users. |
+| The sponsor will not give access to the audience | The gate stays closed until the outcome owner signs a waiver in the decision log; test with the closest proxies (new employees, people from a similar role) and plan an early pilot slice with a few real users. |
 | Nobody can describe the audience | Not ready for TRACER. Talk to someone from the audience, or to whoever serves them, before the empathy round. |
 | A task duplicates an existing capability | Extend the capability instead. If the two must differ, the difference is a spec change and goes through the filter. |
 | A slice works but is found incorrect after it was marked done | Reopen it as rework, add the missing *correct* criterion to its spec, and add the cause to a catalog so it cannot escape again. |

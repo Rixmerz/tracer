@@ -14,8 +14,10 @@ Ask the user, one question at a time, until each field has a concrete answer:
 
 1. The outcome owner, and the sponsor if different. Then, per audience, three
    to five representatives (real users, not the sponsor or their managers)
-   and the date of the first audience test. If none can be named, record it
-   as a risk the outcome owner accepts.
+   and the date of the first audience test. A blank field blocks the
+   contract: if none can be named, draft a waiver (template
+   `decision-log.md`) and do not close phase 0 until the outcome owner signs
+   it.
 2. The metric, its current value and its target. If no metric can be named,
    stop: the work is not ready for TRACER (suggest an experiment instead).
 3. The quality floor (error rate, performance, accessibility, or accuracy on

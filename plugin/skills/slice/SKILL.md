@@ -33,6 +33,12 @@ Check and report each item. If one fails, stop and say what is missing.
   when the environment lacks them or forbids a render check, the
   verification request the person will receive.
 
+- **Audience gate:** for every audience whose screens it touches, an audience
+  test of the current mock marked *met* in `docs/tracer/audience-tests/`, or
+  a waiver signed by the outcome owner in `docs/tracer/decisions.md`. If
+  neither exists, the slice is **blocked**: report it, draft the waiver for
+  the person to sign if they want one, and stop. Never sign it yourself.
+
 Mark it "in progress" in `docs/tracer/slices.md`.
 
 ## 2. Build
