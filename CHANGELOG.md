@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.14.0
+
+- Sponsor and audience are distinct (method 9.7): the contract names the
+  sponsor and three to five audience representatives per audience.
+- Audience tests before code: on sketches before the identity is fixed and
+  on the mock before sign-off, with an exit criterion (critical flows done
+  without help by 4/5). The sponsor's approval alone no longer validates a
+  mock. The audience decides usability; the sponsor decides rules, content
+  and brand; the outcome owner settles conflicts in the decision log.
+- Presentation kept replaceable in the skeleton (tokens, overlay, no business
+  rules in components) so late feedback costs less.
+- New template `audience-test.md`; roles, cadence, edge cases and FAQ updated.
+
 ## 0.13.0
 
 - Examples book (`docs/examples/`): a one-page professional site in light

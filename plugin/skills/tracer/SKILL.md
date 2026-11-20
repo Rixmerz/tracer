@@ -73,7 +73,10 @@ started TRACER: suggest `/tracer:contract` instead of improvising.
    slice done: verification is done by someone else, and a person approves.
 10. **Mock first, then straight to the MEV.** Before production code, build a
     mock of the interface with every detail the client expects and iterate
-    it until the outcome owner validates it. Then development goes from the
+    it until the outcome owner validates it **and** three to five real
+    members of each audience complete its critical flows without help in an
+    audience test. The sponsor (who commissions) is not the audience (who
+    uses): their approval alone never validates a mock. Then development goes from the
     validated mock straight to the MEV: there is no proof of concept and no
     MVP.
 11. **The client's words are requirements.** Text the client gave as fixed
@@ -116,7 +119,9 @@ design, and every slice is verified or declared not verified.
 3. **Audience profile, for each audience:** who they are, what they are
    trying to get done, what they know and do not know, their words, their
    devices and context, accessibility needs (default WCAG 2.2 AA), what they
-   must never see, and the product genre they recognise. If nobody can
+   must never see, and the product genre they recognise. Name the sponsor
+   and, per audience, three to five representatives (real users, not their
+   managers) and the date of the first audience test. If nobody can
    describe the audience, stop: talk to someone who knows them first.
 4. MoSCoW list; for each item ask whether it moves the metric. Items that do
    not are *Could* and go to the backlog.

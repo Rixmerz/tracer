@@ -16,6 +16,7 @@ In five seconds they look for: <the one thing that decides whether they stay>
 Accessibility needs: <default WCAG 2.2 AA, plus anything specific>
 Must never see: <internal ids, storage keys, paths, stack traces, jargon>
 Product genre and the conventions they bring from it:
+Representatives: <3-5 real people from this audience, not the sponsor>
 Identity guideline: <palette, type, tone, motion, once variants are chosen>
 ```
 
