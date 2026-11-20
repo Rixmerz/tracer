@@ -10,6 +10,7 @@ can be copied. Names and data are invented.
 | [3. A team sprint](03-team-sprint.md) | Teams adaptation: responsibility rubric, repository profiles, assignment by expected time, checks and relay, free margin, speed and balance | Several people share the slices |
 | [4. A retrospective](04-retrospective.md) | `/tracer:retro`: facts, inferences and hypotheses, the missing gate behind a pattern of errors, lessons turned into catalog entries | A project ended, or went wrong |
 | [5. Scope control](05-scope-change.md) | An idea mid-MEV run through the filter | Someone asks for "one more thing" |
+| [6. The audience gate](06-audience-gate.md) | Sponsor vs audience, audience tests on sketches and mock, a slice blocked by the gate, a signed waiver | The client who approves is not the person who uses the product |
 
 Each example lists, at its end, the anti-patterns it avoided and where in
 the [handbook](../method.md) each step comes from.

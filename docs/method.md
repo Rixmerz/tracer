@@ -164,6 +164,8 @@ is the reference list.
 | **Post-MEV backlog**     | Ideas that do not move the MEV's metric, kept for after the first delivery. |
 | **Audience profile**     | Who uses the system: their goals, what they know and do not know, their words, devices, accessibility needs, and what they must never see. Part of the contract. |
 | **Base round**           | The first round of specs: what is sought, from the request and the contract. |
+| **Sponsor / Audience**   | The sponsor commissions and pays for the product (human resources, a manager); the audience uses it (the learners). They are rarely the same people, and the sponsor's taste is not evidence of the audience's. |
+| **Audience test**        | A session where real members of an audience do real tasks on the mock or the defining screens, without help, while someone watches. Its findings are evidence; the sponsor's opinion about the audience is not. |
 | **Empathy round**        | The second round of specs: every capability re-read as its audience lives it, producing improved and new specs. |
 | **Expectation**          | Something the audience takes for granted or wants from a capability, classified as basic, performance or differentiator (section 9). |
 | **Component floor**      | The minimum a kind of interface component must provide for a given audience: a navbar, a file picker, a table, a form. |
@@ -221,6 +223,15 @@ Who will use the system, written before any spec:
 
 If a system has several audiences (learners and administrators), write one
 profile each. Every capability later names the audience it serves.
+
+Each profile also names its **audience representatives**: three to five real
+people from that audience (not their managers, not the sponsor) who will try
+the mock in phase 1, and a date for the first session. When the sponsor and
+the audience are different people, the sponsor may describe the audience, but
+cannot stand in for it: a profile written only from the sponsor's account is a
+hypothesis until the first audience test confirms it. If no representative
+can be named, the contract records that as a risk and the outcome owner
+accepts it in writing.
 
 A small product (a one-page site) may write each profile in one line per
 field. It still writes them, and before the first mock: a design made first
@@ -390,7 +401,73 @@ MCP server ranks systems and styles for a context, writes the starting
 including the contrast of every color pair it sets. The outcome owner
 chooses; the catalog only proposes with reasons.
 
-### 9.7 The deferred list
+### 9.7 Audience tests before code
+
+The person who commissions a product and the person who uses it judge it by
+different things. A sponsor in human resources approves a training platform
+by what they need to manage and how it represents the company; a learner
+judges it by whether they can find their course, resume where they left off
+and finish on their phone. When only the sponsor validates the mock, the
+first real verdict arrives with the test users, after the interface is built,
+and the interface is built twice.
+
+TRACER moves that verdict before the code. **No interface reaches production
+code until real members of its audience have used it.**
+
+- **Who.** Three to five audience representatives per audience (section 8.4).
+  Five people find most usability problems; one is far better than none.
+- **What they do.** Real tasks from the critical flows, phrased in the
+  audience's words ("find the course on safe lifting and continue where you
+  stopped"), never a tour of the screens. They are not asked whether they
+  like it; they are watched while they try. What they say afterwards is
+  recorded too, but behaviour weighs more than opinion.
+- **When.** At least twice: on low-fidelity sketches or wireframes of the
+  defining screens, before the identity is fixed (the variants of section 9.6
+  are shown to the audience, not only to the sponsor), and on the clickable
+  mock before it is signed off. Each round costs hours; a redesign after code
+  costs slices.
+- **Measured.** Per task: completed or not, help needed, time, errors, and
+  the words they used where the interface used others. Record the results in
+  an audience test (template `audience-test.md`).
+- **Exit criterion.** Every critical flow is completed without help by most
+  representatives (default: four out of five, or all but one), and nothing
+  is open that the audience classed as blocking. Otherwise the mock is
+  revised and tested again.
+
+**Who decides what.** The sponsor decides the business rules, the content and
+the brand (section 8.4.1). The audience decides whether the interface is
+usable and acceptable to them: evidence from an audience test is not
+overruled by the sponsor's taste. When they disagree, the outcome owner
+decides with the evidence on the table and records the decision and its
+reason in the decision log; a decision against the audience's evidence is
+recorded as an accepted risk.
+
+**The audience gate.** This is a block, not a recommendation. No production
+interface code is written for an audience (no skeleton screen, no slice)
+until one of two records exists for it:
+
+1. **Passed:** an audience test of the current mock whose result is *met*.
+2. **Waiver:** an explicit, written authorization from the outcome owner in
+   the decision log: which audience and screens it covers, why the test
+   cannot be run, the risk accepted (for example, "the interface may be
+   rebuilt"), the proxies used instead, and the pilot slice that puts it in
+   front of real users first. A waiver expires when its reason does: once
+   representatives are available, the test is run.
+
+Silence is neither. "The client approved it", "there was no time" or an
+empty *Representatives* field does not open the gate; the agent stops and
+asks for one of the two. The same holds for an undefined field in the
+contract: sponsor, audiences or representatives left blank keep phase 0
+open unless the outcome owner signs a waiver for that field.
+
+**Keeping a late change cheap.** Even with tests, some feedback only appears
+in production. The skeleton keeps presentation replaceable: screens read
+their look from the design system's tokens and the brand overlay, components
+hold no business rules, and critical flows are tested by what the user sees
+and does, not by markup. A change of look then touches the overlay and the
+components, not the logic and the tests.
+
+### 9.8 The deferred list
 
 Every expectation left out of the MEV goes to a deferred list with its
 reason. Leaving something out on purpose and forgetting it look the same in
@@ -502,9 +579,11 @@ Design horizon                    Execution horizon
 ### Phase 0 · Expectation contract
 
 Agree the metric, target, quality floor, audience profile, validation window
-and validator.
+and validator. Name the sponsor and, per audience, its representatives and
+the date of the first audience test.
 
-**Exit:** a signed-off contract.
+**Exit:** a signed-off contract with no blank field; a field that cannot be
+filled (for example, no representatives yet) carries a signed waiver.
 
 ### Phase 1 · Complete spec
 
@@ -518,12 +597,17 @@ and validator.
 4. **Write the critical flows** of each capability, with success and failure
    paths and *works / correct* criteria (section 10).
 5. **Fix the identity** of the defining screens through variants (section
-   9.6).
+   9.6), after a first audience test of sketches or wireframes (section 9.7):
+   the audience tries the variants; the sponsor chooses among those the
+   audience could use.
 6. **Build the mock and get it validated.** Only after the audience profiles,
    the content inventory and the empathy round: the mock answers them. A clickable mock of every screen,
    with all the details the client expects: real wording, states, empty and
    error cases, the anti-pattern catalog already applied. Iterate it with the
-   outcome owner until they confirm it is what they expect. The mock is the
+   outcome owner until they confirm it is what they expect, **and** run an
+   audience test with each audience's representatives until it meets the
+   exit criterion (section 9.7). Approval by the sponsor alone does not
+   validate a mock used by someone else. The mock is the
    reference the slices are verified against; it is not grown into the
    product.
 7. Record the architecture decisions as ADRs for the destination: data model,
@@ -535,7 +619,8 @@ and validator.
    skeleton, which slices follow.
 
 **Exit:** a validated spec set, its critical flows, its ADRs and the mock,
-all signed off by the outcome owner. No code yet, except a timeboxed
+all signed off by the outcome owner, and an audience test per audience that
+meets its exit criterion. No code yet, except a timeboxed
 spike when a risky assumption must be checked first.
 
 ### Phase 2 · Skeleton
@@ -543,6 +628,8 @@ spike when a risky assumption must be checked first.
 One flow, end to end, on the final architecture: real database, real
 deployment, CI, test harness and validation gates wired up, including the
 end-to-end runner that drives the interface for critical flows.
+
+**Entry:** the audience gate is open for the screens of its flow (section 9.7).
 
 **Exit:** the skeleton is deployed and its scenarios pass.
 
@@ -590,6 +677,9 @@ all-or-nothing, real enough that nothing gets rebuilt later.
 - It builds on the skeleton or on earlier slices. No new architecture appears
   inside a slice.
 - Its validation gates are known.
+- **The audience gate is open** for every audience whose screens it touches:
+  an audience test of the current mock marked *met*, or a signed waiver in
+  the decision log (section 9.7). Otherwise the slice is blocked.
 - Its target is confirmed: the repository, the screen and, for any external
   action that cannot be undone (a ticket, a release, a deletion), its exact
   destination. Never copied from an earlier task.
@@ -868,6 +958,7 @@ whether what they built was right.
 | Role | Owns | Does not |
 | ---- | ---- | -------- |
 | **Outcome owner** | The expectation contract, the audience profile, the cut, scope decisions, the exit decision | Add scope without passing the filter |
+| **Audience representatives** (three to five per audience) | Their verdict in audience tests: whether they can do the tasks, and in which words | Sign off scope, content or business rules |
 | **Spec lead** | The spec set in both rounds, critical flows, ADRs, the slice plan, spec integrity | Let code change behaviour before the spec does |
 | **Builders** (people and their agents) | Slices, tests, links and tracks | Mark a slice done that skipped a gate |
 | **Verifier** (a person or a separate agent) | Critical flows, *correct* criteria and the anti-pattern check, walked as the audience | Verify their own work, or accept the builder's report as evidence |
@@ -882,6 +973,7 @@ acts as verifier.
 | Event | When | Purpose |
 | ----- | ---- | ------- |
 | Expectation workshop | Once per MEV | Phase 0 |
+| Audience tests | Phase 1: on sketches before the identity is fixed, on the mock before sign-off; again when a defining screen changes | Get the audience's verdict before code |
 | Spec sessions | During phase 1 | Write the base round, the empathy round, critical flows and ADRs; validate them |
 | Slice review | Every slice | Gates, independent verification, review, deploy, track |
 | Catalog update | Whenever an expectation escapes | Add it to the component floors or the anti-pattern catalog |
@@ -903,6 +995,9 @@ acts as verifier.
 | Stakeholders want a demo before the MEV | Show the deployed slices; they are real. Never build a separate demo. |
 | Work starts on existing code with no specs | Reverse-engineer specs from the code first, curate them, link them, then define the MEV as a delta on top. |
 | The metric is reached with *Shoulds* still open | Release anyway. Remaining items go through the filter as post-MEV work. |
+| The sponsor and the audience are different people (human resources commissions, learners use it) | Name audience representatives in the contract and run audience tests on sketches and on the mock before code. The sponsor's approval does not validate the audience's experience. |
+| Test users reject a design the sponsor approved, after code exists | Treat it as an escaped expectation: run an audience test on a revised mock first, change the overlay and components, not the logic; record the cost as rework and add an audience test to the gate that let it through. |
+| The sponsor will not give access to the audience | The gate stays closed until the outcome owner signs a waiver in the decision log; test with the closest proxies (new employees, people from a similar role) and plan an early pilot slice with a few real users. |
 | Nobody can describe the audience | Not ready for TRACER. Talk to someone from the audience, or to whoever serves them, before the empathy round. |
 | A task duplicates an existing capability | Extend the capability instead. If the two must differ, the difference is a spec change and goes through the filter. |
 | A slice works but is found incorrect after it was marked done | Reopen it as rework, add the missing *correct* criterion to its spec, and add the cause to a catalog so it cannot escape again. |
@@ -941,6 +1036,12 @@ the final shape. What a proof of concept is usually asked to show, how the
 product will look and behave, is settled by the mock instead: once the client
 validates it, development goes from the mock straight to the MEV, with no
 proof of concept and no MVP.
+
+**The client approved the design. Why test it with users too?**
+Because the client who approves is often not the person who uses it. Human
+resources can confirm that a training platform covers what they manage; only
+learners can show whether they find and finish a course. Testing a mock with
+five users takes hours; rebuilding a finished interface takes slices.
 
 **What if we learn something that invalidates part of the spec?**
 That is expected. It becomes a spec change, goes through the filter, updates
@@ -1049,6 +1150,7 @@ Ready-to-copy templates live in [`../plugin/templates`](../plugin/templates):
 - [Scope change](../plugin/templates/scope-change.md)
 - [Audience profile](../plugin/templates/audience-profile.md)
 - [Empathy review](../plugin/templates/empathy-review.md)
+- [Audience test](../plugin/templates/audience-test.md)
 - [Critical flow](../plugin/templates/critical-flow.md)
 - [Component floors](../plugin/templates/component-floors.md)
 - [Anti-pattern catalog](../plugin/templates/anti-patterns.md)

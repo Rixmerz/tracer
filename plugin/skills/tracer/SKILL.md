@@ -73,7 +73,10 @@ started TRACER: suggest `/tracer:contract` instead of improvising.
    slice done: verification is done by someone else, and a person approves.
 10. **Mock first, then straight to the MEV.** Before production code, build a
     mock of the interface with every detail the client expects and iterate
-    it until the outcome owner validates it. Then development goes from the
+    it until the outcome owner validates it **and** three to five real
+    members of each audience complete its critical flows without help in an
+    audience test. The sponsor (who commissions) is not the audience (who
+    uses): their approval alone never validates a mock. Then development goes from the
     validated mock straight to the MEV: there is no proof of concept and no
     MVP.
 11. **The client's words are requirements.** Text the client gave as fixed
@@ -116,7 +119,9 @@ design, and every slice is verified or declared not verified.
 3. **Audience profile, for each audience:** who they are, what they are
    trying to get done, what they know and do not know, their words, their
    devices and context, accessibility needs (default WCAG 2.2 AA), what they
-   must never see, and the product genre they recognise. If nobody can
+   must never see, and the product genre they recognise. Name the sponsor
+   and, per audience, three to five representatives (real users, not their
+   managers) and the date of the first audience test. If nobody can
    describe the audience, stop: talk to someone who knows them first.
 4. MoSCoW list; for each item ask whether it moves the metric. Items that do
    not are *Could* and go to the backlog.
@@ -161,7 +166,9 @@ design, and every slice is verified or declared not verified.
    `/tracer:design-system`: a documented design system from the design
    catalog (or the company's own documented one), never one invented for the
    project. For the screens that define the product, produce two or three
-   variants as brand overlays of that base, let the outcome owner choose, and
+   variants as brand overlays of that base, test them as sketches with each
+   audience's representatives (template `audience-test.md`), let the
+   outcome owner choose among those the audience could use, and
    record the choice in `design-system.md` and `identity.md`. A look
    asked for by the client (a law firm's, a hotel's) is a style from the
    catalog worn as an overlay, never an aesthetic invented for the occasion,
@@ -175,6 +182,18 @@ design, and every slice is verified or declared not verified.
     `validate_openspec`.
 11. **Slice plan:** the skeleton first, then slices of 1 to 3 days, each on
     one capability. Forecast: slice count × 2 days, as a wide range.
+
+### Audience gate (blocking)
+
+Before writing any production interface code (the skeleton's screens or any
+slice), check, for every audience whose screens you will touch, that
+`docs/tracer/audience-tests/` holds a test of the current mock with result
+**met**, or that `docs/tracer/decisions.md` holds a **waiver** signed by the
+outcome owner covering that audience and those screens (template
+`decision-log.md`). If neither exists, **stop**: say which audience and
+screens are blocked and ask for a test or a waiver. Never infer one from
+"the client approved the mock", a deadline, or silence, and never write the
+waiver yourself: you draft it, a person signs it.
 
 ### Phase 2 · Skeleton
 
