@@ -166,7 +166,9 @@ design, and every slice is verified or declared not verified.
    `/tracer:design-system`: a documented design system from the design
    catalog (or the company's own documented one), never one invented for the
    project. For the screens that define the product, produce two or three
-   variants as brand overlays of that base, let the outcome owner choose, and
+   variants as brand overlays of that base, test them as sketches with each
+   audience's representatives (template `audience-test.md`), let the
+   outcome owner choose among those the audience could use, and
    record the choice in `design-system.md` and `identity.md`. A look
    asked for by the client (a law firm's, a hotel's) is a style from the
    catalog worn as an overlay, never an aesthetic invented for the occasion,

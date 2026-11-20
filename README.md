@@ -49,11 +49,12 @@ non-technical user for a CDN path. TRACER closes that last 10%:
 
 - [The method](docs/method.md): the full handbook, from problem to templates.
 - [Examples book](docs/examples/): a one-page site, a product slice, a team
-  sprint, a retrospective and a scope change, worked with the templates.
+  sprint, a retrospective, a scope change and the audience gate, worked with
+  the templates.
 - [Teams adaptation](docs/adaptations/teams.md): responsibility, capacity,
   cells of three with a relay, progress checks, free margin, speed and balance.
 - [Templates](plugin/templates/): expectation contract, audience profile,
-  requirement, empathy review, critical flow, component floors, anti-pattern
+  audience test, requirement, empathy review, critical flow, component floors, anti-pattern
   catalog, slice, scope change, design system, client content inventory,
   decision log, verification request, visual rubric, retrospective, and the
   [team templates](plugin/templates/team/) (card, responsibility rubric,
